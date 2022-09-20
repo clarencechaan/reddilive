@@ -1,13 +1,12 @@
-import { fetchToken } from "./auth";
 import "./App.css";
-import { useEffect } from "react";
+import Thread from "./components/Thread";
 
 function App() {
-  useEffect(() => {
-    fetchToken();
-  }, []);
-
-  return <div className="App"></div>;
+  return (
+    <div className="App">
+      <Thread />
+    </div>
+  );
 }
 
 export default App;
