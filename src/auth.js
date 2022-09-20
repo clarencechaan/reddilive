@@ -14,11 +14,6 @@ async function fetchToken() {
     setDeviceIdLocalStorage(deviceId);
   }
 
-  // curl -X POST -d 'grant_type=https://oauth.reddit.com/grants/installed_client'
-  // -d 'device_id=5e5d4d1a-5a33-4234-8e4d-dc8c6a4b33c2'
-  // --user-agent "web:github.com/clarencechaan/live-reddit:reddilive:v1.0.0 (by /u/newreligionv2)"
-  // --user '2U-i0PX91TLFyc58_Jddbw:' https://www.reddit.com/api/v1/access_token
-
   const form = new URLSearchParams({
     grant_type: grantType,
     device_id: deviceId,
@@ -30,10 +25,14 @@ async function fetchToken() {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
       "User-Agent": userAgent,
-      Authorization: `Basic 2U-i0PX91TLFyc58_Jddbw:`,
+      Authorization: `Basic ${window.btoa(decodeURI(CLIENT_ID + ":" + ""))}`,
     },
     body: form,
   });
+
+  const token = (await res.json()).access_token;
+
+  return token;
 }
 
 function getDeviceIdLocalStorage() {
