@@ -4,3 +4,11 @@
   background-color: lightgray;
   margin-bottom: 8px;
 }
+
+.Comment .info {
+  display: flex;
+}
+
+.Comment .info .timestamp {
+  margin-left: auto;
+}
