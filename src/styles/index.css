@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  font-family: "SFUIText-Light";
+  font-size: 14px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@font-face {
+  font-family: "SFUIText-Light";
+  src: local("SFUIText-Light"),
+    url(../fonts/SFUIText-Light.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "SFUIText-Medium";
+  src: local("SFUIText-Medium"),
+    url(../fonts/SFUIText-Medium.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "SFUIText-Regular";
+  src: local("SFUIText-Regular"),
+    url(../fonts/SFUIText-Regular.otf) format("opentype");
+}

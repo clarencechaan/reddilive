@@ -1,14 +1,60 @@
 .Comment {
-  min-height: 60px;
-  min-width: 300px;
-  background-color: lightgray;
+  background-color: #f0f2f5;
   margin-bottom: 8px;
+  border-radius: 18px;
+  padding: 8px 12px;
+}
+
+.Comment.new {
+  animation: slide-in 0.5s;
 }
 
 .Comment .info {
   display: flex;
+  font-size: 12px;
+}
+
+.Comment .info .author {
+  font-family: "SFUIText-Medium";
+  color: black;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.Comment .info .author:hover {
+  text-decoration: underline;
+}
+
+.Comment .info .score {
+  display: flex;
+  align-items: center;
+  color: gray;
+  margin-right: 20px;
+  column-gap: 2px;
+  cursor: pointer;
 }
 
 .Comment .info .timestamp {
   margin-left: auto;
+  color: gray;
+  min-width: 24px;
+  text-align: right;
+}
+
+.Comment .body {
+  margin-top: 2px;
+  line-height: 20px;
+}
+
+@keyframes slide-in {
+  from {
+    /* margin-bottom: -100%; */
+    transform: translateX(-100%);
+    filter: blur(12px);
+    opacity: 0;
+  }
+  to {
+    /* margin-bottom: 8px; */
+    transform: translateX(0);
+  }
 }

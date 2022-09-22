@@ -1,40 +1,44 @@
 import { useEffect, useState } from "react";
 import { fetchThread } from "../api";
 import Comment from "./Comment";
+import ScrollPauseIndicator from "./ScrollPauseIndicator";
 import "../styles/Thread.css";
 
 function Thread() {
   const [comments, setComments] = useState([]);
-  let autoScroll = true;
+  const [pauseIndicatorVisible, setPauseIndicatorVisible] = useState(false);
 
   useEffect(() => {
     // refresh comments every 10 seconds
     refreshComments();
-    const refreshInterval = setInterval(refreshComments, 2000);
+    const refreshInterval = setInterval(refreshComments, 5000);
 
-    autoScrollObserver();
+    const clearChatPausedObserver = chatPausedObserver();
 
     return () => {
       clearInterval(refreshInterval);
+      clearChatPausedObserver();
     };
   }, []);
 
   async function refreshComments() {
     const fetchedComments = (await fetchThread())[1].data.children;
-    setComments(
+    setComments((prev) =>
       fetchedComments
         .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
+        .map((comment) => ({
+          ...comment,
+          is_new: prev.every((p) => p.data.id !== comment.data.id),
+        }))
         .reverse()
     );
-    if (autoScroll)
-      setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 1);
   }
 
-  function autoScrollObserver() {
+  function chatPausedObserver() {
     let observer = new window.IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) autoScroll = true;
-        else autoScroll = false;
+        if (entry.isIntersecting) setPauseIndicatorVisible(false);
+        else setPauseIndicatorVisible(true);
       },
       {
         root: null,
@@ -44,14 +48,26 @@ function Thread() {
     );
 
     observer.observe(document.querySelector("#auto-scroll-trigger"));
+
+    return () =>
+      observer.unobserve(document.querySelector("#auto-scroll-trigger"));
+  }
+
+  function scrollToBottom() {
+    document.querySelector("#auto-scroll-trigger").scrollIntoView();
   }
 
   return (
     <div className="Thread">
-      {comments.map((comment) => (
-        <Comment comment={comment} key={comment.data.id} />
-      ))}
       <div id="auto-scroll-trigger"></div>
+      <div className="thread-content">
+        {comments.map((comment) => (
+          <Comment comment={comment} key={comment.data.id} />
+        ))}
+      </div>
+      {pauseIndicatorVisible ? (
+        <ScrollPauseIndicator scrollToBottom={scrollToBottom} />
+      ) : null}
     </div>
   );
 }

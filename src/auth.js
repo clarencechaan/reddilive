@@ -3,7 +3,11 @@ import { v4 as uuidv4 } from "uuid";
 const { REACT_APP_CLIENT_ID: CLIENT_ID, REACT_APP_USER_AGENT: USER_AGENT } =
   process.env;
 
+let token;
+
 async function fetchToken() {
+  if (token) return token;
+
   const url = "https://www.reddit.com/api/v1/access_token";
   const grantType = "https://oauth.reddit.com/grants/installed_client";
   let deviceId = getDeviceIdLocalStorage();
@@ -28,7 +32,8 @@ async function fetchToken() {
     body: form,
   });
 
-  const token = (await res.json()).access_token;
+  token = (await res.json()).access_token;
+
   return token;
 }
 
