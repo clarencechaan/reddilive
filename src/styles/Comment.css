@@ -29,9 +29,18 @@
   display: flex;
   align-items: center;
   color: gray;
-  margin-right: 20px;
+  margin-right: 12px;
   column-gap: 2px;
   cursor: pointer;
+}
+
+.Comment .info .flair {
+  background-color: white;
+  color: gray;
+  padding: 0 5px;
+  border-radius: 3px;
+  border: 1px solid lightgray;
+  margin-right: 12px;
 }
 
 .Comment .info .timestamp {
@@ -43,6 +52,9 @@
 
 .Comment .body {
   margin-top: 2px;
+}
+
+.Comment .body p {
   line-height: 20px;
 }
 
@@ -50,7 +62,6 @@
   height: 18px;
   margin-bottom: -3px;
   margin-right: 2px;
-  line-height: 0;
 }
 
 .Comment .body a {
@@ -65,13 +76,11 @@
 
 @keyframes slide-in {
   from {
-    /* margin-bottom: -100%; */
     transform: translateX(-100%);
     filter: blur(12px);
     opacity: 0;
   }
   to {
-    /* margin-bottom: 8px; */
     transform: translateX(0);
   }
 }

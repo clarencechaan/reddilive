@@ -32,6 +32,7 @@ function Thread() {
         }))
         .reverse()
     );
+    console.log(fetchedComments);
   }
 
   function chatPausedObserver() {

@@ -23,6 +23,10 @@ function Comment({ comment }) {
     return body;
   }
 
+  const flair = comment.data.author_flair_text ? (
+    <div className="flair">{comment.data.author_flair_text}</div>
+  ) : null;
+
   return (
     <div className={"Comment" + (comment.is_new ? " new" : "")}>
       <div className="info">
@@ -36,6 +40,7 @@ function Comment({ comment }) {
           <ArrowUp size={14} weight="bold" />
           {comment.data.score}
         </div>
+        {flair}
         <div className="timestamp">{getTimeAgo(comment.data.created)}</div>
       </div>
       <div className="body">{formatBody()}</div>
