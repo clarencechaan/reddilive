@@ -26,13 +26,8 @@ function Thread() {
     setComments((prev) =>
       fetchedComments
         .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
-        .map((comment) => ({
-          ...comment,
-          is_new: prev.every((p) => p.data.id !== comment.data.id),
-        }))
         .reverse()
     );
-    console.log(fetchedComments);
   }
 
   function chatPausedObserver() {
@@ -60,11 +55,11 @@ function Thread() {
 
   return (
     <div className="Thread">
-      <div id="auto-scroll-trigger"></div>
       <div className="thread-content">
         {comments.map((comment) => (
           <Comment comment={comment} key={comment.data.id} />
         ))}
+        <div id="auto-scroll-trigger"></div>
       </div>
       {pauseIndicatorVisible ? (
         <ScrollPauseIndicator scrollToBottom={scrollToBottom} />

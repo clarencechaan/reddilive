@@ -1,31 +1,40 @@
 .Comment {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.Comment .main-comment {
+  display: flex;
+  animation: slide-in 0.3s;
+}
+
+.Comment .main-comment .bubble {
   background-color: #f0f2f5;
   margin-bottom: 8px;
   border-radius: 18px;
   padding: 8px 12px;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
-.Comment.new {
-  animation: slide-in 0.3s;
-}
-
-.Comment .info {
+.Comment .main-comment .info {
   display: flex;
   font-size: 12px;
 }
 
-.Comment .info .author {
+.Comment .main-comment .info .author {
   font-family: "SFUIText-Medium";
   color: black;
   text-decoration: none;
   margin-right: 10px;
 }
 
-.Comment .info .author:hover {
+.Comment .main-comment .info .author:hover {
   text-decoration: underline;
 }
 
-.Comment .info .score {
+.Comment .main-comment .info .score {
   display: flex;
   align-items: center;
   color: gray;
@@ -34,53 +43,63 @@
   cursor: pointer;
 }
 
-.Comment .info .flair {
+.Comment .main-comment .info .flair {
   background-color: white;
   color: gray;
   padding: 0 5px;
   border-radius: 3px;
   border: 1px solid lightgray;
   margin-right: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.Comment .info .timestamp {
+.Comment .main-comment .info .timestamp {
   margin-left: auto;
   color: gray;
-  min-width: 24px;
+  min-width: 21px;
   text-align: right;
 }
 
-.Comment .body {
+.Comment .main-comment .body {
   margin-top: 2px;
 }
 
-.Comment .body p {
+.Comment .main-comment .body p {
   line-height: 20px;
 }
 
-.Comment .body .media {
+.Comment .main-comment .body .media {
   height: 18px;
-  margin-bottom: -3px;
-  margin-right: 2px;
+  margin: 0 1px -3px;
 }
 
-.Comment .body a {
+.Comment .main-comment .body a {
   text-decoration: none;
   font-weight: 600;
   color: rgb(29, 155, 240);
 }
 
-.Comment .body a:hover {
+.Comment .main-comment .body a:hover {
   text-decoration: underline;
+}
+
+.Comment .main-comment .spacer {
+  min-width: 22px;
+}
+
+.Comment .main-comment .connector {
+  height: 30px;
+  min-width: 10px;
+  margin-left: 12px;
+  border-left: 1.5px solid #e2e4e7;
+  border-bottom: 1.5px solid #e2e4e7;
+  border-radius: 0 4px;
 }
 
 @keyframes slide-in {
   from {
     transform: translateX(-100%);
-    filter: blur(12px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
   }
 }

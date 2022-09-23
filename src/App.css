@@ -10,3 +10,9 @@ h1 {
   margin: 8px 0;
   font-size: 1.6em;
 }
+
+ul,
+ol {
+  margin: 6px 0;
+  padding-left: 30px;
+}
