@@ -2,39 +2,35 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  animation: slide-in 0.4s;
 }
 
-.Comment .main-comment {
-  display: flex;
-  animation: slide-in 0.3s;
-}
-
-.Comment .main-comment .bubble {
+.Comment .bubble {
   background-color: #f0f2f5;
-  margin-bottom: 8px;
+  margin: 4px 0;
   border-radius: 18px;
   padding: 8px 12px;
   box-sizing: border-box;
   max-width: 100%;
 }
 
-.Comment .main-comment .info {
+.Comment .info {
   display: flex;
   font-size: 12px;
 }
 
-.Comment .main-comment .info .author {
+.Comment .info .author {
   font-family: "SFUIText-Medium";
   color: black;
   text-decoration: none;
   margin-right: 10px;
 }
 
-.Comment .main-comment .info .author:hover {
+.Comment .info .author:hover {
   text-decoration: underline;
 }
 
-.Comment .main-comment .info .score {
+.Comment .info .score {
   display: flex;
   align-items: center;
   color: gray;
@@ -43,7 +39,7 @@
   cursor: pointer;
 }
 
-.Comment .main-comment .info .flair {
+.Comment .info .flair {
   background-color: white;
   color: gray;
   padding: 0 5px;
@@ -55,47 +51,51 @@
   text-overflow: ellipsis;
 }
 
-.Comment .main-comment .info .timestamp {
+.Comment .info .timestamp {
   margin-left: auto;
   color: gray;
   min-width: 21px;
   text-align: right;
 }
 
-.Comment .main-comment .body {
+.Comment .body {
   margin-top: 2px;
 }
 
-.Comment .main-comment .body p {
+.Comment .body p {
   line-height: 20px;
 }
 
-.Comment .main-comment .body .media {
+.Comment .body .media {
   height: 18px;
   margin: 0 1px -3px;
 }
 
-.Comment .main-comment .body a {
+.Comment .body a {
   text-decoration: none;
   font-weight: 600;
   color: rgb(29, 155, 240);
 }
 
-.Comment .main-comment .body a:hover {
+.Comment .body a:hover {
   text-decoration: underline;
 }
 
-.Comment .main-comment .spacer {
-  min-width: 22px;
+.Comment .connector {
+  margin-left: 4px;
+  min-width: 10px;
+  border-left: 1.5px solid #e2e4e7;
+  margin-bottom: 6px;
 }
 
-.Comment .main-comment .connector {
-  height: 30px;
-  min-width: 10px;
-  margin-left: 12px;
-  border-left: 1.5px solid #e2e4e7;
-  border-bottom: 1.5px solid #e2e4e7;
-  border-radius: 0 4px;
+.Comment .replies-container {
+  display: flex;
+}
+
+.Comment .replies {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 @keyframes slide-in {

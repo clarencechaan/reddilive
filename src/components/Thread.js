@@ -28,6 +28,7 @@ function Thread() {
         .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
         .reverse()
     );
+    console.log(fetchedComments);
   }
 
   function chatPausedObserver() {
