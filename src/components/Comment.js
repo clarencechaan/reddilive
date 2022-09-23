@@ -1,8 +1,28 @@
 import "../styles/Comment.css";
 import { getTimeAgo } from "../scripts/scripts";
 import { ArrowUp } from "phosphor-react";
+const Snudown = require("snudown-js");
+const parse = require("html-react-parser");
 
 function Comment({ comment }) {
+  function formatBody() {
+    let body = comment.data.body;
+    body = Snudown.markdown(body);
+
+    // emotes
+    const media = comment.data.media_metadata;
+    if (media)
+      for (const key in media) {
+        body = body.replaceAll(
+          `![img](${key})`,
+          `<img className="media" src="${media[key].s.u}" />`
+        );
+      }
+
+    body = parse(body);
+    return body;
+  }
+
   return (
     <div className={"Comment" + (comment.is_new ? " new" : "")}>
       <div className="info">
@@ -18,7 +38,7 @@ function Comment({ comment }) {
         </div>
         <div className="timestamp">{getTimeAgo(comment.data.created)}</div>
       </div>
-      <div className="body">{comment.data.body}</div>
+      <div className="body">{formatBody()}</div>
     </div>
   );
 }
