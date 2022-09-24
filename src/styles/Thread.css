@@ -18,12 +18,16 @@
 
 .Thread .sidebar .info-box .title-bar {
   border-bottom: 1px solid lightgray;
-  padding-bottom: 10px;
+  padding-bottom: 7px;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .Thread .sidebar .info-box .title {
   font-size: 22px;
+  margin-bottom: 3px;
   cursor: pointer;
 }
 
@@ -31,6 +35,7 @@
   background-color: #f0f2f5;
   padding: 0 5px;
   border-radius: 3px;
+  border: 1px solid lightgray;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -55,9 +60,18 @@
   color: gray;
 }
 
+.Thread .sidebar .info-box .title-bar .link-flair {
+  background-color: rgb(175, 175, 175);
+  font-family: "SFUIText-Regular";
+  font-size: 14px;
+  color: white;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
 .Thread .sidebar .info-box .stats {
   display: flex;
-  column-gap: 24px;
+  column-gap: 10px;
 }
 
 .Thread .sidebar .info-box .stats .badge {
@@ -68,4 +82,5 @@
   font-weight: 500;
   font-size: 14px;
   column-gap: 4px;
+  min-width: 60px;
 }

@@ -42,6 +42,10 @@ function Thread() {
   );
   if (flair) flair = <label className="flair">{flair}</label>;
 
+  const linkFlair = thread?.data.link_flair_text ? (
+    <label className="link-flair">{thread?.data.link_flair_text}</label>
+  ) : null;
+
   return (
     <div className="Thread">
       <div className="sidebar">
@@ -50,18 +54,23 @@ function Thread() {
             <div className="by-line">
               Posted by {flair} <a href="">u/{thread?.data.author}</a>{" "}
               {getTimeAgo(thread?.data.created, { long: true })}
+              <span>in </span>
+              <a href="" className="subreddit">
+                r/{thread?.data.subreddit}
+              </a>
             </div>
             <div className="title">{thread?.data.title}</div>
+            {linkFlair}
           </div>
           <div className="selftext">{selftext}</div>
           <div className="stats">
             <label className="badge">
               <ArrowUp size={16} className="icon" />
-              123
+              {thread?.data.score}
             </label>
             <a href="" className="badge">
               <ChatIcon size={16} className="icon" />
-              456
+              {thread?.data.num_comments}
             </a>
           </div>
         </div>

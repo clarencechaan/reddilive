@@ -2,7 +2,9 @@ const Snudown = require("snudown-js");
 const parse = require("html-react-parser");
 
 function formatBody(text, mediaDict) {
-  let body = Snudown.markdown(text);
+  let body = text || "";
+  body = body.replaceAll("&gt;", ">");
+  body = Snudown.markdown(body);
 
   // emotes
   if (mediaDict)

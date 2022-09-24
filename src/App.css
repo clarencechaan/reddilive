@@ -49,3 +49,10 @@ a:hover {
 hr {
   margin: 10px 0;
 }
+
+blockquote {
+  margin: 10px 6px;
+  padding-left: 8px;
+  border-left: 4px solid rgb(188, 188, 188);
+  color: rgb(109, 109, 109);
+}
