@@ -6,7 +6,7 @@
   overflow: auto;
   height: 100vh;
   box-sizing: border-box;
-  flex: 4;
+  flex: 5;
 }
 
 .Chat .chat-content {

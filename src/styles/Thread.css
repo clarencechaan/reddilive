@@ -2,11 +2,70 @@
   display: flex;
 }
 
-.Thread .info-box {
-  flex: 3;
+.Thread .sidebar {
+  flex: 2;
   padding: 12px 16px;
+  background-color: #e0e4eb;
+  border-right: 1px solid lightgray;
 }
 
-.Thread .info-box .title {
-  font-size: 28px;
+.Thread .sidebar .info-box {
+  background-color: white;
+  border-radius: 6px;
+  padding: 10px 14px;
+  border: 1px solid lightgray;
+}
+
+.Thread .sidebar .info-box .title-bar {
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.Thread .sidebar .info-box .title {
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.Thread .sidebar .info-box .title-bar .flair {
+  background-color: #f0f2f5;
+  padding: 0 5px;
+  border-radius: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: black;
+}
+
+.Thread .sidebar .info-box .title-bar .flair .flair-emoji {
+  height: 14.5px;
+  margin: 0 1px -3px;
+}
+
+.Thread .sidebar .info-box .by-line {
+  color: gray;
+  font-size: 12px;
+  margin-bottom: 4px;
+  display: flex;
+  column-gap: 4px;
+  flex-wrap: wrap;
+}
+
+.Thread .sidebar .info-box .by-line a {
+  color: gray;
+}
+
+.Thread .sidebar .info-box .stats {
+  display: flex;
+  column-gap: 24px;
+}
+
+.Thread .sidebar .info-box .stats .badge {
+  display: flex;
+  align-items: center;
+  color: gray;
+  font-family: "SFUIText-Light";
+  font-weight: 500;
+  font-size: 14px;
+  column-gap: 4px;
 }

@@ -16,3 +16,36 @@ ol {
   margin: 6px 0;
   padding-left: 30px;
 }
+
+table {
+  border: 2px solid #e8e2e6;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  border: 1px solid #e8e2e6;
+  padding: 4px 8px;
+}
+
+th {
+  text-align: center;
+}
+
+strong {
+  font-family: "SFUIText-Medium";
+}
+
+a {
+  text-decoration: none;
+  font-weight: 600;
+  color: rgb(29, 155, 240);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+hr {
+  margin: 10px 0;
+}

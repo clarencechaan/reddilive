@@ -38,7 +38,6 @@
   color: gray;
   margin-right: 12px;
   column-gap: 2px;
-  cursor: pointer;
 }
 
 .Comment .info .flair {
@@ -76,16 +75,6 @@
 .Comment .body .media {
   height: 18px;
   margin: 0 1px -3px;
-}
-
-.Comment .body a {
-  text-decoration: none;
-  font-weight: 600;
-  color: rgb(29, 155, 240);
-}
-
-.Comment .body a:hover {
-  text-decoration: underline;
 }
 
 .Comment .connector {

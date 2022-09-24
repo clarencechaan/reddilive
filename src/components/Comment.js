@@ -14,14 +14,12 @@ function Comment({ comment }) {
       {formatBody(comment.data.body, comment.data.mediaDict)}
     </div>
   );
-  const flair = (
-    <div className="flair">
-      {formatFlair(
-        comment.data.author_flair_text,
-        comment.data.author_flair_richtext
-      )}
-    </div>
+
+  let flair = formatFlair(
+    comment.data.author_flair_text,
+    comment.data.author_flair_richtext
   );
+  if (flair) flair = <label className="flair">{flair}</label>;
 
   return (
     <div className="Comment">
@@ -33,12 +31,14 @@ function Comment({ comment }) {
           >
             {comment.data.author}
           </a>
-          <div className="score">
+          <label className="score">
             <ArrowUp size={14} weight="bold" />
             {comment.data.score}
-          </div>
+          </label>
           {flair}
-          <div className="timestamp">{getTimeAgo(comment.data.created)}</div>
+          <label className="timestamp">
+            {getTimeAgo(comment.data.created)}
+          </label>
         </div>
         {body}
       </div>

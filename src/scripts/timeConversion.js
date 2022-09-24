@@ -1,4 +1,6 @@
-function getTimeAgo(date) {
+function getTimeAgo(date, options) {
+  if (!date) return "";
+
   const dateObj = new Date(date * 1000 + 9000);
   const seconds = Math.floor(Date.now() / 1000 - dateObj / 1000);
   const minutes = Math.floor(seconds / 60);
@@ -7,18 +9,40 @@ function getTimeAgo(date) {
 
   let resultStr = "";
 
-  if (days >= 1) {
-    resultStr = dateObj.toLocaleDateString("en-US", {
-      month: "numeric",
-      day: "numeric",
-      year: "numeric",
-    });
-  } else if (hours >= 1) {
-    resultStr = hours + "h";
-  } else if (minutes >= 1) {
-    resultStr = minutes + "m";
+  if (options?.long) {
+    if (days >= 1) {
+      resultStr = dateObj.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      });
+    } else if (hours > 1) {
+      resultStr = hours + " hours ago";
+    } else if (hours == 1) {
+      resultStr = hours + " hour ago";
+    } else if (minutes > 1) {
+      resultStr = minutes + " minutes ago";
+    } else if (minutes == 1) {
+      resultStr = minutes + " minute ago";
+    } else if (seconds > 1) {
+      resultStr = seconds + " seconds ago";
+    } else {
+      resultStr = seconds + " second ago";
+    }
   } else {
-    resultStr = seconds + "s";
+    if (days >= 1) {
+      resultStr = dateObj.toLocaleDateString("en-US", {
+        month: "numeric",
+        day: "numeric",
+        year: "numeric",
+      });
+    } else if (hours >= 1) {
+      resultStr = hours + "h";
+    } else if (minutes >= 1) {
+      resultStr = minutes + "m";
+    } else {
+      resultStr = seconds + "s";
+    }
   }
 
   return resultStr;
