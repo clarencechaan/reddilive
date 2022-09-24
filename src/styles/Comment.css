@@ -3,6 +3,8 @@
   flex-direction: column;
   align-items: flex-start;
   animation: slide-in 0.4s;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .Comment .bubble {
@@ -51,6 +53,11 @@
   text-overflow: ellipsis;
 }
 
+.Comment .info .flair .flair-emoji {
+  height: 14.5px;
+  margin: 0 1px -3px;
+}
+
 .Comment .info .timestamp {
   margin-left: auto;
   color: gray;
@@ -90,12 +97,15 @@
 
 .Comment .replies-container {
   display: flex;
+  max-width: 100%;
 }
 
 .Comment .replies {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  flex: 1;
+  min-width: 0;
 }
 
 @keyframes slide-in {

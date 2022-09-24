@@ -28,9 +28,20 @@ function Comment({ comment }) {
     return body;
   }
 
-  const flair = comment.data.author_flair_text ? (
-    <div className="flair">{comment.data.author_flair_text}</div>
-  ) : null;
+  function formatFlair() {
+    if (!comment.data.author_flair_text) return null;
+
+    let flair = comment.data.author_flair_text;
+    for (const emoji of comment.data.author_flair_richtext) {
+      flair = flair.replaceAll(
+        emoji.a,
+        `<img className="flair-emoji" src="${emoji.u}"/>`
+      );
+    }
+
+    flair = parse(flair);
+    return <div className="flair">{flair}</div>;
+  }
 
   return (
     <div className="Comment">
@@ -46,7 +57,7 @@ function Comment({ comment }) {
             <ArrowUp size={14} weight="bold" />
             {comment.data.score}
           </div>
-          {flair}
+          {formatFlair()}
           <div className="timestamp">{getTimeAgo(comment.data.created)}</div>
         </div>
         <div className="body">{formatBody()}</div>
