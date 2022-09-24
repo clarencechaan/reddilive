@@ -1,70 +1,43 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { fetchThread } from "../api";
-import Comment from "./Comment";
-import ScrollPauseIndicator from "./ScrollPauseIndicator";
+import Chat from "./Chat";
 import "../styles/Thread.css";
 
 function Thread() {
   const [comments, setComments] = useState([]);
-  const [pauseIndicatorVisible, setPauseIndicatorVisible] = useState(false);
+  const [thread, setThread] = useState(null);
+  const { threadId } = useParams();
 
   useEffect(() => {
     // refresh comments every 10 seconds
-    refreshComments();
-    const refreshInterval = setInterval(refreshComments, 5000);
-
-    const clearChatPausedObserver = chatPausedObserver();
+    refreshThread();
+    const refreshInterval = setInterval(refreshThread, 2000);
 
     return () => {
       clearInterval(refreshInterval);
-      clearChatPausedObserver();
     };
   }, []);
 
-  async function refreshComments() {
-    const fetchedComments = (await fetchThread())[1].data.children;
-    setComments((prev) =>
+  async function refreshThread() {
+    const fetchedThread = await fetchThread(threadId);
+    const fetchedComments = fetchedThread[1].data.children;
+
+    setThread(fetchedThread[0].data.children[0]);
+    setComments(
       fetchedComments
         .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
         .reverse()
     );
-    console.log(fetchedComments);
-  }
-
-  function chatPausedObserver() {
-    let observer = new window.IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setPauseIndicatorVisible(false);
-        else setPauseIndicatorVisible(true);
-      },
-      {
-        root: null,
-        rootMargin: "10px",
-        threshold: 0,
-      }
-    );
-
-    observer.observe(document.querySelector("#auto-scroll-trigger"));
-
-    return () =>
-      observer.unobserve(document.querySelector("#auto-scroll-trigger"));
-  }
-
-  function scrollToBottom() {
-    document.querySelector("#auto-scroll-trigger").scrollIntoView();
+    console.log(fetchedThread[0].data.children[0]);
   }
 
   return (
     <div className="Thread">
-      <div className="thread-content">
-        {comments.map((comment) => (
-          <Comment comment={comment} key={comment.data.id} />
-        ))}
-        <div id="auto-scroll-trigger"></div>
+      <div className="info-box">
+        <div className="title">{thread?.data.title}</div>
       </div>
-      {pauseIndicatorVisible ? (
-        <ScrollPauseIndicator scrollToBottom={scrollToBottom} />
-      ) : null}
+      <Chat comments={comments} />
     </div>
   );
 }

@@ -1,16 +1,12 @@
 .Thread {
   display: flex;
-  flex-direction: column-reverse;
-  padding: 16px;
-  position: relative;
-  overflow: auto;
-  height: 100vh;
-  max-width: 900px;
-  box-sizing: border-box;
 }
 
-.Thread .thread-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.Thread .info-box {
+  flex: 3;
+  padding: 12px 16px;
+}
+
+.Thread .info-box .title {
+  font-size: 28px;
 }

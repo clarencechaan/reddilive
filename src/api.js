@@ -2,9 +2,9 @@ import { fetchToken } from "./auth";
 
 const USER_AGENT = process.env.REACT_APP_USER_AGENT;
 
-async function fetchThread() {
+async function fetchThread(threadId) {
   const token = await fetchToken();
-  const url = "https://oauth.reddit.com/comments/xmv2st/?sort=new";
+  const url = `https://oauth.reddit.com/comments/${threadId}/?sort=new`;
 
   const res = await fetch(url, {
     headers: {
