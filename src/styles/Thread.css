@@ -3,10 +3,14 @@
 }
 
 .Thread .sidebar {
-  flex: 2;
   padding: 12px 16px;
   background-color: #e0e4eb;
   border-right: 1px solid lightgray;
+  max-height: 100vh;
+  overflow: auto;
+  box-sizing: border-box;
+  flex: 1;
+  max-width: 500px;
 }
 
 .Thread .sidebar .info-box {
@@ -14,6 +18,7 @@
   border-radius: 6px;
   padding: 10px 14px;
   border: 1px solid lightgray;
+  overflow: hidden;
 }
 
 .Thread .sidebar .info-box .title-bar {

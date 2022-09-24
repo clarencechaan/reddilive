@@ -20,6 +20,7 @@ ol {
 table {
   border: 2px solid #e8e2e6;
   border-collapse: collapse;
+  margin: 8px 0;
 }
 
 td,
