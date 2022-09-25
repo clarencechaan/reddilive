@@ -6,6 +6,7 @@ import "../styles/Thread.css";
 import { formatBody, formatFlair } from "../scripts/markdown";
 import { getTimeAgo } from "../scripts/timeConversion";
 import { ArrowUp, Chat as ChatIcon } from "phosphor-react";
+import logo from "../images/logo_small.png";
 
 function Thread() {
   const [comments, setComments] = useState([]);
@@ -113,6 +114,11 @@ function Thread() {
   return (
     <div className="Thread">
       <div className="sidebar">
+        <div className="top-bar">
+          <a className="logo" href="/">
+            <img className="logo" src={logo} alt="" />
+          </a>
+        </div>
         {infoBox}
         {stickiedBox}
       </div>

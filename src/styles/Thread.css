@@ -26,6 +26,8 @@
   padding: 10px 14px;
   border: 1px solid lightgray;
   font-size: 12px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .Thread .sidebar .info-box .title-bar {
@@ -125,4 +127,9 @@
 
 .Thread .sidebar .stickied .timestamp {
   margin-left: auto;
+}
+
+.Thread .logo {
+  height: 32px;
+  line-height: 0;
 }
