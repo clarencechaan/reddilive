@@ -50,7 +50,10 @@ function Thread() {
   const stickiedBox = stickied ? (
     <div className="stickied">
       <div className="by-line">
-        <a href="" className="author">
+        <a
+          href={`https://www.reddit.com/user/${stickied.data.author}`}
+          className="author"
+        >
           u/{stickied.data.author}
         </a>{" "}
         · <label className="indicator">Stickied comment</label>
@@ -66,14 +69,25 @@ function Thread() {
     <div className="info-box">
       <div className="title-bar">
         <div className="by-line">
-          Posted by {flair} <a href="">u/{thread.data.author}</a>{" "}
+          Posted by {flair}{" "}
+          <a href={`https://www.reddit.com/user/${thread.data.author}`}>
+            u/{thread.data.author}
+          </a>{" "}
           {getTimeAgo(thread.data.created, { long: true })}
           <span>in </span>
-          <a href="" className="subreddit">
-            r/{thread?.data.subreddit}
+          <a
+            href={`https://www.reddit.com/r/${thread.data.subreddit}`}
+            className="subreddit"
+          >
+            r/{thread.data.subreddit}
           </a>
         </div>
-        <div className="title">{thread.data.title}</div>
+        <a
+          href={`https://www.reddit.com/comments/${threadId}`}
+          className="title"
+        >
+          {thread.data.title}
+        </a>
         {linkFlair}
       </div>
       <div className="selftext">{selftext}</div>
@@ -82,7 +96,10 @@ function Thread() {
           <ArrowUp size={16} className="icon" />
           {thread.data.score}
         </label>
-        <a href="" className="badge">
+        <a
+          href={`https://www.reddit.com/comments/${threadId}`}
+          className="badge"
+        >
           <ChatIcon size={16} className="icon" />
           {thread.data.num_comments}
         </a>

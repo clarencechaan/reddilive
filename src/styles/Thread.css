@@ -41,6 +41,11 @@
   font-size: 22px;
   margin-bottom: 3px;
   cursor: pointer;
+  color: black;
+}
+
+.Thread .sidebar .info-box .title:hover {
+  text-decoration: none;
 }
 
 .Thread .sidebar .info-box .title-bar .flair {
@@ -52,6 +57,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   color: black;
+  margin: 0 3px;
 }
 
 .Thread .sidebar .info-box .title-bar .flair .flair-emoji {
