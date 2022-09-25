@@ -10,7 +10,6 @@
   overflow: auto;
   box-sizing: border-box;
   flex: 1;
-  max-width: 500px;
 }
 
 .Thread .sidebar .info-box {
@@ -19,6 +18,7 @@
   padding: 10px 14px;
   border: 1px solid lightgray;
   overflow: hidden;
+  font-size: 12px;
 }
 
 .Thread .sidebar .info-box .title-bar {
@@ -74,9 +74,14 @@
   border-radius: 3px;
 }
 
+.Thread .sidebar .info-box .selftext {
+  overflow: auto;
+}
+
 .Thread .sidebar .info-box .stats {
   display: flex;
   column-gap: 10px;
+  margin-top: 12px;
 }
 
 .Thread .sidebar .info-box .stats .badge {
