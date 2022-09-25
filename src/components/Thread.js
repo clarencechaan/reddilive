@@ -34,6 +34,9 @@ function Thread() {
         .reverse()
     );
     setStickied(fetchedComments.find((comment) => comment.data.stickied));
+
+    document.title =
+      "reddilive | " + fetchedThread[0].data.children[0].data.title;
   }
 
   const selftext = formatBody(thread?.data.selftext);
