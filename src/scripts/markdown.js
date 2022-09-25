@@ -3,7 +3,7 @@ const parse = require("html-react-parser");
 
 function formatBody(text, mediaDict) {
   let body = text || "";
-  body = body.replaceAll("&gt;", ">");
+  body = deentitize(body);
   body = Snudown.markdown(body);
 
   // emotes
@@ -32,6 +32,15 @@ function formatFlair(text, emojiDict) {
 
   flair = parse(flair);
   return flair;
+}
+
+function deentitize(str) {
+  let ret = str.replace(/&gt;/g, ">");
+  ret = ret.replace(/&lt;/g, "<");
+  ret = ret.replace(/&quot;/g, '"');
+  ret = ret.replace(/&apos;/g, "'");
+  ret = ret.replace(/&amp;/g, "&");
+  return ret;
 }
 
 export { formatBody, formatFlair };

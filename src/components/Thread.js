@@ -34,7 +34,6 @@ function Thread() {
         .reverse()
     );
     setStickied(fetchedComments.find((comment) => comment.data.stickied));
-    console.log(fetchedComments.find((comment) => comment.data.stickied));
   }
 
   const selftext = formatBody(thread?.data.selftext);
@@ -63,34 +62,38 @@ function Thread() {
     </div>
   ) : null;
 
+  const infoBox = thread ? (
+    <div className="info-box">
+      <div className="title-bar">
+        <div className="by-line">
+          Posted by {flair} <a href="">u/{thread.data.author}</a>{" "}
+          {getTimeAgo(thread.data.created, { long: true })}
+          <span>in </span>
+          <a href="" className="subreddit">
+            r/{thread?.data.subreddit}
+          </a>
+        </div>
+        <div className="title">{thread.data.title}</div>
+        {linkFlair}
+      </div>
+      <div className="selftext">{selftext}</div>
+      <div className="stats">
+        <label className="badge">
+          <ArrowUp size={16} className="icon" />
+          {thread.data.score}
+        </label>
+        <a href="" className="badge">
+          <ChatIcon size={16} className="icon" />
+          {thread.data.num_comments}
+        </a>
+      </div>
+    </div>
+  ) : null;
+
   return (
     <div className="Thread">
       <div className="sidebar">
-        <div className="info-box">
-          <div className="title-bar">
-            <div className="by-line">
-              Posted by {flair} <a href="">u/{thread?.data.author}</a>{" "}
-              {getTimeAgo(thread?.data.created, { long: true })}
-              <span>in </span>
-              <a href="" className="subreddit">
-                r/{thread?.data.subreddit}
-              </a>
-            </div>
-            <div className="title">{thread?.data.title}</div>
-            {linkFlair}
-          </div>
-          <div className="selftext">{selftext}</div>
-          <div className="stats">
-            <label className="badge">
-              <ArrowUp size={16} className="icon" />
-              {thread?.data.score}
-            </label>
-            <a href="" className="badge">
-              <ChatIcon size={16} className="icon" />
-              {thread?.data.num_comments}
-            </a>
-          </div>
-        </div>
+        {infoBox}
         {stickiedBox}
       </div>
       <Chat comments={comments} />
