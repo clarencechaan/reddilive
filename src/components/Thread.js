@@ -10,6 +10,7 @@ import { ArrowUp, Chat as ChatIcon } from "phosphor-react";
 function Thread() {
   const [comments, setComments] = useState([]);
   const [thread, setThread] = useState(null);
+  const [stickied, setStickied] = useState(null);
   const { threadId } = useParams();
 
   useEffect(() => {
@@ -32,7 +33,8 @@ function Thread() {
         .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
         .reverse()
     );
-    console.log(fetchedThread[0].data.children[0]);
+    setStickied(fetchedComments.find((comment) => comment.data.stickied));
+    console.log(fetchedComments.find((comment) => comment.data.stickied));
   }
 
   const selftext = formatBody(thread?.data.selftext);
@@ -44,6 +46,21 @@ function Thread() {
 
   const linkFlair = thread?.data.link_flair_text ? (
     <label className="link-flair">{thread?.data.link_flair_text}</label>
+  ) : null;
+
+  const stickiedBox = stickied ? (
+    <div className="stickied">
+      <div className="by-line">
+        <a href="" className="author">
+          u/{stickied.data.author}
+        </a>{" "}
+        · <label className="indicator">Stickied comment</label>
+        <label className="timestamp">
+          {getTimeAgo(stickied.data.created)}{" "}
+        </label>
+      </div>
+      {formatBody(stickied.data.body)}
+    </div>
   ) : null;
 
   return (
@@ -74,6 +91,7 @@ function Thread() {
             </a>
           </div>
         </div>
+        {stickiedBox}
       </div>
       <Chat comments={comments} />
     </div>
