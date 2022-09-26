@@ -1,5 +1,6 @@
 .Thread {
   display: flex;
+  height: 100%;
 }
 
 .Thread .sidebar {

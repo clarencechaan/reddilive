@@ -36,9 +36,12 @@ function Comment({ comment }) {
             {comment.data.score}
           </label>
           {flair}
-          <label className="timestamp">
+          <a
+            href={`https://reddit.com${comment.data.permalink}`}
+            className="timestamp"
+          >
             {getTimeAgo(comment.data.created)}
-          </label>
+          </a>
         </div>
         {body}
       </div>

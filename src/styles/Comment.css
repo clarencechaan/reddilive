@@ -65,6 +65,10 @@
   text-align: right;
 }
 
+.Comment .info .timestamp:hover {
+  text-decoration: none;
+}
+
 .Comment .body {
   margin-top: 2px;
 }

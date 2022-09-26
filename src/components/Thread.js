@@ -87,7 +87,7 @@ function Thread() {
           </a>
         </div>
         <a
-          href={`https://www.reddit.com/comments/${threadId}`}
+          href={`https://www.reddit.com${thread.data.permalink}`}
           className="title"
         >
           {thread.data.title}
@@ -101,7 +101,7 @@ function Thread() {
           {thread.data.score}
         </label>
         <a
-          href={`https://www.reddit.com/comments/${threadId}`}
+          href={`https://www.reddit.com${thread.data.permalink}`}
           className="badge"
         >
           <ChatIcon size={16} className="icon" />
