@@ -1,9 +1,9 @@
 .Chat {
+  overflow: auto;
   display: flex;
   flex-direction: column-reverse;
   padding: 16px;
   position: relative;
-  overflow: auto;
   max-height: 100%;
   flex: 2;
 }

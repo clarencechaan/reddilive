@@ -39,11 +39,13 @@ th {
 
 strong {
   font-family: "SFUIText-Medium";
+  font-weight: 500;
 }
 
 a {
   text-decoration: none;
   color: rgb(29, 155, 240);
+  font-family: "SFUIText-Regular";
 }
 
 a:hover {
@@ -59,8 +61,4 @@ blockquote {
   padding-left: 8px;
   border-left: 4px solid rgb(188, 188, 188);
   color: rgb(109, 109, 109);
-}
-
-strong {
-  font-weight: 500;
 }

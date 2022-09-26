@@ -36,7 +36,7 @@
   display: flex;
   align-items: center;
   color: gray;
-  margin-right: 12px;
+  margin-right: 8px;
   column-gap: 2px;
   min-width: 25px;
 }
@@ -47,7 +47,7 @@
   padding: 0 5px;
   border-radius: 3px;
   border: 1px solid lightgray;
-  margin-right: 12px;
+  margin-right: 8px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -63,6 +63,7 @@
   color: gray;
   min-width: 21px;
   text-align: right;
+  font-family: inherit;
 }
 
 .Comment .info .timestamp:hover {
