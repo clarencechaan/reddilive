@@ -17,7 +17,7 @@ function Thread() {
   useEffect(() => {
     // refresh comments every 10 seconds
     refreshThread();
-    const refreshInterval = setInterval(refreshThread, 2000);
+    const refreshInterval = setInterval(refreshThread, 1000);
 
     return () => {
       clearInterval(refreshInterval);

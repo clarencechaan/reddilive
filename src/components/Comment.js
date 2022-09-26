@@ -11,7 +11,7 @@ function Comment({ comment }) {
 
   const body = (
     <div className="body">
-      {formatBody(comment.data.body, comment.data.mediaDict)}
+      {formatBody(comment.data.body, comment.data.media_metadata)}
     </div>
   );
 
