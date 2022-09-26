@@ -15,8 +15,9 @@ function formatBody(text, mediaDict) {
       );
     }
 
-  body = body.replace(/(?<=href=").*?(?=")/g, (match) => {
-    return isUrlRelative(match) ? "https://www.reddit.com" + match : match;
+  body = body.replace(/href=".*?\"/g, (match) => {
+    const url = match.split(`href="`)[1].split(`"`)[0];
+    return isUrlRelative(url) ? `href="https://www.reddit.com${url}"` : match;
   });
 
   body = parse(body);

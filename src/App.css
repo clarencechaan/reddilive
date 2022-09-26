@@ -39,7 +39,6 @@ strong {
 
 a {
   text-decoration: none;
-  font-weight: 600;
   color: rgb(29, 155, 240);
 }
 
@@ -56,4 +55,8 @@ blockquote {
   padding-left: 8px;
   border-left: 4px solid rgb(188, 188, 188);
   color: rgb(109, 109, 109);
+}
+
+strong {
+  font-weight: 500;
 }

@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 
-const { REACT_APP_CLIENT_ID: CLIENT_ID, REACT_APP_USER_AGENT: USER_AGENT } =
-  process.env;
+const { REACT_APP_CLIENT_ID: CLIENT_ID } = process.env;
 
 let token;
 
@@ -26,7 +25,6 @@ async function fetchToken() {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      "User-Agent": USER_AGENT,
       Authorization: `Basic ${window.btoa(decodeURI(CLIENT_ID + ":" + ""))}`,
     },
     body: form,

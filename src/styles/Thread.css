@@ -78,6 +78,7 @@
 
 .Thread .sidebar .info-box .by-line a {
   color: gray;
+  font-weight: 600;
 }
 
 .Thread .sidebar .info-box .title-bar .link-flair {
@@ -104,7 +105,7 @@
   align-items: center;
   color: gray;
   font-family: "SFUIText-Light";
-  font-weight: 500;
+  font-weight: 400;
   font-size: 14px;
   column-gap: 4px;
   min-width: 60px;
