@@ -2,13 +2,14 @@ import "../styles/Chat.css";
 import { useEffect, useState } from "react";
 import Comment from "./Comment";
 import ScrollPauseIndicator from "./ScrollPauseIndicator";
+import { useRef } from "react";
 
 function Chat({ comments }) {
   const [pauseIndicatorVisible, setPauseIndicatorVisible] = useState(false);
+  const chatRef = useRef(null);
 
   useEffect(() => {
     const clearChatPausedObserver = chatPausedObserver();
-
     return clearChatPausedObserver;
   }, []);
 
@@ -25,23 +26,22 @@ function Chat({ comments }) {
       }
     );
 
-    observer.observe(document.querySelector("#auto-scroll-trigger"));
+    observer.observe(document.querySelector("#anchor"));
 
-    return () =>
-      observer.unobserve(document.querySelector("#auto-scroll-trigger"));
+    return () => observer.unobserve(document.querySelector("#anchor"));
   }
 
   function scrollToBottom() {
-    document.querySelector("#auto-scroll-trigger").scrollIntoView();
+    chatRef.current.scrollTo(0, chatRef.current.scrollHeight);
   }
 
   return (
-    <div className="Chat">
-      <div className="chat-content">
+    <div className="Chat" ref={chatRef}>
+      <div id="scroller">
         {comments.map((comment) => (
           <Comment comment={comment} key={comment.data.id} />
         ))}
-        <div id="auto-scroll-trigger"></div>
+        <div id="anchor"></div>
       </div>
       {pauseIndicatorVisible ? (
         <ScrollPauseIndicator scrollToBottom={scrollToBottom} />

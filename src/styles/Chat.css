@@ -8,8 +8,11 @@
   flex: 2;
 }
 
-.Chat .chat-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.Chat #scroller * {
+  overflow-anchor: none;
+}
+
+.Chat #anchor {
+  height: 1px;
+  overflow-anchor: auto;
 }
