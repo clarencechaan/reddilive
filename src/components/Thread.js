@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { fetchThread } from "../api";
 import Chat from "./Chat";
 import "../styles/Thread.css";
-import { formatBody, formatFlair } from "../scripts/markdown";
+import { formatBody, formatFlair, deentitize } from "../scripts/markdown";
 import { getTimeAgo } from "../scripts/timeConversion";
 import { ArrowUp, Chat as ChatIcon } from "phosphor-react";
 import logo from "../images/logo_small.png";
@@ -43,7 +43,7 @@ function Thread() {
     setStickied(fetchedComments.find((comment) => comment.data.stickied));
 
     document.title =
-      "reddilive | " + fetchedThread[0].data.children[0].data.title;
+      "reddilive | " + deentitize(fetchedThread[0].data.children[0].data.title);
   }
 
   const selftext = formatBody(thread?.data.selftext);
@@ -107,7 +107,7 @@ function Thread() {
           href={`https://www.reddit.com${thread.data.permalink}`}
           className="title"
         >
-          {thread.data.title}
+          {deentitize(thread.data.title)}
         </a>
         {linkFlair}
       </div>

@@ -52,4 +52,4 @@ function isUrlRelative(url) {
   return !(url.indexOf("://") > 0 || url.indexOf("//") === 0);
 }
 
-export { formatBody, formatFlair };
+export { formatBody, formatFlair, deentitize };

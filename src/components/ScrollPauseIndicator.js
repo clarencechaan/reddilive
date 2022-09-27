@@ -3,10 +3,10 @@ import { Pause } from "phosphor-react";
 
 function ScrollPauseIndicator({ scrollToBottom }) {
   return (
-    <div className="ScrollPauseIndicator" onClick={scrollToBottom}>
+    <button className="ScrollPauseIndicator" onClick={scrollToBottom}>
       <Pause size={18} weight="fill" />
       Chat paused due to scroll
-    </div>
+    </button>
   );
 }
 
