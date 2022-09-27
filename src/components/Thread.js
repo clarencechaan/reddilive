@@ -26,14 +26,20 @@ function Thread() {
 
   async function refreshThread() {
     const fetchedThread = await fetchThread(threadId);
-    const fetchedComments = fetchedThread[1].data.children;
+    const fetchedComments = fetchedThread[1].data.children
+      .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
+      .reverse();
 
     setThread(fetchedThread[0].data.children[0]);
-    setComments(
-      fetchedComments
-        .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
-        .reverse()
-    );
+    setComments((prev) => {
+      let result = [...prev];
+      for (const comment of fetchedComments) {
+        const idx = result.findIndex((p) => p.data.id === comment.data.id);
+        if (idx >= 0) result[idx] = comment;
+        else result.push(comment);
+      }
+      return result;
+    });
     setStickied(fetchedComments.find((comment) => comment.data.stickied));
 
     document.title =
@@ -41,14 +47,22 @@ function Thread() {
   }
 
   const selftext = formatBody(thread?.data.selftext);
-  let flair = formatFlair(
-    thread?.data.author_flair_text,
-    thread?.data.author_flair_richtext
-  );
-  if (flair) flair = <label className="flair">{flair}</label>;
+  let flair = thread?.data.author_flair_text ? (
+    <label className="flair">
+      {formatFlair(
+        thread?.data.author_flair_text,
+        thread?.data.author_flair_richtext
+      )}
+    </label>
+  ) : null;
 
   const linkFlair = thread?.data.link_flair_text ? (
-    <label className="link-flair">{thread?.data.link_flair_text}</label>
+    <label className="link-flair">
+      {formatFlair(
+        thread.data.link_flair_text,
+        thread.data.link_flair_richtext
+      )}
+    </label>
   ) : null;
 
   const stickiedBox = stickied ? (
@@ -61,11 +75,14 @@ function Thread() {
           u/{stickied.data.author}
         </a>{" "}
         · <label className="indicator">Stickied comment</label>
-        <label className="timestamp">
+        <a
+          href={`https://reddit.com${stickied.data.permalink}`}
+          className="timestamp"
+        >
           {getTimeAgo(stickied.data.created)}{" "}
-        </label>
+        </a>
       </div>
-      {formatBody(stickied.data.body)}
+      <div className="body">{formatBody(stickied.data.body)}</div>
     </div>
   ) : null;
 

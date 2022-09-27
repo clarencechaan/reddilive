@@ -25,12 +25,17 @@ function Comment({ comment }) {
     <div className="Comment">
       <div className="bubble">
         <div className="info">
-          <a
-            href={`https://www.reddit.com/user/${comment.data.author}`}
-            className="author"
-          >
-            {comment.data.author}
-          </a>
+          {comment.data.author !== "[deleted]" ? (
+            <a
+              href={`https://www.reddit.com/user/${comment.data.author}`}
+              className="author"
+            >
+              {comment.data.author}
+            </a>
+          ) : (
+            <span className="author deleted">[deleted]</span>
+          )}
+
           <label className="score">
             <ArrowUp size={14} weight="bold" />
             {comment.data.score}
