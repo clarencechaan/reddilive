@@ -188,6 +188,9 @@ function Thread() {
       <div className="main">
         <Chat comments={thread.comments} />
         {loading ? <Throbber /> : null}
+        {!thread.comments.length && !loading ? (
+          <div className="no-comments-msg">No comments found.</div>
+        ) : null}
       </div>
     </div>
   );

@@ -10,10 +10,14 @@ function Navigator() {
     e.preventDefault();
     const text = e.target[0].value;
     const idx = text.indexOf("/comments/");
-
     let textId = "";
-    if (idx >= 0) {
+
+    if (text.includes("/comments/")) {
+      const idx = text.indexOf("/comments/");
       textId = text.substring(idx + 10, idx + 16);
+    } else if (text.includes("redd.it/")) {
+      const idx = text.indexOf("redd.it/");
+      textId = text.substring(idx + 8, idx + 14);
     } else {
       textId = text;
     }

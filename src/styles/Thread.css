@@ -152,3 +152,9 @@
   bottom: 50px;
   right: 50px;
 }
+
+.Thread .main .no-comments-msg {
+  position: absolute;
+  top: 50%;
+  align-self: center;
+}
