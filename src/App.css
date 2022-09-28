@@ -62,3 +62,37 @@ blockquote {
   border-left: 4px solid rgb(188, 188, 188);
   color: rgb(109, 109, 109);
 }
+
+.sidebar {
+  padding: 16px;
+  background-color: #e0e4eb;
+  border-right: 1px solid lightgray;
+  max-height: 100vh;
+  overflow: auto;
+  box-sizing: border-box;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.sidebar .top-bar {
+  display: flex;
+  max-width: 100%;
+  flex-wrap: wrap;
+  row-gap: 16px;
+}
+
+.sidebar .top-bar .logo {
+  height: 32px;
+  margin-right: 16px;
+}
+
+.main {
+  flex: 2;
+  height: 100%;
+  overflow: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}

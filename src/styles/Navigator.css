@@ -1,0 +1,42 @@
+.Navigator {
+  display: flex;
+  height: 32px;
+  flex: 1;
+  max-width: 100%;
+}
+
+.Navigator input {
+  border: 1px solid lightgray;
+  padding: 0 8px;
+  margin-right: 4px;
+  border-radius: 3px;
+  font-family: inherit;
+  box-sizing: border-box;
+  flex: 1;
+  font-size: 18px;
+  min-width: 0;
+}
+
+.Navigator input::placeholder {
+  color: rgb(160, 160, 160);
+}
+
+.Navigator input:focus {
+  outline: none;
+  border: 1px solid orangered;
+}
+
+.Navigator .go-btn {
+  background-color: orangered;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-family: "SFUIText-Medium";
+  cursor: pointer;
+  padding: 0 10px;
+  font-size: 18px;
+}
+
+.Navigator .go-btn:hover {
+  background-color: hsl(16, 100%, 47%);
+}

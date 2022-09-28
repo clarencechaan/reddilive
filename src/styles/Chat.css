@@ -4,8 +4,8 @@
   flex-direction: column-reverse;
   padding: 16px;
   position: relative;
-  max-height: 100%;
-  flex: 2;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .Chat #scroller * {

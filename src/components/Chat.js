@@ -7,10 +7,10 @@ import { useRef } from "react";
 function Chat({ comments }) {
   const [pauseIndicatorVisible, setPauseIndicatorVisible] = useState(false);
   const chatRef = useRef(null);
+  const anchorRef = useRef(null);
 
   useEffect(() => {
-    const clearChatPausedObserver = chatPausedObserver();
-    return clearChatPausedObserver;
+    chatPausedObserver();
   }, []);
 
   function chatPausedObserver() {
@@ -26,9 +26,7 @@ function Chat({ comments }) {
       }
     );
 
-    observer.observe(document.querySelector("#anchor"));
-
-    return () => observer.unobserve(document.querySelector("#anchor"));
+    observer.observe(anchorRef.current);
   }
 
   function scrollToBottom() {
@@ -41,7 +39,7 @@ function Chat({ comments }) {
         {comments.map((comment) => (
           <Comment comment={comment} key={comment.data.id} />
         ))}
-        <div id="anchor"></div>
+        <div id="anchor" ref={anchorRef}></div>
       </div>
       {pauseIndicatorVisible ? (
         <ScrollPauseIndicator scrollToBottom={scrollToBottom} />

@@ -21,18 +21,21 @@ async function fetchToken() {
     device_id: deviceId,
   }).toString();
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: `Basic ${window.btoa(decodeURI(CLIENT_ID + ":" + ""))}`,
-    },
-    body: form,
-  });
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Basic ${window.btoa(decodeURI(CLIENT_ID + ":" + ""))}`,
+      },
+      body: form,
+    });
 
-  token = (await res.json()).access_token;
-
-  return token;
+    token = (await res.json()).access_token;
+    return token;
+  } catch (error) {
+    console.log("error", error);
+  }
 }
 
 function getDeviceIdLocalStorage() {

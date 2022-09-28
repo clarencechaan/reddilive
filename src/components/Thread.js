@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { fetchThread } from "../api";
 import Chat from "./Chat";
+import Navigator from "./Navigator";
+import Throbber from "./Throbber";
 import "../styles/Thread.css";
 import { formatBody, formatFlair, deentitize } from "../scripts/markdown";
 import { getTimeAgo } from "../scripts/timeConversion";
@@ -15,7 +17,7 @@ function Thread() {
     comments: [],
   });
   const { threadId } = useParams();
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   let refreshInterval;
 
   useEffect(() => {
@@ -36,6 +38,8 @@ function Thread() {
   }, [threadId]);
 
   async function refreshThread(options) {
+    if (options?.initiate) setLoading(true);
+
     const fetchedThread = await fetchThread(threadId);
     const fetchedComments = fetchedThread[1].data.children
       .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
@@ -67,21 +71,8 @@ function Thread() {
 
     document.title =
       "reddilive | " + deentitize(fetchedThread[0].data.children[0].data.title);
-  }
 
-  function handleNavigatorSubmitted(e) {
-    e.preventDefault();
-    const text = e.target[0].value;
-    const idx = text.indexOf("/comments/");
-
-    let textId = "";
-    if (idx >= 0) {
-      textId = text.substring(idx + 10, idx + 16);
-    } else {
-      textId = text;
-    }
-
-    navigate(`/comments/${textId}`);
+    if (options?.initiate) setLoading(false);
   }
 
   const selftext = formatBody(thread.info?.selftext);
@@ -170,18 +161,16 @@ function Thread() {
     <div className="Thread">
       <div className="sidebar">
         <div className="top-bar">
-          <a className="logo" href="/">
-            <img src={logo} alt="" />
-          </a>
-          <form className="navigator" onSubmit={handleNavigatorSubmitted}>
-            <input type="text" placeholder="thread ID or URL" />
-            <button className="go-btn">GO</button>
-          </form>
+          <img className="logo" src={logo} alt="" />
+          <Navigator />
         </div>
         {infoBox}
         {stickiedBox}
       </div>
-      <Chat comments={thread.comments} />
+      <div className="main">
+        <Chat comments={thread.comments} />
+        {loading ? <Throbber /> : null}
+      </div>
     </div>
   );
 }
