@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { fetchThread } from "../api";
 import Chat from "./Chat";
 import "../styles/Thread.css";
@@ -9,105 +9,143 @@ import { ArrowUp, Chat as ChatIcon } from "phosphor-react";
 import logo from "../images/logo_small.png";
 
 function Thread() {
-  const [comments, setComments] = useState([]);
-  const [thread, setThread] = useState(null);
-  const [stickied, setStickied] = useState(null);
+  const [thread, setThread] = useState({
+    info: null,
+    stickied: null,
+    comments: [],
+  });
   const { threadId } = useParams();
+  const navigate = useNavigate();
+  let refreshInterval;
 
   useEffect(() => {
-    // refresh comments every 10 seconds
-    refreshThread();
-    const refreshInterval = setInterval(refreshThread, 2000);
+    setThread({
+      info: null,
+      stickied: null,
+      comments: [],
+    });
+
+    // refresh thread every few seconds
+    refreshThread({ initiate: true });
+    clearInterval(refreshInterval);
+    refreshInterval = setInterval(refreshThread, 2000);
 
     return () => {
       clearInterval(refreshInterval);
     };
-  }, []);
+  }, [threadId]);
 
-  async function refreshThread() {
+  async function refreshThread(options) {
     const fetchedThread = await fetchThread(threadId);
     const fetchedComments = fetchedThread[1].data.children
       .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
       .reverse();
 
-    setThread(fetchedThread[0].data.children[0]);
-    setComments((prev) => {
-      let result = [...prev];
+    setThread((prev) => {
+      if (
+        !options?.initiate &&
+        prev.info?.id !== fetchedThread[0].data.children[0].data.id
+      )
+        return prev;
+
+      let result = { ...prev };
+      result.info = fetchedThread[0].data.children[0].data;
+      result.stickied = fetchedThread[1].data.children.find(
+        (comment) => comment.data.stickied
+      )?.data;
+
       for (const comment of fetchedComments) {
-        const idx = result.findIndex((p) => p.data.id === comment.data.id);
-        if (idx >= 0) result[idx] = comment;
-        else result.push(comment);
+        const idx = result.comments.findIndex(
+          (p) => p.data.id === comment.data.id
+        );
+        if (idx >= 0) result.comments[idx] = comment;
+        else result.comments.push(comment);
       }
+
       return result;
     });
-    setStickied(fetchedComments.find((comment) => comment.data.stickied));
 
     document.title =
       "reddilive | " + deentitize(fetchedThread[0].data.children[0].data.title);
   }
 
-  const selftext = formatBody(thread?.data.selftext);
-  let flair = thread?.data.author_flair_text ? (
+  function handleNavigatorSubmitted(e) {
+    e.preventDefault();
+    const text = e.target[0].value;
+    const idx = text.indexOf("/comments/");
+
+    let textId = "";
+    if (idx >= 0) {
+      textId = text.substring(idx + 10, idx + 16);
+    } else {
+      textId = text;
+    }
+
+    navigate(`/comments/${textId}`);
+  }
+
+  const selftext = formatBody(thread.info?.selftext);
+  let flair = thread.info?.author_flair_text ? (
     <label className="flair">
       {formatFlair(
-        thread?.data.author_flair_text,
-        thread?.data.author_flair_richtext
+        thread.info.author_flair_text,
+        thread.info.author_flair_richtext
       )}
     </label>
   ) : null;
 
-  const linkFlair = thread?.data.link_flair_text ? (
+  const linkFlair = thread.info?.link_flair_text ? (
     <label className="link-flair">
       {formatFlair(
-        thread.data.link_flair_text,
-        thread.data.link_flair_richtext
+        thread.info.link_flair_text,
+        thread.info.link_flair_richtext
       )}
     </label>
   ) : null;
 
-  const stickiedBox = stickied ? (
+  const stickiedBox = thread.stickied ? (
     <div className="stickied">
       <div className="by-line">
         <a
-          href={`https://www.reddit.com/user/${stickied.data.author}`}
+          href={`https://www.reddit.com/user/${thread.stickied.author}`}
           className="author"
         >
-          u/{stickied.data.author}
+          u/{thread.stickied.author}
         </a>{" "}
         · <label className="indicator">Stickied comment</label>
         <a
-          href={`https://reddit.com${stickied.data.permalink}`}
+          href={`https://reddit.com${thread.stickied.permalink}`}
           className="timestamp"
         >
-          {getTimeAgo(stickied.data.created)}{" "}
+          {getTimeAgo(thread.stickied.created)}{" "}
         </a>
       </div>
-      <div className="body">{formatBody(stickied.data.body)}</div>
+      <div className="body">{formatBody(thread.stickied.body)}</div>
     </div>
   ) : null;
 
-  const infoBox = thread ? (
+  const infoBox = thread.info ? (
     <div className="info-box">
       <div className="title-bar">
         <div className="by-line">
           Posted by {flair}{" "}
-          <a href={`https://www.reddit.com/user/${thread.data.author}`}>
-            u/{thread.data.author}
+          <a href={`https://www.reddit.com/user/${thread.info.author}`}>
+            u/{thread.info.author}
           </a>{" "}
-          {getTimeAgo(thread.data.created, { long: true })}
+          {getTimeAgo(thread.info.created, { long: true })}
           <span>in </span>
           <a
-            href={`https://www.reddit.com/r/${thread.data.subreddit}`}
+            href={`https://www.reddit.com/r/${thread.info.subreddit}`}
             className="subreddit"
           >
-            r/{thread.data.subreddit}
+            r/{thread.info.subreddit}
           </a>
         </div>
         <a
-          href={`https://www.reddit.com${thread.data.permalink}`}
+          href={`https://www.reddit.com${thread.info.permalink}`}
           className="title"
         >
-          {deentitize(thread.data.title)}
+          {deentitize(thread.info.title)}
         </a>
         {linkFlair}
       </div>
@@ -115,14 +153,14 @@ function Thread() {
       <div className="stats">
         <label className="badge">
           <ArrowUp size={16} className="icon" />
-          {thread.data.score}
+          {thread.info.score}
         </label>
         <a
-          href={`https://www.reddit.com${thread.data.permalink}`}
+          href={`https://www.reddit.com${thread.info.permalink}`}
           className="badge"
         >
           <ChatIcon size={16} className="icon" />
-          {thread.data.num_comments}
+          {thread.info.num_comments}
         </a>
       </div>
     </div>
@@ -133,13 +171,17 @@ function Thread() {
       <div className="sidebar">
         <div className="top-bar">
           <a className="logo" href="/">
-            <img className="logo" src={logo} alt="" />
+            <img src={logo} alt="" />
           </a>
+          <form className="navigator" onSubmit={handleNavigatorSubmitted}>
+            <input type="text" placeholder="thread ID or URL" />
+            <button className="go-btn">GO</button>
+          </form>
         </div>
         {infoBox}
         {stickiedBox}
       </div>
-      <Chat comments={comments} />
+      <Chat comments={thread.comments} />
     </div>
   );
 }
