@@ -57,7 +57,7 @@
 }
 
 .flash-in {
-  animation: flash-in 2s;
+  animation: flash-in 3s;
 }
 
 @keyframes flash-in {
