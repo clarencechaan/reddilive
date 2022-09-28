@@ -1,10 +1,10 @@
 import { fetchToken } from "./auth";
 
 async function fetchThread(threadId) {
-  const token = await fetchToken();
   const url = `https://oauth.reddit.com/comments/${threadId}/?sort=new`;
 
   try {
+    const token = await fetchToken();
     const res = await fetch(url, {
       headers: {
         Authorization: `Bearer ${token}`,

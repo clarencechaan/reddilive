@@ -40,37 +40,48 @@ function Thread() {
   async function refreshThread(options) {
     if (options?.initiate) setLoading(true);
 
-    const fetchedThread = await fetchThread(threadId);
-    const fetchedComments = fetchedThread[1].data.children
-      .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
-      .reverse();
+    try {
+      const fetchedThread = await fetchThread(threadId);
+      const fetchedComments = fetchedThread[1].data.children
+        .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
+        .reverse();
 
-    setThread((prev) => {
-      if (
-        !options?.initiate &&
-        prev.info?.id !== fetchedThread[0].data.children[0].data.id
-      )
-        return prev;
+      setThread((prev) => {
+        if (
+          !options?.initiate &&
+          prev.info?.id !== fetchedThread[0].data.children[0].data.id
+        )
+          return prev;
 
-      let result = { ...prev };
-      result.info = fetchedThread[0].data.children[0].data;
-      result.stickied = fetchedThread[1].data.children.find(
-        (comment) => comment.data.stickied
-      )?.data;
+        let result = { ...prev };
+        result.info = fetchedThread[0].data.children[0].data;
+        result.stickied = fetchedThread[1].data.children.find(
+          (comment) => comment.data.stickied
+        )?.data;
 
-      for (const comment of fetchedComments) {
-        const idx = result.comments.findIndex(
-          (p) => p.data.id === comment.data.id
-        );
-        if (idx >= 0) result.comments[idx] = comment;
-        else result.comments.push(comment);
-      }
+        for (const comment of fetchedComments) {
+          const idx = result.comments.findIndex(
+            (p) => p.data.id === comment.data.id
+          );
+          if (idx >= 0) result.comments[idx] = comment;
+          else result.comments.push(comment);
+        }
 
-      return result;
-    });
+        return result;
+      });
 
-    document.title =
-      "reddilive | " + deentitize(fetchedThread[0].data.children[0].data.title);
+      document.title =
+        "reddilive | " +
+        deentitize(fetchedThread[0].data.children[0].data.title);
+    } catch (error) {
+      setThread({
+        info: null,
+        stickied: null,
+        comments: [],
+        error: true,
+      });
+      console.log(error);
+    }
 
     if (options?.initiate) setLoading(false);
   }
@@ -166,6 +177,13 @@ function Thread() {
         </div>
         {infoBox}
         {stickiedBox}
+        {thread.error ? (
+          <div className="not-found-msg">
+            Something went wrong!
+            <br />
+            No thread by that ID was found.
+          </div>
+        ) : null}
       </div>
       <div className="main">
         <Chat comments={thread.comments} />

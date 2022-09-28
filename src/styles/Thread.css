@@ -135,6 +135,18 @@
   overflow: auto;
 }
 
+.Thread .sidebar .not-found-msg {
+  /* color: orangered; */
+  font-size: 22px;
+  margin-top: auto;
+  margin-bottom: auto;
+  align-self: center;
+  text-align: center;
+  padding: 0 16px;
+  max-width: 300px;
+  line-height: 30px;
+}
+
 .Thread .main .Throbber {
   position: absolute;
   bottom: 50px;

@@ -3,6 +3,7 @@
   height: 32px;
   flex: 1;
   max-width: 100%;
+  position: relative;
 }
 
 .Navigator input {
@@ -39,4 +40,35 @@
 
 .Navigator .go-btn:hover {
   background-color: hsl(16, 100%, 47%);
+}
+
+.Navigator .error-msg {
+  position: absolute;
+  bottom: -32px;
+  background-color: rgba(255, 68, 0, 0.85);
+  padding: 4px 8px;
+  border: 1px solid orangered;
+  color: white;
+  border-radius: 3px;
+  z-index: 1;
+  font-family: "SFUIText-Regular";
+  white-space: nowrap;
+  visibility: hidden;
+}
+
+.flash-in {
+  animation: flash-in 2s;
+}
+
+@keyframes flash-in {
+  0% {
+    visibility: visible;
+  }
+  80% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
 }

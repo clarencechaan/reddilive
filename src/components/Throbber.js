@@ -2,16 +2,16 @@ import "../styles/Throbber.css";
 
 function Throbber() {
   return (
-    <div class="Throbber">
-      <div class="block">
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
+    <div className="Throbber">
+      <div className="block">
+        <div className="item"></div>
+        <div className="item"></div>
+        <div className="item"></div>
+        <div className="item"></div>
+        <div className="item"></div>
+        <div className="item"></div>
+        <div className="item"></div>
+        <div className="item"></div>
       </div>
     </div>
   );
