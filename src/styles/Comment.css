@@ -84,9 +84,15 @@
   line-height: 20px;
 }
 
-.Comment .body .media {
+.Comment .body .emote {
   height: 18px;
   margin: 0 1px -3px;
+}
+
+.Comment .body .gif {
+  border-radius: 8px;
+  margin-top: 6px;
+  max-width: 100%;
 }
 
 .Comment .connector {

@@ -6,12 +6,16 @@ function formatBody(text, mediaDict) {
   body = deentitize(body);
   body = Snudown.markdown(body);
 
-  // emotes
+  // emotes and gifs
   if (mediaDict)
     for (const key in mediaDict) {
       body = body.replaceAll(
         `![img](${key})`,
-        `<img className="media" src="${mediaDict[key].s.u}" />`
+        `<img className="emote" src="${mediaDict[key].s.u}" />`
+      );
+      body = body.replaceAll(
+        `![gif](${key})`,
+        `<video className="gif" src="${mediaDict[key].s.mp4}" autoplay loop muted playsinline/>`
       );
     }
 

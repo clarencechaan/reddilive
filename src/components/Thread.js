@@ -86,7 +86,10 @@ function Thread() {
     if (options?.initiate) setLoading(false);
   }
 
-  const selftext = formatBody(thread.info?.selftext);
+  const selftext = formatBody(
+    thread.info?.selftext,
+    thread.info?.media_metadata
+  );
   let flair = thread.info?.author_flair_text ? (
     <label className="flair">
       {formatFlair(
@@ -122,7 +125,9 @@ function Thread() {
           {getTimeAgo(thread.stickied.created)}{" "}
         </a>
       </div>
-      <div className="body">{formatBody(thread.stickied.body)}</div>
+      <div className="body">
+        {formatBody(thread.stickied.body, thread.stickied.media_metadata)}
+      </div>
     </div>
   ) : null;
 

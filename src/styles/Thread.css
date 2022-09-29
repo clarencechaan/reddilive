@@ -135,8 +135,12 @@
   overflow: auto;
 }
 
+.Thread .sidebar .stickied .body .gif {
+  border-radius: 8px;
+  margin-top: 6px;
+}
+
 .Thread .sidebar .not-found-msg {
-  /* color: orangered; */
   font-size: 22px;
   margin-top: auto;
   margin-bottom: auto;
