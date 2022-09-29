@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { fetchThread } from "../api";
 import Chat from "./Chat";
 import Navigator from "./Navigator";
@@ -172,7 +172,9 @@ function Thread() {
     <div className="Thread">
       <div className="sidebar">
         <div className="top-bar">
-          <img className="logo" src={logo} alt="" />
+          <Link to="/">
+            <img className="logo" src={logo} alt="" />
+          </Link>
           <Navigator />
         </div>
         {infoBox}

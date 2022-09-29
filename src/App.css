@@ -81,11 +81,16 @@ blockquote {
   max-width: 100%;
   flex-wrap: wrap;
   row-gap: 16px;
+  justify-content: center;
+  column-gap: 16px;
 }
 
 .sidebar .top-bar .logo {
   height: 32px;
-  margin-right: 16px;
+}
+
+.sidebar .top-bar a {
+  line-height: 0;
 }
 
 .main {

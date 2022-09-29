@@ -17,6 +17,7 @@
   font-weight: 700;
   display: flex;
   align-items: center;
+  justify-content: center;
   text-align: center;
 }
 
@@ -27,6 +28,7 @@
 .Home .sidebar .how-to-1 .msg,
 .Home .sidebar .how-to-2 .msg {
   padding: 0 4px;
+  flex: 1;
 }
 
 .Home .sidebar .how-to-2 .big {
