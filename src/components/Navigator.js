@@ -50,10 +50,10 @@ function Navigator() {
 
   return (
     <form className="Navigator" onSubmit={handleNavigatorSubmitted}>
-      <input type="text" placeholder="thread ID or URL" />
+      <input type="text" placeholder="thread URL or ID" />
       <button className="go-btn">GO</button>
       <label className="error-msg" ref={errorMsgRef}>
-        That ID or URL is invalid!
+        That URL or ID is invalid!
       </label>
     </form>
   );

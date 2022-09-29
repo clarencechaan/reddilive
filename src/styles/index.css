@@ -26,3 +26,9 @@ code {
   src: local("SFUIText-Regular"),
     url(../fonts/SFUIText-Regular.otf) format("opentype");
 }
+
+@font-face {
+  font-family: "IndieFlower-Regular";
+  src: local("IndieFlower-Regular"),
+    url(../fonts/IndieFlower-Regular.ttf) format("truetype");
+}

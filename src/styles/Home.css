@@ -2,3 +2,34 @@
   display: flex;
   height: 100%;
 }
+
+.Home .sidebar .arrow {
+  width: 80px;
+  margin-right: 8px;
+  margin-bottom: -12%;
+  margin-left: 12px;
+}
+
+.Home .sidebar .how-to-1,
+.Home .sidebar .how-to-2 {
+  font-family: "IndieFlower-Regular";
+  font-size: 28px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.Home .sidebar .how-to-2 {
+  flex-direction: column;
+}
+
+.Home .sidebar .how-to-1 .msg,
+.Home .sidebar .how-to-2 .msg {
+  padding: 0 4px;
+}
+
+.Home .sidebar .how-to-2 .big {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
