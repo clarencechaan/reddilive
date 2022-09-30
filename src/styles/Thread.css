@@ -3,23 +3,23 @@
   height: 100%;
 }
 
-.Thread .sidebar p {
+.Thread .Sidebar p {
   margin: 6px 0 4px 0;
 }
 
-.Thread .sidebar .info-box,
-.Thread .sidebar .stickied {
+.Thread .Sidebar .info-box,
+.Thread .Sidebar .stickied {
   background-color: white;
   border-radius: 6px;
   padding: 10px 14px;
   border: 1px solid lightgray;
   font-size: 12px;
-  max-width: 100%;
+  width: 100%;
   box-sizing: border-box;
   animation: slide-in 0.4s;
 }
 
-.Thread .sidebar .info-box .title-bar {
+.Thread .Sidebar .info-box .title-bar {
   border-bottom: 1px solid lightgray;
   padding-bottom: 7px;
   margin-bottom: 3px;
@@ -29,18 +29,18 @@
   overflow-x: auto;
 }
 
-.Thread .sidebar .info-box .title {
+.Thread .Sidebar .info-box .title {
   font-size: 22px;
   margin-bottom: 3px;
   cursor: pointer;
   color: black;
 }
 
-.Thread .sidebar .info-box .title:hover {
+.Thread .Sidebar .info-box .title:hover {
   text-decoration: none;
 }
 
-.Thread .sidebar .info-box .title-bar .flair {
+.Thread .Sidebar .info-box .title-bar .flair {
   background-color: #f0f2f5;
   padding: 0 5px;
   border-radius: 3px;
@@ -52,12 +52,12 @@
   margin: 0 3px;
 }
 
-.Thread .sidebar .info-box .title-bar .by-line .flair-emoji {
+.Thread .Sidebar .info-box .title-bar .by-line .flair-emoji {
   height: 14.5px;
   margin-bottom: -3px;
 }
 
-.Thread .sidebar .info-box .by-line {
+.Thread .Sidebar .info-box .by-line {
   color: gray;
   font-size: 12px;
   margin-bottom: 4px;
@@ -66,12 +66,12 @@
   flex-wrap: wrap;
 }
 
-.Thread .sidebar .info-box .by-line a {
+.Thread .Sidebar .info-box .by-line a {
   color: gray;
   font-family: "SFUIText-Regular";
 }
 
-.Thread .sidebar .info-box .title-bar .link-flair {
+.Thread .Sidebar .info-box .title-bar .link-flair {
   background-color: rgb(175, 175, 175);
   font-family: "SFUIText-Regular";
   font-size: 14px;
@@ -80,22 +80,22 @@
   border-radius: 3px;
 }
 
-.Thread .sidebar .info-box .title-bar .link-flair .flair-emoji {
+.Thread .Sidebar .info-box .title-bar .link-flair .flair-emoji {
   height: 16px;
   margin-bottom: -3px;
 }
 
-.Thread .sidebar .info-box .selftext {
+.Thread .Sidebar .info-box .selftext {
   overflow: auto;
 }
 
-.Thread .sidebar .info-box .stats {
+.Thread .Sidebar .info-box .stats {
   display: flex;
   column-gap: 10px;
   margin-top: 8px;
 }
 
-.Thread .sidebar .info-box .stats .badge {
+.Thread .Sidebar .info-box .stats .badge {
   display: flex;
   align-items: center;
   color: gray;
@@ -105,7 +105,7 @@
   min-width: 60px;
 }
 
-.Thread .sidebar .stickied .by-line {
+.Thread .Sidebar .stickied .by-line {
   color: gray;
   margin-bottom: 4px;
   display: flex;
@@ -113,34 +113,34 @@
   column-gap: 4px;
 }
 
-.Thread .sidebar .stickied .author {
+.Thread .Sidebar .stickied .author {
   color: gray;
 }
 
-.Thread .sidebar .stickied .by-line .indicator {
+.Thread .Sidebar .stickied .by-line .indicator {
   color: #75d377;
 }
 
-.Thread .sidebar .stickied .timestamp {
+.Thread .Sidebar .stickied .timestamp {
   margin-left: auto;
   color: gray;
   font-family: inherit;
 }
 
-.Thread .sidebar .stickied .timestamp:hover {
+.Thread .Sidebar .stickied .timestamp:hover {
   text-decoration: none;
 }
 
-.Thread .sidebar .stickied .body {
+.Thread .Sidebar .stickied .body {
   overflow: auto;
 }
 
-.Thread .sidebar .stickied .body .gif {
+.Thread .Sidebar .stickied .body .gif {
   border-radius: 8px;
   margin-top: 6px;
 }
 
-.Thread .sidebar .not-found-msg {
+.Thread .Sidebar .not-found-msg {
   font-size: 22px;
   margin-top: auto;
   margin-bottom: auto;
