@@ -8,6 +8,7 @@
   margin-right: 8px;
   margin-bottom: -12%;
   margin-left: 12px;
+  padding-bottom: 12px;
 }
 
 .Home .sidebar .how-to-1,
@@ -32,6 +33,7 @@
 }
 
 .Home .sidebar .how-to-2 .big {
+  text-align: center;
   font-size: 48px;
   margin-bottom: 16px;
 }

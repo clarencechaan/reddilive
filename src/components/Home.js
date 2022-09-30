@@ -17,7 +17,7 @@ function Home() {
           <div className="msg">Copy the reddit thread URL to the box above</div>
           <img src={arrow} className="arrow" alt="" />
         </div>
-        <img src={fullUrl} alt="" />
+        <img src={fullUrl} className="url" alt="" />
 
         <div className="how-to-2">
           <div className="msg">
@@ -25,7 +25,7 @@ function Home() {
             Replace "reddit" from the URL with "reddilive"
           </div>
         </div>
-        <img src={replacedUrl} alt="" />
+        <img src={replacedUrl} className="url" alt="" />
         <div className="about"></div>
       </div>
       <div className="main"></div>
