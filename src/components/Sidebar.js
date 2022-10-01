@@ -138,19 +138,25 @@ function Sidebar({ thread }) {
   }
 
   return (
-    <div className={"Sidebar" + (thread ? " collapsed" : "")} ref={sidebarRef}>
-      <div className="drawer">
-        <div className="top-bar">
-          <Link to="/" className="logo">
-            <img src={logo} alt="" />
-          </Link>
-          <Navigator />
+    <div
+      className={"SidebarContainer" + (thread ? " collapsed" : "")}
+      ref={sidebarRef}
+    >
+      <div className="Sidebar">
+        <div className="drawer">
+          <div className="top-bar">
+            <Link to="/" className="logo">
+              <img src={logo} alt="" />
+            </Link>
+            <Navigator />
+          </div>
+          {sidebarContent}
         </div>
-        {sidebarContent}
+        <button className="collapser" onClick={toggleCollapse}>
+          <span>• • • • • • • • •</span>
+        </button>
       </div>
-      <button className="collapser" onClick={toggleCollapse}>
-        <span>• • • • • • • • •</span>
-      </button>
+      <div className="overlay" onClick={toggleCollapse}></div>
     </div>
   );
 }

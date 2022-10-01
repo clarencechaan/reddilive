@@ -1,11 +1,14 @@
+.SidebarContainer {
+  flex: 1;
+  min-width: 340px;
+}
+
 .Sidebar {
   background-color: #e0e4eb;
   border-right: 1px solid lightgray;
   height: 100vh;
   box-sizing: border-box;
-  flex: 1;
   display: flex;
-  min-width: 340px;
 }
 
 .Sidebar .drawer {
@@ -65,15 +68,34 @@
 }
 
 @media only screen and (max-width: 960px) {
+  .SidebarContainer {
+    flex: 0;
+    min-width: 0;
+  }
+
+  .SidebarContainer .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition: 0.7s;
+    pointer-events: none;
+  }
+
   .Sidebar {
     width: min(100%, 500px);
-    min-width: 0;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     transition: transform 0.5s;
   }
 
-  .Sidebar.collapsed {
+  .SidebarContainer:not(.collapsed) .overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    pointer-events: initial;
+  }
+
+  .SidebarContainer.collapsed .Sidebar {
     transform: translateX(calc(-100% + 17px));
   }
 
