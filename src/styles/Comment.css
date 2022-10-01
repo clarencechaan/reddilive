@@ -98,8 +98,16 @@
 .Comment .connector {
   margin-left: 4px;
   min-width: 10px;
+  background-color: transparent;
+  border: none;
   border-left: 1.5px solid #e2e4e7;
   margin-bottom: 6px;
+  cursor: pointer;
+  position: relative;
+}
+
+.Comment .connector:hover {
+  border-left: 1.5px solid hsl(216, 20%, 85%);
 }
 
 .Comment .replies-container {
@@ -113,6 +121,34 @@
   align-items: flex-start;
   flex: 1;
   min-width: 0;
+}
+
+.Comment .replies-container.collapsed {
+  height: 24px;
+}
+
+.Comment .replies-container.collapsed .connector {
+  width: 100%;
+}
+
+.Comment .replies-container.collapsed .connector::after {
+  content: "";
+  width: 200px;
+  max-width: 80%;
+  height: 16px;
+  background-color: #f0f2f5;
+  position: absolute;
+  top: 4px;
+  left: 12px;
+  border-radius: 8px;
+}
+
+.Comment .replies-container.collapsed .connector:hover::after {
+  background-color: hsl(216, 20%, 90%);
+}
+
+.Comment .replies-container.collapsed .replies {
+  visibility: hidden;
 }
 
 @keyframes slide-in {

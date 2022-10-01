@@ -2,8 +2,11 @@ import "../styles/Comment.css";
 import { getTimeAgo } from "../scripts/timeConversion";
 import { ArrowUp } from "phosphor-react";
 import { formatBody, formatFlair } from "../scripts/markdown";
+import { useRef } from "react";
 
 function Comment({ comment }) {
+  const repliesRef = useRef(null);
+
   const replies =
     comment.data.replies?.data?.children.filter(
       (comment) => comment.kind !== "more"
@@ -20,6 +23,10 @@ function Comment({ comment }) {
     comment.data.author_flair_richtext
   );
   if (flair) flair = <label className="flair">{flair}</label>;
+
+  function toggleRepliesCollapse() {
+    repliesRef.current.classList.toggle("collapsed");
+  }
 
   return (
     <div className="Comment">
@@ -51,8 +58,8 @@ function Comment({ comment }) {
         {body}
       </div>
       {replies.length ? (
-        <div className="replies-container">
-          <div className="connector" />
+        <div className="replies-container" ref={repliesRef}>
+          <button className="connector" onClick={toggleRepliesCollapse} />
           <div className="replies">
             {replies.map((reply) => (
               <Comment comment={reply} key={reply.data.id} />

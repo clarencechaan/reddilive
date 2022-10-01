@@ -1,5 +1,4 @@
 .ScrollPauseIndicator {
-  width: 200px;
   height: 32px;
   background-color: rgb(0, 0, 0, 0.65);
   position: fixed;
@@ -15,4 +14,5 @@
   font-size: 13px;
   column-gap: 4px;
   border: none;
+  padding: 0 20px 0 16px;
 }
