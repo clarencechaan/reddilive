@@ -8,8 +8,11 @@ import { formatBody, formatFlair, deentitize } from "../scripts/markdown";
 import { getTimeAgo } from "../scripts/timeConversion";
 import { ArrowUp, Chat as ChatIcon } from "phosphor-react";
 import { Link } from "react-router-dom";
+import { useRef } from "react";
 
 function Sidebar({ thread }) {
+  const sidebarRef = useRef(null);
+
   const selftext = formatBody(
     thread?.info?.selftext,
     thread?.info?.media_metadata
@@ -73,12 +76,9 @@ function Sidebar({ thread }) {
             r/{thread.info.subreddit}
           </a>
         </div>
-        <a
-          href={`https://www.reddit.com${thread.info.permalink}`}
-          className="title"
-        >
+        <span onClick={toggleCollapse} className="title">
           {deentitize(thread.info.title)}
-        </a>
+        </span>
         {linkFlair}
       </div>
       <div className="selftext">{selftext}</div>
@@ -93,6 +93,12 @@ function Sidebar({ thread }) {
         >
           <ChatIcon size={16} className="icon" />
           {thread.info.num_comments}
+        </a>
+        <a
+          href={`https://reddit.com${thread.info.permalink}`}
+          className="view-on-reddit"
+        >
+          view on reddit
         </a>
       </div>
     </div>
@@ -127,15 +133,24 @@ function Sidebar({ thread }) {
     </>
   );
 
+  function toggleCollapse() {
+    sidebarRef.current.classList.toggle("collapsed");
+  }
+
   return (
-    <div className="Sidebar">
-      <div className="top-bar">
-        <Link to="/" className="logo">
-          <img src={logo} alt="" />
-        </Link>
-        <Navigator />
+    <div className={"Sidebar" + (thread ? " collapsed" : "")} ref={sidebarRef}>
+      <div className="drawer">
+        <div className="top-bar">
+          <Link to="/" className="logo">
+            <img src={logo} alt="" />
+          </Link>
+          <Navigator />
+        </div>
         {sidebarContent}
       </div>
+      <button className="collapser" onClick={toggleCollapse}>
+        <span>• • • • • • • • •</span>
+      </button>
     </div>
   );
 }

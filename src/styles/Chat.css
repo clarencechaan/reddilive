@@ -16,3 +16,13 @@
   height: 1px;
   overflow-anchor: auto;
 }
+
+@media only screen and (max-width: 400px) {
+  .Chat {
+    padding: 8px 12px;
+  }
+
+  .Chat .connector {
+    margin-left: 0;
+  }
+}
