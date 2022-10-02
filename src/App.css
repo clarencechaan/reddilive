@@ -2,6 +2,10 @@
   height: 100vh;
 }
 
+.dark-mode body {
+  background-color: #18181b;
+}
+
 .hidden {
   visibility: hidden;
 }
@@ -27,10 +31,19 @@ table {
   margin: 8px 0;
 }
 
+.dark-mode table {
+  border: 2px solid #555355;
+}
+
 td,
 th {
   border: 1px solid #e8e2e6;
   padding: 4px 8px;
+}
+
+.dark-mode td,
+.dark-mode th {
+  border: 1px solid #555355;
 }
 
 th {
@@ -63,6 +76,11 @@ blockquote {
   color: rgb(109, 109, 109);
 }
 
+.dark-mode blockquote {
+  color: rgb(154, 154, 154);
+  border-left: 4px solid rgb(86, 86, 86);
+}
+
 .main {
   flex: 2;
   height: 100%;
@@ -70,4 +88,40 @@ blockquote {
   position: relative;
   display: flex;
   flex-direction: column;
+}
+
+.dark-mode .main {
+  background-color: #18181b;
+}
+
+.theme-switch {
+  position: fixed;
+  z-index: 1;
+  top: 6px;
+  right: 6px;
+  cursor: pointer;
+  border: none;
+  background-color: rgba(90, 90, 90, 0.8);
+  color: white;
+  padding: 2px;
+  line-height: 0;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+}
+
+.theme-switch .moon {
+  display: none;
+}
+
+.dark-mode .theme-switch .moon {
+  display: inline-block;
+}
+
+.dark-mode .theme-switch .sun {
+  display: none;
+}
+
+.dark-mode hr {
+  border-color: gray;
 }

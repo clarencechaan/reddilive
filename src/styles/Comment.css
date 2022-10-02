@@ -16,6 +16,11 @@
   max-width: 100%;
 }
 
+.dark-mode .Comment .bubble {
+  background-color: #3b3b3d;
+  color: rgb(239, 239, 241);
+}
+
 .Comment .info {
   display: flex;
   font-size: 12px;
@@ -27,6 +32,10 @@
   color: black;
   text-decoration: none;
   margin-right: 10px;
+}
+
+.dark-mode .Comment .info .author {
+  color: rgb(239, 239, 241);
 }
 
 .Comment .info a.author:hover {
@@ -57,6 +66,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 14px;
+}
+
+.dark-mode .Comment .info .flair {
+  background-color: rgb(100, 100, 100);
+  border: 1px solid rgb(100, 100, 100);
+  color: rgb(239, 239, 241);
 }
 
 .Comment .info .flair .flair-emoji {
@@ -106,8 +121,16 @@
   position: relative;
 }
 
+.dark-mode .Comment .connector {
+  border-left: 1.5px solid #383839;
+}
+
 .Comment .connector:hover {
   border-left: 1.5px solid hsl(216, 20%, 85%);
+}
+
+.dark-mode .Comment .connector:hover {
+  border-left: 1.5px solid #59595b;
 }
 
 .Comment .replies-container {
@@ -143,8 +166,16 @@
   border-radius: 8px;
 }
 
+.dark-mode .Comment .replies-container.collapsed .connector::after {
+  background-color: #3a3b3c;
+}
+
 .Comment .replies-container.collapsed .connector:hover::after {
   background-color: hsl(216, 20%, 90%);
+}
+
+.dark-mode .Comment .replies-container.collapsed .connector:hover::after {
+  background-color: hsl(210, 2%, 27%);
 }
 
 .Comment .replies-container.collapsed .replies {

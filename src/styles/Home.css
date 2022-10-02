@@ -11,6 +11,10 @@
   padding-bottom: 12px;
 }
 
+.dark-mode .Home .Sidebar .arrow {
+  filter: invert();
+}
+
 .Home .Sidebar .how-to-1,
 .Home .Sidebar .how-to-2 {
   font-family: "IndieFlower-Regular";
@@ -20,6 +24,11 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+.dark-mode .Home .Sidebar .how-to-1,
+.dark-mode .Home .Sidebar .how-to-2 {
+  color: rgb(239, 239, 241);
 }
 
 .Home .Sidebar .how-to-2 {
@@ -40,4 +49,16 @@
 
 .Home .Sidebar .url {
   max-width: 100%;
+}
+
+.Home .Sidebar .url.dark {
+  display: none;
+}
+
+.dark-mode .Home .Sidebar .url.dark {
+  display: block;
+}
+
+.dark-mode .Home .Sidebar .url:not(.dark) {
+  display: none;
 }

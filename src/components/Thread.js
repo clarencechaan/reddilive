@@ -7,6 +7,8 @@ import Sidebar from "./Sidebar";
 import "../styles/Thread.css";
 import { deentitize } from "../scripts/markdown";
 
+let refreshing = true;
+
 function Thread() {
   const [thread, setThread] = useState({
     info: null,
@@ -15,7 +17,6 @@ function Thread() {
   });
   const { threadId } = useParams();
   const [loading, setLoading] = useState(false);
-  let refreshing = true;
   let refreshInterval;
 
   useEffect(() => {
@@ -26,6 +27,7 @@ function Thread() {
     });
 
     // refresh thread every few seconds
+    setRefreshing(true);
     refreshThread({ initiate: true });
     clearInterval(refreshInterval);
     refreshInterval = setInterval(refreshThread, 2000);

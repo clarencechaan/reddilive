@@ -19,6 +19,13 @@
   animation: slide-in 0.4s;
 }
 
+.dark-mode .Thread .info-box,
+.dark-mode .Thread .stickied {
+  background-color: #18181b;
+  border-color: #232328;
+  color: rgb(239, 239, 241);
+}
+
 .Thread .Sidebar .info-box .title-bar {
   border-bottom: 1px solid lightgray;
   padding-bottom: 7px;
@@ -29,6 +36,10 @@
   overflow-x: auto;
 }
 
+.dark-mode .Thread .Sidebar .info-box .title-bar {
+  border-bottom: 1px solid gray;
+}
+
 .Thread .Sidebar .info-box .title {
   font-size: 22px;
   margin-bottom: 3px;
@@ -36,6 +47,10 @@
   color: black;
   font-family: "SFUIText-Regular";
   pointer-events: none;
+}
+
+.dark-mode .Thread .Sidebar .info-box .title {
+  color: rgb(239, 239, 241);
 }
 
 .Thread .Sidebar .info-box .title-bar .flair {
@@ -50,6 +65,12 @@
   margin: 0 3px;
 }
 
+.dark-mode .Thread .Sidebar .info-box .title-bar .flair {
+  background-color: rgb(100, 100, 100);
+  border: 1px solid rgb(100, 100, 100);
+  color: rgb(239, 239, 241);
+}
+
 .Thread .Sidebar .info-box .title-bar .by-line .flair-emoji {
   height: 14.5px;
   margin-bottom: -3px;
@@ -60,6 +81,7 @@
   font-size: 12px;
   margin-bottom: 4px;
   display: flex;
+  align-items: center;
   column-gap: 4px;
   flex-wrap: wrap;
 }
@@ -73,9 +95,13 @@
   background-color: rgb(175, 175, 175);
   font-family: "SFUIText-Regular";
   font-size: 14px;
-  color: white;
+  color: rgb(239, 239, 241);
   padding: 1px 6px;
   border-radius: 3px;
+}
+
+.dark-mode .Thread .Sidebar .info-box .title-bar .link-flair {
+  background-color: rgb(100, 100, 100);
 }
 
 .Thread .Sidebar .info-box .title-bar .link-flair .flair-emoji {

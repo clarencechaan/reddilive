@@ -3,6 +3,8 @@ import Navigator from "./Navigator";
 import logo from "../images/logo_small.png";
 import fullUrl from "../images/full_url.png";
 import replacedUrl from "../images/replaced_url.png";
+import fullUrlDark from "../images/full_url_dark.png";
+import replacedUrlDark from "../images/replaced_url_dark.png";
 import arrow from "../images/arrow.png";
 import { formatBody, formatFlair, deentitize } from "../scripts/markdown";
 import { getTimeAgo } from "../scripts/timeConversion";
@@ -123,6 +125,7 @@ function Sidebar({ thread }) {
         <img src={arrow} className="arrow" alt="" />
       </div>
       <img src={fullUrl} className="url" alt="" />
+      <img src={fullUrlDark} className="url dark" alt="" />
       <div className="how-to-2">
         <div className="msg">
           <div className="big">OR</div>
@@ -130,6 +133,7 @@ function Sidebar({ thread }) {
         </div>
       </div>
       <img src={replacedUrl} className="url" alt="" />
+      <img src={replacedUrlDark} className="url dark" alt="" />
     </>
   );
 
