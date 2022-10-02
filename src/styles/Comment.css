@@ -17,7 +17,7 @@
 }
 
 .dark-mode .Comment .bubble {
-  background-color: #3b3b3d;
+  background-color: hsl(240, 5.9%, 23.5%);
   color: rgb(239, 239, 241);
 }
 
@@ -69,8 +69,8 @@
 }
 
 .dark-mode .Comment .info .flair {
-  background-color: rgb(100, 100, 100);
-  border: 1px solid rgb(100, 100, 100);
+  background-color: hsl(240, 5.9%, 39.2%);
+  border: 1px solid hsl(240, 5.9%, 39.2%);
   color: rgb(239, 239, 241);
 }
 
@@ -85,6 +85,12 @@
   min-width: 21px;
   text-align: right;
   font-family: inherit;
+}
+
+.dark-mode .Comment .info .timestamp,
+.dark-mode .Comment .info .score,
+.dark-mode .Comment .info .author.deleted {
+  color: hsl(240, 5.9%, 60%);
 }
 
 .Comment .info .timestamp:hover {

@@ -19,8 +19,8 @@
 }
 
 .dark-mode .Navigator input {
-  background-color: rgb(40, 40, 40);
-  border: 1px solid rgb(55, 55, 55);
+  background-color: hsl(240, 5.9%, 15.7%);
+  border: 1px solid hsl(240, 5.9%, 21.6%);
   color: rgb(239, 239, 241);
 }
 

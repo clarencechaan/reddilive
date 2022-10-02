@@ -66,8 +66,8 @@
 }
 
 .dark-mode .Thread .Sidebar .info-box .title-bar .flair {
-  background-color: rgb(100, 100, 100);
-  border: 1px solid rgb(100, 100, 100);
+  background-color: hsl(240, 5.9%, 39.2%);
+  border: 1px solid hsl(240, 5.9%, 39.2%);
   color: rgb(239, 239, 241);
 }
 
@@ -101,7 +101,7 @@
 }
 
 .dark-mode .Thread .Sidebar .info-box .title-bar .link-flair {
-  background-color: rgb(100, 100, 100);
+  background-color: hsl(240, 5.9%, 39.2%);
 }
 
 .Thread .Sidebar .info-box .title-bar .link-flair .flair-emoji {
