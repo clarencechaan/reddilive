@@ -15,6 +15,7 @@ function Thread() {
   });
   const { threadId } = useParams();
   const [loading, setLoading] = useState(false);
+  let refreshing = true;
   let refreshInterval;
 
   useEffect(() => {
@@ -34,7 +35,15 @@ function Thread() {
     };
   }, [threadId]);
 
+  function setRefreshing(bool) {
+    refreshing = bool;
+    if (refreshing) {
+      refreshThread();
+    }
+  }
+
   async function refreshThread(options) {
+    if (!refreshing) return;
     if (options?.initiate) setLoading(true);
 
     try {
@@ -87,7 +96,7 @@ function Thread() {
     <div className="Thread">
       <Sidebar thread={thread} />
       <div className="main">
-        <Chat comments={thread.comments} />
+        <Chat comments={thread.comments} setRefreshing={setRefreshing} />
         {loading ? <Throbber /> : null}
         {!thread.comments.length && !loading ? (
           <div className="no-comments-msg">No comments found.</div>

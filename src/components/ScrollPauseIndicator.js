@@ -1,11 +1,11 @@
 import "../styles/ScrollPauseIndicator.css";
-import { ArrowLineDown } from "phosphor-react";
+import { Pause } from "phosphor-react";
 
 function ScrollPauseIndicator({ scrollToBottom }) {
   return (
     <button className="ScrollPauseIndicator" onClick={scrollToBottom}>
-      <ArrowLineDown size={18} weight="bold" />
-      Scroll to bottom
+      <Pause size={18} weight="fill" />
+      Chat paused due to scroll
     </button>
   );
 }

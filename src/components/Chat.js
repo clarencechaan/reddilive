@@ -4,8 +4,8 @@ import Comment from "./Comment";
 import ScrollPauseIndicator from "./ScrollPauseIndicator";
 import { useRef } from "react";
 
-function Chat({ comments }) {
-  const [pauseIndicatorVisible, setPauseIndicatorVisible] = useState(false);
+function Chat({ comments, setRefreshing }) {
+  const [chatPaused, setChatPaused] = useState(false);
   const chatRef = useRef(null);
   const anchorRef = useRef(null);
 
@@ -16,8 +16,13 @@ function Chat({ comments }) {
   function chatPausedObserver() {
     let observer = new window.IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) setPauseIndicatorVisible(false);
-        else setPauseIndicatorVisible(true);
+        if (entry.isIntersecting) {
+          setChatPaused(false);
+          setRefreshing(true);
+        } else {
+          setChatPaused(true);
+          setRefreshing(false);
+        }
       },
       {
         root: null,
@@ -41,7 +46,7 @@ function Chat({ comments }) {
         ))}
         <div id="anchor" ref={anchorRef}></div>
       </div>
-      {pauseIndicatorVisible ? (
+      {chatPaused ? (
         <ScrollPauseIndicator scrollToBottom={scrollToBottom} />
       ) : null}
     </div>
