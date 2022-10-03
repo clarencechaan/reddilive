@@ -2,7 +2,8 @@ function getTimeAgo(date, options) {
   if (!date) return "";
 
   const dateObj = new Date(date * 1000 + 9000);
-  const seconds = Math.floor(Date.now() / 1000 - dateObj / 1000);
+  const now = options?.now || Date.now();
+  const seconds = Math.floor(now / 1000 - dateObj / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
   const days = Math.floor(hours / 24);
@@ -48,4 +49,13 @@ function getTimeAgo(date, options) {
   return resultStr;
 }
 
-export { getTimeAgo };
+function getSecondsAgo(date, options) {
+  if (!date) return 0;
+
+  const dateObj = new Date(date * 1000 + 9000);
+  const now = options?.now || Date.now();
+  const seconds = Math.floor(now / 1000 - dateObj / 1000);
+  return seconds;
+}
+
+export { getTimeAgo, getSecondsAgo };

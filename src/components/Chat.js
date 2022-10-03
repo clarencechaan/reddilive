@@ -4,7 +4,7 @@ import Comment from "./Comment";
 import ScrollPauseIndicator from "./ScrollPauseIndicator";
 import { useRef } from "react";
 
-function Chat({ comments, setRefreshing }) {
+function Chat({ comments, setRefreshing, delay }) {
   const [chatPaused, setChatPaused] = useState(false);
   const chatRef = useRef(null);
   const anchorRef = useRef(null);
@@ -42,7 +42,7 @@ function Chat({ comments, setRefreshing }) {
     <div className="Chat" ref={chatRef}>
       <div id="scroller">
         {comments.map((comment) => (
-          <Comment comment={comment} key={comment.data.id} />
+          <Comment comment={comment} key={comment.data.id} delay={delay} />
         ))}
         <div id="anchor" ref={anchorRef}></div>
       </div>

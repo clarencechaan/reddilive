@@ -7,8 +7,6 @@ import Sidebar from "./Sidebar";
 import "../styles/Thread.css";
 import { deentitize } from "../scripts/markdown";
 
-let refreshing = true;
-
 function Thread() {
   const [thread, setThread] = useState({
     info: null,
@@ -18,37 +16,45 @@ function Thread() {
   const { threadId } = useParams();
   const [loading, setLoading] = useState(false);
   const [delay, setDelay] = useState(0);
+  const [refreshing, setRefreshing] = useState(true);
   let refreshInterval;
 
   useEffect(() => {
-    setThread({
-      info: null,
-      stickied: null,
-      comments: [],
-    });
+    async function initiateThread() {
+      setThread({
+        info: null,
+        stickied: null,
+        comments: [],
+      });
 
-    // refresh thread every few seconds
-    setRefreshing(true);
-    refreshThread({ initiate: true });
+      setLoading(true);
+      await refreshThread({ initiate: true });
+      setLoading(false);
+    }
+
+    // initiate thread and create refresh interval
+    initiateThread();
+    const clearRefreshInterval = startRefreshInterval();
+    return clearRefreshInterval;
+  }, [threadId]);
+
+  useEffect(() => {
+    if (!refreshing) return clearInterval(refreshInterval);
+    refreshThread();
+    const clearRefreshInterval = startRefreshInterval();
+    return clearRefreshInterval;
+  }, [refreshing]);
+
+  function startRefreshInterval() {
     clearInterval(refreshInterval);
     refreshInterval = setInterval(refreshThread, 2000);
 
     return () => {
       clearInterval(refreshInterval);
     };
-  }, [threadId]);
-
-  function setRefreshing(bool) {
-    refreshing = bool;
-    if (refreshing) {
-      refreshThread();
-    }
   }
 
   async function refreshThread(options) {
-    if (!refreshing) return;
-    if (options?.initiate) setLoading(true);
-
     try {
       const fetchedThread = await fetchThread(threadId);
       const fetchedComments = fetchedThread[1].data.children
@@ -91,24 +97,38 @@ function Thread() {
       });
       console.log(error);
     }
+  }
 
-    if (options?.initiate) setLoading(false);
+  function addDelay(val) {
+    setDelay((prev) => {
+      if (prev + val > 90) return 90;
+      else if (prev + val < 0) return 0;
+      else return prev + val;
+    });
   }
 
   return (
     <div className="Thread">
       <Sidebar thread={thread} />
       <div className="main">
-        <Chat comments={thread.comments} setRefreshing={setRefreshing} />
+        <Chat
+          comments={thread.comments}
+          setRefreshing={setRefreshing}
+          delay={delay}
+        />
         {loading ? <Throbber /> : null}
         {!thread.comments.length && !loading ? (
           <div className="no-comments-msg">No comments found.</div>
         ) : null}
       </div>
       <div className="delay-rocker">
-        <button className="add5">+</button>
-        <label className="seconds">5s</label>
-        <button className="sub5">-</button>
+        <button className="add5" onClick={() => addDelay(5)}>
+          +
+        </button>
+        <label className="seconds">{delay}s</label>
+        <button className="sub5" onClick={() => addDelay(-5)}>
+          -
+        </button>
       </div>
     </div>
   );

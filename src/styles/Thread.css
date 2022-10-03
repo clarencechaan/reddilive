@@ -214,6 +214,8 @@
   overflow: hidden;
   background-color: hsl(0, 0%, 30%);
   color: white;
+  font-size: 12px;
+  font-family: "SFUIText-Regular";
 }
 
 .dark-mode .Thread .delay-rocker {

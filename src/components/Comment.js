@@ -1,10 +1,10 @@
 import "../styles/Comment.css";
-import { getTimeAgo } from "../scripts/timeConversion";
+import { getTimeAgo, getSecondsAgo } from "../scripts/timeConversion";
 import { ArrowUp } from "phosphor-react";
 import { formatBody, formatFlair } from "../scripts/markdown";
 import { useRef } from "react";
 
-function Comment({ comment }) {
+function Comment({ comment, delay }) {
   const repliesRef = useRef(null);
 
   const replies =
@@ -28,7 +28,7 @@ function Comment({ comment }) {
     repliesRef.current.classList.toggle("collapsed");
   }
 
-  return (
+  return getSecondsAgo(comment.data.created) <= delay ? null : (
     <div className="Comment">
       <div className="bubble">
         <div className="info">
@@ -62,7 +62,7 @@ function Comment({ comment }) {
           <button className="connector" onClick={toggleRepliesCollapse} />
           <div className="replies">
             {replies.map((reply) => (
-              <Comment comment={reply} key={reply.data.id} />
+              <Comment comment={reply} key={reply.data.id} delay={delay} />
             ))}
           </div>
         </div>
