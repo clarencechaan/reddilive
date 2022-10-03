@@ -66,8 +66,8 @@
 }
 
 .dark-mode .Thread .Sidebar .info-box .title-bar .flair {
-  background-color: hsl(240, 5.9%, 39.2%);
-  border: 1px solid hsl(240, 5.9%, 39.2%);
+  background-color: hsl(240, 3%, 39.2%);
+  border: 1px solid hsl(240, 3%, 39.2%);
   color: rgb(239, 239, 241);
 }
 
@@ -101,7 +101,7 @@
 }
 
 .dark-mode .Thread .Sidebar .info-box .title-bar .link-flair {
-  background-color: hsl(240, 5.9%, 39.2%);
+  background-color: hsl(240, 3%, 39.2%);
 }
 
 .Thread .Sidebar .info-box .title-bar .link-flair .flair-emoji {
@@ -163,11 +163,14 @@
 
 .Thread .Sidebar .stickied .body {
   overflow: auto;
+  max-width: 100%;
 }
 
 .Thread .Sidebar .stickied .body .gif {
   border-radius: 8px;
   margin-top: 6px;
+  max-width: 100%;
+  max-height: 256px;
 }
 
 .Thread .Sidebar .not-found-msg {

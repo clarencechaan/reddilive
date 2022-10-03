@@ -17,7 +17,7 @@
 }
 
 .dark-mode .Comment .bubble {
-  background-color: hsl(240, 5.9%, 23.5%);
+  background-color: hsl(240, 3%, 23.5%);
   color: rgb(239, 239, 241);
 }
 
@@ -69,8 +69,8 @@
 }
 
 .dark-mode .Comment .info .flair {
-  background-color: hsl(240, 5.9%, 39.2%);
-  border: 1px solid hsl(240, 5.9%, 39.2%);
+  background-color: hsl(240, 3%, 39.2%);
+  border: 1px solid hsl(240, 3%, 39.2%);
   color: rgb(239, 239, 241);
 }
 
@@ -90,7 +90,7 @@
 .dark-mode .Comment .info .timestamp,
 .dark-mode .Comment .info .score,
 .dark-mode .Comment .info .author.deleted {
-  color: hsl(240, 5.9%, 60%);
+  color: hsl(240, 3%, 60%);
 }
 
 .Comment .info .timestamp:hover {
@@ -107,7 +107,7 @@
 
 .Comment .body .emote {
   height: 18px;
-  margin: 0 1px -3px;
+  margin-bottom: -4px;
 }
 
 .Comment .body .gif {
@@ -179,7 +179,7 @@
 }
 
 .dark-mode .Comment .replies-container.collapsed .connector::after {
-  background-color: hsl(240, 5.9%, 23.5%);
+  background-color: hsl(240, 3%, 23.5%);
 }
 
 .Comment .replies-container.collapsed .connector:hover::after {
@@ -187,7 +187,7 @@
 }
 
 .dark-mode .Comment .replies-container.collapsed .connector:hover::after {
-  background-color: hsl(240, 5.9%, 27%);
+  background-color: hsl(240, 3%, 27%);
 }
 
 .Comment .replies-container.collapsed .replies {
