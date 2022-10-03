@@ -36,20 +36,23 @@ function Thread() {
 
     // initiate thread and create refresh interval
     initiateThread();
-    const clearRefreshInterval = startRefreshInterval();
+    const clearRefreshInterval = startRefreshInterval(delay);
     return clearRefreshInterval;
   }, [threadId]);
 
   useEffect(() => {
-    if (!refreshing) return clearInterval(refreshInterval);
-    refreshThread();
-    const clearRefreshInterval = startRefreshInterval();
-    return clearRefreshInterval;
+    if (refreshing) refreshThread();
   }, [refreshing]);
 
-  function startRefreshInterval() {
+  useEffect(() => {
+    if (!refreshing) return clearInterval(refreshInterval);
+    const clearRefreshInterval = startRefreshInterval(delay);
+    return clearRefreshInterval;
+  }, [refreshing, delay]);
+
+  function startRefreshInterval(delay) {
     clearInterval(refreshInterval);
-    refreshInterval = setInterval(refreshThread, 5000);
+    refreshInterval = setInterval(refreshThread, delay * 1000 || 2000);
 
     return () => {
       clearInterval(refreshInterval);
