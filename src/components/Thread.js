@@ -49,7 +49,7 @@ function Thread() {
 
   function startRefreshInterval() {
     clearInterval(refreshInterval);
-    refreshInterval = setInterval(refreshThread, 2000);
+    refreshInterval = setInterval(refreshThread, 5000);
 
     return () => {
       clearInterval(refreshInterval);

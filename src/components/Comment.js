@@ -4,7 +4,7 @@ import { ArrowUp } from "phosphor-react";
 import { formatBody, formatFlair } from "../scripts/markdown";
 import { useRef } from "react";
 
-function Comment({ comment, delay }) {
+function Comment({ comment, delay, now }) {
   const repliesRef = useRef(null);
 
   const replies =
@@ -28,7 +28,7 @@ function Comment({ comment, delay }) {
     repliesRef.current.classList.toggle("collapsed");
   }
 
-  return getSecondsAgo(comment.data.created) <= delay ? null : (
+  return getSecondsAgo(comment.data.created, { now }) <= delay ? null : (
     <div className="Comment">
       <div className="bubble">
         <div className="info">
@@ -52,19 +52,19 @@ function Comment({ comment, delay }) {
             href={`https://reddit.com${comment.data.permalink}`}
             className="timestamp"
           >
-            {getTimeAgo(comment.data.created)}
+            {getTimeAgo(comment.data.created, { now })}
           </a>
         </div>
         {body}
       </div>
       {replies.length ? (
         <div className="replies-container" ref={repliesRef}>
-          <button className="connector" onClick={toggleRepliesCollapse} />
           <div className="replies">
             {replies.map((reply) => (
               <Comment comment={reply} key={reply.data.id} delay={delay} />
             ))}
           </div>
+          <button className="connector" onClick={toggleRepliesCollapse} />
         </div>
       ) : null}
     </div>

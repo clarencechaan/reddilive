@@ -7,10 +7,18 @@ import { useRef } from "react";
 function Chat({ comments, refreshing, setRefreshing, delay }) {
   const chatRef = useRef(null);
   const anchorRef = useRef(null);
+  const [now, setNow] = useState(Date.now());
 
   useEffect(() => {
+    const nowInterval = setInterval(() => {
+      setNow(Date.now());
+    }, 1000);
+
     const unobserveAnchor = observeAnchor();
-    return unobserveAnchor;
+    return () => {
+      clearInterval(nowInterval);
+      unobserveAnchor();
+    };
   }, []);
 
   function observeAnchor() {
@@ -41,7 +49,12 @@ function Chat({ comments, refreshing, setRefreshing, delay }) {
     <div className="Chat" ref={chatRef}>
       <div id="scroller">
         {comments.map((comment) => (
-          <Comment comment={comment} key={comment.data.id} delay={delay} />
+          <Comment
+            comment={comment}
+            key={comment.data.id}
+            delay={delay}
+            now={now}
+          />
         ))}
         <div id="anchor" ref={anchorRef}></div>
       </div>
