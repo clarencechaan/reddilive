@@ -119,6 +119,7 @@ function Thread() {
       <div className="main">
         <Chat
           comments={thread.comments}
+          refreshing={refreshing}
           setRefreshing={setRefreshing}
           delay={delay}
         />
