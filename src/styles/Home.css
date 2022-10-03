@@ -26,11 +26,6 @@
   text-align: center;
 }
 
-.dark-mode .Home .Sidebar .how-to-1,
-.dark-mode .Home .Sidebar .how-to-2 {
-  color: rgb(239, 239, 241);
-}
-
 .Home .Sidebar .how-to-2 {
   flex-direction: column;
 }
@@ -61,4 +56,40 @@
 
 .dark-mode .Home .Sidebar .url:not(.dark) {
   display: none;
+}
+
+.Home .main {
+  align-items: center;
+  justify-content: center;
+}
+
+.Home .main .logo {
+  width: min(600px, 80%);
+}
+
+.Home .main .tag-line {
+  margin-top: 12px;
+  font-size: 32px;
+}
+
+.Home .main .me {
+  font-size: 16px;
+  margin-top: 72px;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  color: inherit;
+  font-family: inherit;
+}
+
+.Home .main .me:hover {
+  text-decoration: none;
+}
+
+.Home .main .me .github {
+  height: 32px;
+}
+
+.dark-mode .Home .main .me .github {
+  filter: invert();
 }
