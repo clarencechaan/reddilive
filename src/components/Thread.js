@@ -15,7 +15,9 @@ function Thread() {
   });
   const { threadId } = useParams();
   const [loading, setLoading] = useState(false);
-  const [delay, setDelay] = useState(0);
+  const [delay, setDelay] = useState(
+    parseInt(localStorage.getItem("delay")) || 0
+  );
   const [refreshing, setRefreshing] = useState(true);
   let refreshInterval;
 
@@ -101,9 +103,13 @@ function Thread() {
 
   function addDelay(val) {
     setDelay((prev) => {
-      if (prev + val > 90) return 90;
-      else if (prev + val < 0) return 0;
-      else return prev + val;
+      let newDelay;
+      if (prev + val > 90) newDelay = 90;
+      else if (prev + val < 0) newDelay = 0;
+      else newDelay = prev + val;
+
+      localStorage.setItem("delay", newDelay);
+      return newDelay;
     });
   }
 
