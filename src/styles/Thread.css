@@ -185,10 +185,11 @@
   color: rgb(239, 239, 241);
 }
 
-.Thread .main .Throbber {
-  position: absolute;
+.Thread .Throbber {
+  position: fixed;
   bottom: 50px;
   right: 50px;
+  z-index: 2;
 }
 
 .Thread .main .no-comments-msg {
@@ -203,7 +204,7 @@
 
 .Thread .delay-rocker {
   position: fixed;
-  z-index: 2;
+  z-index: 1;
   top: 52px;
   right: 18px;
   width: 28px;

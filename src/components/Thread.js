@@ -123,7 +123,6 @@ function Thread() {
           setRefreshing={setRefreshing}
           delay={delay}
         />
-        {loading ? <Throbber /> : null}
         {!thread.comments.length && !loading ? (
           <div className="no-comments-msg">No comments found.</div>
         ) : null}
@@ -137,6 +136,7 @@ function Thread() {
           -
         </button>
       </div>
+      {loading ? <Throbber /> : null}
     </div>
   );
 }

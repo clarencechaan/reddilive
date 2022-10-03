@@ -91,12 +91,17 @@
     position: absolute;
     z-index: 2;
     transition: transform 0.5s;
+    opacity: 0.9999999;
   }
 
   .SidebarContainer:not(.collapsed) .overlay {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: hsl(218, 50%, 10%, 0.2);
     backdrop-filter: blur(10px);
     pointer-events: initial;
+  }
+
+  .dark-mode .SidebarContainer:not(.collapsed) .overlay {
+    background-color: rgba(0, 0, 0, 0.2);
   }
 
   .SidebarContainer.collapsed .Sidebar {
