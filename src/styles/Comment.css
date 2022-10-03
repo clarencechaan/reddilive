@@ -179,7 +179,7 @@
 }
 
 .dark-mode .Comment .replies-container.collapsed .connector::after {
-  background-color: #3a3b3c;
+  background-color: hsl(240, 5.9%, 23.5%);
 }
 
 .Comment .replies-container.collapsed .connector:hover::after {
@@ -187,7 +187,7 @@
 }
 
 .dark-mode .Comment .replies-container.collapsed .connector:hover::after {
-  background-color: hsl(210, 2%, 27%);
+  background-color: hsl(240, 5.9%, 27%);
 }
 
 .Comment .replies-container.collapsed .replies {
