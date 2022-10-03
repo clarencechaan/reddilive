@@ -17,6 +17,7 @@ function Thread() {
   });
   const { threadId } = useParams();
   const [loading, setLoading] = useState(false);
+  const [delay, setDelay] = useState(0);
   let refreshInterval;
 
   useEffect(() => {
@@ -103,6 +104,11 @@ function Thread() {
         {!thread.comments.length && !loading ? (
           <div className="no-comments-msg">No comments found.</div>
         ) : null}
+      </div>
+      <div className="delay-rocker">
+        <button className="add5">+</button>
+        <label className="seconds">5s</label>
+        <button className="sub5">-</button>
       </div>
     </div>
   );
