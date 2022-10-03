@@ -64,12 +64,17 @@
 }
 
 .Home .main .logo {
-  width: min(600px, 80%);
+  width: min(600px, 100%);
+  padding: 0 16px;
+  box-sizing: border-box;
+  filter: drop-shadow(0 0 100px rgba(255, 255, 255, 0.3));
 }
 
 .Home .main .tag-line {
   margin-top: 12px;
   font-size: 32px;
+  padding: 0 20px;
+  text-align: center;
 }
 
 .Home .main .me {

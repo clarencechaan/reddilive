@@ -118,14 +118,16 @@
 }
 
 .Comment .connector {
-  margin-left: 4px;
-  min-width: 10px;
+  margin: 0 0 6px 4px;
+  min-width: 13.5px;
   background-color: transparent;
   border: none;
   border-left: 1.5px solid #e2e4e7;
-  margin-bottom: 6px;
   cursor: pointer;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
 }
 
 .dark-mode .Comment .connector {
@@ -162,20 +164,17 @@
   height: 24px;
 }
 
-.Comment .replies-container.collapsed .connector {
-  width: 100%;
-}
-
 .Comment .replies-container.collapsed .connector::after {
-  content: "";
-  width: 200px;
-  max-width: 80%;
-  height: 16px;
+  content: "• • •";
+  padding: 0 16px;
+  min-height: 16px;
   background-color: #f0f2f5;
-  position: absolute;
-  top: 4px;
-  left: 12px;
   border-radius: 8px;
+  color: gray;
+  margin-left: 12px;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
 }
 
 .dark-mode .Comment .replies-container.collapsed .connector::after {
@@ -197,5 +196,11 @@
 @keyframes slide-in {
   from {
     transform: translateX(-100%);
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .Comment .connector {
+    margin-left: 0;
   }
 }
