@@ -2,7 +2,7 @@ import "./App.css";
 import Thread from "./components/Thread";
 import Home from "./components/Home";
 import { Routes, Route } from "react-router-dom";
-import { Moon, Sun } from "phosphor-react";
+import { Moon, SunDim } from "phosphor-react";
 import { useState } from "react";
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
     <div className={"App" + (darkMode ? " dark-mode" : "")}>
       <button className="theme-switch" onClick={handleThemeSwitchClicked}>
         <Moon size={24} weight="fill" className="moon" />
-        <Sun size={22} weight="fill" className="sun" />
+        <SunDim size={24} weight="bold" className="sun" />
       </button>
       <Routes>
         <Route path="/r/:subreddit/comments/:threadId/*" element={<Thread />} />
