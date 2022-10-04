@@ -16,10 +16,6 @@ function App() {
             path="/r/:subreddit/comments/:threadId/*"
             element={<Thread />}
           />
-          <Route
-            path="/comments/:threadId/popout"
-            element={<Thread popout={true} />}
-          />
           <Route path="/comments/:threadId" element={<Thread />} />
           <Route path="/*" element={<Home />} />
         </Routes>

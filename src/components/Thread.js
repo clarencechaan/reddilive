@@ -146,7 +146,16 @@ function Thread({ popout }) {
           </button>
         </div>
         <ThemeSwitch />
-        <button className="popout-chat">
+        <button
+          className="popout-chat"
+          onClick={() => {
+            window.open(
+              window.location.href,
+              "name",
+              "height=600px,width=400px"
+            );
+          }}
+        >
           <ArrowSquareOut size={19} weight="bold" />
         </button>
       </div>
