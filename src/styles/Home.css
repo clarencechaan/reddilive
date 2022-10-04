@@ -98,3 +98,10 @@
 .dark-mode .Home .main .me .github {
   filter: invert();
 }
+
+.Home .main .ThemeSwitch {
+  position: fixed;
+  z-index: 1;
+  top: 12px;
+  right: 18px;
+}

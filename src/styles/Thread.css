@@ -217,6 +217,9 @@
   align-items: center;
   row-gap: 4px;
   color: white;
+  max-height: 28px;
+  transition: 0.5s;
+  overflow: hidden;
 }
 
 .Thread .settings button {
@@ -246,22 +249,23 @@
   filter: brightness(1);
 }
 
-.Thread .settings > *:not(.gear) {
-  visibility: hidden;
-}
-
-.Thread .settings:focus-within > * {
-  visibility: visible;
-}
-
 .Thread .settings .gear {
-  height: 28px;
+  min-height: 28px;
   border-radius: 14px;
+}
+
+.Thread .settings:focus-within {
+  max-height: 164px;
+}
+
+.Thread .settings:focus-within .gear {
+  filter: brightness(0.75);
+  cursor: initial;
 }
 
 .Thread .settings .delay-rocker {
   width: 28px;
-  height: 68px;
+  min-height: 68px;
   border-radius: 14px;
   display: flex;
   flex-direction: column;
@@ -290,7 +294,7 @@
 }
 
 .Thread .popout-chat {
-  height: 28px;
+  min-height: 28px;
   border-radius: 14px;
 }
 
