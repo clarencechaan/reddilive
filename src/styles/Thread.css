@@ -205,60 +205,97 @@
   color: rgb(239, 239, 241);
 }
 
-.Thread .delay-rocker {
+.Thread .settings {
   position: fixed;
   z-index: 1;
-  top: 52px;
+  top: 12px;
   right: 18px;
+  width: 28px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 4px;
+  color: white;
+}
+
+.Thread .settings button {
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color: hsl(0, 0%, 35%);
+  font-family: inherit;
+  color: inherit;
+  width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark-mode .Thread .settings button {
+  background-color: hsl(0, 0%, 90%);
+  color: hsl(0, 0%, 20%);
+}
+
+.Thread .settings button:hover {
+  filter: brightness(1.2);
+}
+
+.Thread .settings button:active {
+  filter: brightness(1);
+}
+
+.Thread .settings > *:not(.gear) {
+  visibility: hidden;
+}
+
+.Thread .settings:focus-within > * {
+  visibility: visible;
+}
+
+.Thread .settings .gear {
+  height: 28px;
+  border-radius: 14px;
+}
+
+.Thread .settings .delay-rocker {
   width: 28px;
   height: 68px;
   border-radius: 14px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: hsl(0, 0%, 30%);
-  color: white;
   font-size: 12px;
   font-family: "SFUIText-Regular";
+  background-color: hsl(0, 0%, 30%);
 }
 
-.dark-mode .Thread .delay-rocker {
+.dark-mode .Thread .settings .delay-rocker {
   background-color: hsl(0, 0%, 80%);
   color: hsl(0, 0%, 30%);
 }
 
-.Thread .delay-rocker button {
-  padding: 0;
-  border: none;
-  background-color: transparent;
-  font-family: inherit;
+.Thread .settings .delay-rocker button {
   font-size: 16px;
-  color: white;
   line-height: 0;
   flex: 3;
-  box-sizing: border-box;
-  cursor: pointer;
-  background-color: hsl(0, 0%, 35%);
 }
 
-.dark-mode .Thread .delay-rocker button {
-  background-color: hsl(0, 0%, 90%);
-  color: hsl(0, 0%, 30%);
-}
-
-.Thread .delay-rocker button:hover {
-  filter: brightness(1.2);
-}
-
-.Thread .delay-rocker button:active {
-  filter: brightness(1);
-}
-
-.Thread .delay-rocker .seconds {
+.Thread .settings .delay-rocker .seconds {
   flex: 4;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.Thread .popout-chat {
+  height: 28px;
+  border-radius: 14px;
+}
+
+.Thread.popout .SidebarContainer {
+  display: none;
 }
 
 @media only screen and (max-width: 960px) {

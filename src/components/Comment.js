@@ -60,7 +60,7 @@ function Comment({ comment, delay, now }) {
       {replies.length ? (
         <div className="replies-container" ref={repliesRef}>
           <div className="replies">
-            {replies.map((reply) => (
+            {[...replies].reverse().map((reply) => (
               <Comment comment={reply} key={reply.data.id} delay={delay} />
             ))}
           </div>

@@ -67,12 +67,12 @@
   width: min(600px, 100%);
   padding: 0 16px;
   box-sizing: border-box;
-  filter: drop-shadow(0 0 100px rgba(255, 255, 255, 0.3));
+  filter: drop-shadow(0 0 80px rgba(255, 255, 255, 0.25));
 }
 
 .Home .main .tag-line {
   margin-top: 12px;
-  font-size: 32px;
+  font-size: min(7vw, 32px);
   padding: 0 20px;
   text-align: center;
 }

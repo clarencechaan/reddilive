@@ -4,10 +4,12 @@ import { fetchThread } from "../api";
 import Chat from "./Chat";
 import Throbber from "./Throbber";
 import Sidebar from "./Sidebar";
+import ThemeSwitch from "./ThemeSwitch";
 import "../styles/Thread.css";
 import { deentitize } from "../scripts/markdown";
+import { Gear, ArrowSquareOut } from "phosphor-react";
 
-function Thread() {
+function Thread({ popout }) {
   const [thread, setThread] = useState({
     info: null,
     stickied: null,
@@ -117,7 +119,7 @@ function Thread() {
   }
 
   return (
-    <div className="Thread">
+    <div className={"Thread" + (popout ? " popout" : "")}>
       <Sidebar thread={thread} />
       <div className="main">
         <Chat
@@ -130,13 +132,22 @@ function Thread() {
           <div className="no-comments-msg">No comments found.</div>
         ) : null}
       </div>
-      <div className="delay-rocker">
-        <button className="add5" onClick={() => addDelay(5)}>
-          +
+      <div className="settings" tabIndex={-1}>
+        <button className="gear">
+          <Gear size={23} weight="fill" />
         </button>
-        <label className="seconds">{delay}s</label>
-        <button className="sub5" onClick={() => addDelay(-5)}>
-          -
+        <div className="delay-rocker">
+          <button className="add5" onClick={() => addDelay(5)}>
+            +
+          </button>
+          <label className="seconds">{delay}s</label>
+          <button className="sub5" onClick={() => addDelay(-5)}>
+            -
+          </button>
+        </div>
+        <ThemeSwitch />
+        <button className="popout-chat">
+          <ArrowSquareOut size={19} weight="bold" />
         </button>
       </div>
       {loading ? <Throbber /> : null}

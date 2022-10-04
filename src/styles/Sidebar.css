@@ -112,7 +112,7 @@
     display: block;
   }
 
-  .main {
+  .Thread:not(.popout) .main {
     padding-left: 16px;
   }
 }
