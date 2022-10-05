@@ -7,7 +7,7 @@ import Sidebar from "./Sidebar";
 import ThemeSwitch from "./ThemeSwitch";
 import "../styles/Thread.css";
 import { deentitize } from "../scripts/markdown";
-import { Gear, ArrowSquareOut } from "phosphor-react";
+import { GearSix, ArrowSquareOut } from "phosphor-react";
 
 function Thread({ popout }) {
   const [thread, setThread] = useState({
@@ -134,7 +134,7 @@ function Thread({ popout }) {
       </div>
       <div className="settings" tabIndex={-1}>
         <button className="gear">
-          <Gear size={23} weight="fill" />
+          <GearSix size={24} weight="fill" />
         </button>
         <div className="delay-rocker">
           <button className="add5" onClick={() => addDelay(5)}>
