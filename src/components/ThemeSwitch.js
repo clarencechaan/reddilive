@@ -8,8 +8,8 @@ function ThemeSwitch() {
 
   function handleThemeSwitchClicked() {
     setDarkMode((prev) => {
-      if (prev) localStorage.setItem("dark-mode", "");
-      else localStorage.setItem("dark-mode", true);
+      if (prev) localStorage.setItem("dark_mode", "");
+      else localStorage.setItem("dark_mode", true);
       return !prev;
     });
   }

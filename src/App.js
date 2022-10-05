@@ -6,7 +6,7 @@ import ThemeContext from "./ThemeContext";
 import { useState } from "react";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(localStorage.getItem("dark-mode"));
+  const [darkMode, setDarkMode] = useState(localStorage.getItem("dark_mode"));
 
   return (
     <div className={"App" + (darkMode ? " dark-mode" : "")}>

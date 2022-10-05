@@ -39,11 +39,11 @@ async function fetchToken() {
 }
 
 function getDeviceIdLocalStorage() {
-  return localStorage.getItem("deviceId");
+  return localStorage.getItem("device_id");
 }
 
 function setDeviceIdLocalStorage(deviceId) {
-  localStorage.setItem("deviceId", deviceId);
+  localStorage.setItem("device_id", deviceId);
 }
 
 export { fetchToken };

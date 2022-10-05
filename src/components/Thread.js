@@ -136,6 +136,7 @@ function Thread({ popout }) {
         <button className="gear">
           <GearSix size={24} weight="fill" />
         </button>
+        <ThemeSwitch />
         <div className="delay-rocker">
           <button className="add5" onClick={() => addDelay(5)}>
             +
@@ -145,7 +146,6 @@ function Thread({ popout }) {
             -
           </button>
         </div>
-        <ThemeSwitch />
         <button
           className="popout-chat"
           onClick={() => {

@@ -14,8 +14,8 @@ function Home() {
         <a href="https://github.com/clarencechaan" className="me">
           by Clarence Chan <img src={github} className="github" alt="" />
         </a>
-        <ThemeSwitch />
       </div>
+      <ThemeSwitch />
     </div>
   );
 }

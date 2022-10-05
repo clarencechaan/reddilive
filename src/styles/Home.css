@@ -99,7 +99,7 @@
   filter: invert();
 }
 
-.Home .main .ThemeSwitch {
+.Home .ThemeSwitch {
   position: fixed;
   z-index: 1;
   top: 12px;
