@@ -190,7 +190,7 @@
 
 .Thread .Throbber {
   position: fixed;
-  bottom: 50px;
+  bottom: 75px;
   right: 50px;
   z-index: 2;
 }
@@ -209,7 +209,7 @@
   position: fixed;
   z-index: 1;
   top: 12px;
-  right: 18px;
+  right: 16px;
   width: 28px;
   border-radius: 14px;
   display: flex;

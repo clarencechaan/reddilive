@@ -48,11 +48,20 @@ function Chat({ comments, refreshing, setRefreshing, delay }) {
 
   return (
     <div className="Chat">
-      <input
-        type="text"
-        className="comment-input"
-        placeholder="Write a comment..."
-      />
+      {user ? (
+        <input
+          type="text"
+          className="comment-input"
+          placeholder="Write a comment..."
+        />
+      ) : (
+        <input
+          type="text"
+          className="comment-input"
+          placeholder="Log in to comment..."
+          disabled
+        />
+      )}
       <div className="chat-box" ref={chatRef}>
         <div id="scroller">
           {comments.map((comment) => (

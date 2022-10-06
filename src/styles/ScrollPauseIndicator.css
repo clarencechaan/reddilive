@@ -1,8 +1,8 @@
 .ScrollPauseIndicator {
   height: 32px;
-  background-color: rgba(0, 0, 0, 0.65);
+  background-color: transparent;
   position: fixed;
-  bottom: 48px;
+  bottom: 60px;
   align-self: center;
   display: flex;
   align-items: center;
@@ -15,5 +15,5 @@
   column-gap: 4px;
   border: none;
   padding: 0 16px;
-  backdrop-filter: blur(20px);
+  backdrop-filter: brightness(0.5) blur(10px);
 }

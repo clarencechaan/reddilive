@@ -15,7 +15,7 @@ function LogInBtn({ threadId }) {
 
   return user ? (
     <div className="LogInBtn">
-      <label className="username">{user}</label>
+      <label className="username">{user}</label>|
       <a href="#" onClick={handleLogOutBtnClicked}>
         log out
       </a>
