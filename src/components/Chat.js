@@ -8,19 +8,24 @@ function Chat({ comments, refreshing, setRefreshing, delay }) {
   const chatRef = useRef(null);
   const anchorRef = useRef(null);
   const [now, setNow] = useState(Date.now());
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  let nowInterval;
 
   useEffect(() => {
-    const nowInterval = setInterval(() => {
+    const unobserveAnchor = observeAnchor();
+    return unobserveAnchor;
+  }, []);
+
+  useEffect(() => {
+    if (!refreshing) return clearInterval(nowInterval);
+    nowInterval = setInterval(() => {
       setNow(Date.now());
     }, 1000);
 
-    const unobserveAnchor = observeAnchor();
     return () => {
       clearInterval(nowInterval);
-      unobserveAnchor();
     };
-  }, []);
+  }, [refreshing]);
 
   function observeAnchor() {
     let observer = new window.IntersectionObserver(
