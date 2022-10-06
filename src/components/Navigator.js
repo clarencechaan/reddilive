@@ -9,7 +9,6 @@ function Navigator() {
   function handleNavigatorSubmitted(e) {
     e.preventDefault();
     const text = e.target[0].value;
-    const idx = text.indexOf("/comments/");
     let textId = "";
 
     if (text.includes("/comments/")) {

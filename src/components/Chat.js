@@ -1,13 +1,14 @@
 import "../styles/Chat.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import Comment from "./Comment";
 import ScrollPauseIndicator from "./ScrollPauseIndicator";
-import { useRef } from "react";
+import UserContext from "../UserContext";
 
 function Chat({ comments, refreshing, setRefreshing, delay }) {
   const chatRef = useRef(null);
   const anchorRef = useRef(null);
   const [now, setNow] = useState(Date.now());
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     const nowInterval = setInterval(() => {
@@ -46,21 +47,28 @@ function Chat({ comments, refreshing, setRefreshing, delay }) {
   }
 
   return (
-    <div className="Chat" ref={chatRef}>
-      <div id="scroller">
-        {comments.map((comment) => (
-          <Comment
-            comment={comment}
-            key={comment.data.id}
-            delay={delay}
-            now={now}
-          />
-        ))}
-        <div id="anchor" ref={anchorRef}></div>
+    <div className="Chat">
+      <input
+        type="text"
+        className="comment-input"
+        placeholder="Write a comment..."
+      />
+      <div className="chat-box" ref={chatRef}>
+        <div id="scroller">
+          {comments.map((comment) => (
+            <Comment
+              comment={comment}
+              key={comment.data.id}
+              delay={delay}
+              now={now}
+            />
+          ))}
+          <div id="anchor" ref={anchorRef}></div>
+        </div>
+        {refreshing ? null : (
+          <ScrollPauseIndicator scrollToBottom={scrollToBottom} />
+        )}
       </div>
-      {refreshing ? null : (
-        <ScrollPauseIndicator scrollToBottom={scrollToBottom} />
-      )}
     </div>
   );
 }

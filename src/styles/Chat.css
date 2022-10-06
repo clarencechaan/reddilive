@@ -1,25 +1,55 @@
 .Chat {
   overflow: auto;
-  display: flex;
-  flex-direction: column-reverse;
-  padding: 16px;
-  position: relative;
   height: 100%;
   box-sizing: border-box;
-  overflow: overlay;
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
-.Chat #scroller * {
+.Chat .chat-box {
+  display: flex;
+  flex-direction: column-reverse;
+  flex: 1;
+  overflow: overlay;
+  padding: 0 16px;
+}
+
+.Chat .chat-box #scroller * {
   overflow-anchor: none;
 }
 
-.Chat #anchor {
+.Chat .chat-box #anchor {
   height: 1px;
   overflow-anchor: auto;
 }
 
+.Chat .comment-input {
+  height: 26px;
+  border: 1px solid rgb(170, 170, 170);
+  border-radius: 13px;
+  margin: 12px 16px;
+  font-family: inherit;
+  padding: 0 10px;
+  font-size: inherit;
+}
+
+.dark-mode .Chat .comment-input {
+  background-color: hsl(240, 3%, 15.7%);
+  border: 1px solid hsl(240, 3%, 21.6%);
+  color: inherit;
+}
+
+.Chat .comment-input:focus {
+  outline: none;
+}
+
 @media only screen and (max-width: 400px) {
-  .Chat {
-    padding: 8px 12px;
+  .Chat .chat-box {
+    padding: 0 12px;
+  }
+
+  .Chat .comment-input {
+    margin: 12px 12px;
   }
 }

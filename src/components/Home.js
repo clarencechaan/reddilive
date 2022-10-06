@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 import ThemeSwitch from "./ThemeSwitch";
 import logo from "../images/logo.png";
 import github from "../images/github.png";
+import LogInBtn from "./LogInBtn";
 
 function Home() {
   return (
@@ -16,6 +17,7 @@ function Home() {
         </a>
       </div>
       <ThemeSwitch />
+      <LogInBtn />
     </div>
   );
 }

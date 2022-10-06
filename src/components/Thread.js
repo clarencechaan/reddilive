@@ -5,6 +5,7 @@ import Chat from "./Chat";
 import Throbber from "./Throbber";
 import Sidebar from "./Sidebar";
 import ThemeSwitch from "./ThemeSwitch";
+import LogInBtn from "./LogInBtn";
 import "../styles/Thread.css";
 import { deentitize } from "../scripts/markdown";
 import { GearSix, ArrowSquareOut } from "phosphor-react";
@@ -89,6 +90,8 @@ function Thread({ popout }) {
           else result.comments.push(comment);
         }
 
+        result.comments = result.comments.slice(-200);
+
         return result;
       });
 
@@ -159,6 +162,7 @@ function Thread({ popout }) {
           <ArrowSquareOut size={19} weight="bold" />
         </button>
       </div>
+      <LogInBtn threadId={threadId} />
       {loading ? <Throbber /> : null}
     </div>
   );

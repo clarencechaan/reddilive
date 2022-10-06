@@ -1,0 +1,16 @@
+.LogInBtn {
+  position: fixed;
+  z-index: 1;
+  border: none;
+  top: 17px;
+  right: 54px;
+  padding: 0;
+}
+
+.LogInBtn .username {
+  margin-right: 8px;
+}
+
+.LogInBtn a {
+  color: inherit;
+}
