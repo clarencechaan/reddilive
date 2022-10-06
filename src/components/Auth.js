@@ -18,7 +18,7 @@ function Auth() {
         );
         const username = await fetchMe();
         localStorage.setItem("username", username);
-        localStorage.setItem("refresh_token", tokens.refresh_token);
+        localStorage.setItem("refresh_token", tokens.refreshToken);
         setUser(username);
       } catch (error) {
         console.log("error", error);

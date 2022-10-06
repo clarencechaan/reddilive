@@ -34,4 +34,30 @@ async function fetchMe() {
   }
 }
 
-export { fetchThread, fetchMe };
+async function upvoteComment(id, dir) {
+  const url = `https://oauth.reddit.com/api/vote`;
+
+  const form = new URLSearchParams({
+    id,
+    dir,
+  }).toString();
+
+  try {
+    const token = await getUserToken();
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Bearer ${token}`,
+      },
+      body: form,
+    });
+
+    const resObj = await res.json();
+    return resObj;
+  } catch (error) {
+    console.log("error", error);
+  }
+}
+
+export { fetchThread, fetchMe, upvoteComment };

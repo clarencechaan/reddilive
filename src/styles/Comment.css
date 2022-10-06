@@ -53,7 +53,6 @@
   color: gray;
   margin-right: 8px;
   column-gap: 2px;
-  min-width: 25px;
 }
 
 .Comment .info .flair {
@@ -207,6 +206,16 @@
   padding: 0;
   line-height: 0;
   cursor: pointer;
+}
+
+.Comment .score.upvoted .upvote,
+.Comment .score.upvoted .num {
+  color: rgb(255, 69, 0);
+}
+
+.Comment .score.downvoted .downvote,
+.Comment .score.downvoted .num {
+  color: rgb(113, 147, 255);
 }
 
 @keyframes slide-in {

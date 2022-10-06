@@ -9,7 +9,8 @@ let userToken;
 
 async function getToken() {
   try {
-    return token || (await fetchToken());
+    if (localStorage.getItem("refresh_token")) return getUserToken();
+    else return token || (await fetchToken());
   } catch (error) {
     console.log("error", error);
   }

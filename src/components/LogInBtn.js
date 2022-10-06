@@ -25,7 +25,9 @@ function LogInBtn({ threadId }) {
       <a
         href={`https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=code&duration=permanent&state={"threadId":"${
           threadId || ""
-        }"}&redirect_uri=${window.location.origin}/auth&scope=identity vote`}
+        }"}&redirect_uri=${
+          window.location.origin
+        }/auth&scope=identity vote read`}
       >
         log in
       </a>

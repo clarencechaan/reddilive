@@ -2,12 +2,16 @@ import "../styles/Comment.css";
 import { getTimeAgo, getSecondsAgo } from "../scripts/timeConversion";
 import { ArrowUp, ArrowDown, ChatsCircle } from "phosphor-react";
 import { formatBody, formatFlair } from "../scripts/markdown";
-import { useRef, useContext } from "react";
+import { useRef, useContext, useState } from "react";
 import UserContext from "../UserContext";
+import { upvoteComment } from "../api";
 
 function Comment({ comment, delay, now }) {
   const repliesRef = useRef(null);
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const [likes, setLikes] = useState(comment.data.likes);
+
+  if (comment.data.author === "Hydro2010") console.log(comment.data.likes);
 
   const replies =
     comment.data.replies?.data?.children.filter(
@@ -30,14 +34,42 @@ function Comment({ comment, delay, now }) {
     repliesRef.current.classList.toggle("collapsed");
   }
 
+  function handleUpvoteClicked() {
+    setLikes((prev) => {
+      const result = prev === true ? null : true;
+      const dir = result == true ? 1 : 0;
+      upvoteComment(`t1_${comment.data.id}`, dir);
+      return result;
+    });
+  }
+
+  function handleDownvoteClicked() {
+    setLikes((prev) => {
+      const result = prev === false ? null : false;
+      const dir = result == false ? -1 : 0;
+      upvoteComment(`t1_${comment.data.id}`, dir);
+      return result;
+    });
+  }
+
   const score = user ? (
-    <label className="score">
-      <button>
+    <label
+      className={
+        "score" +
+        (likes === true ? " upvoted" : "") +
+        (likes === false ? " downvoted" : "")
+      }
+    >
+      <button className="upvote" onClick={handleUpvoteClicked}>
         <ArrowUp size={14} weight="bold" />
       </button>
-      {comment.data.score}
+      <span className="num">
+        {comment.data.score +
+          (likes === true ? 1 : 0) +
+          (likes === false ? -1 : 0)}
+      </span>
       {user ? (
-        <button>
+        <button className="downvote" onClick={handleDownvoteClicked}>
           <ArrowDown size={14} weight="bold" />
         </button>
       ) : null}
