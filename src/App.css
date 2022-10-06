@@ -126,3 +126,13 @@ blockquote {
 .dark-mode hr {
   border-color: gray;
 }
+
+@media only screen and (max-width: 400px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  .Sidebar * {
+    scrollbar-width: none;
+  }
+}
