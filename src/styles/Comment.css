@@ -87,8 +87,14 @@
   font-family: inherit;
 }
 
+.Comment .info .reply-btn {
+  color: gray;
+  margin-right: 8px;
+}
+
 .dark-mode .Comment .info .timestamp,
 .dark-mode .Comment .info .score,
+.dark-mode .Comment .info .reply-btn,
 .dark-mode .Comment .info .author.deleted {
   color: hsl(240, 3%, 60%);
 }
@@ -191,6 +197,15 @@
 
 .Comment .replies-container.collapsed .replies {
   visibility: hidden;
+}
+
+.Comment .info button {
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  padding: 0;
+  line-height: 0;
+  cursor: pointer;
 }
 
 @keyframes slide-in {
