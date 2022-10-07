@@ -9,9 +9,7 @@ import { upvoteComment } from "../api";
 function Comment({ comment, delay, now }) {
   const repliesRef = useRef(null);
   const { user } = useContext(UserContext);
-  const [likes, setLikes] = useState(comment.data.likes);
-
-  if (comment.data.author === "Hydro2010") console.log(comment.data.likes);
+  const [likes, setLikes] = useState({ val: comment.data.likes, offset: 0 });
 
   const replies =
     comment.data.replies?.data?.children.filter(
@@ -36,8 +34,18 @@ function Comment({ comment, delay, now }) {
 
   function handleUpvoteClicked() {
     setLikes((prev) => {
-      const result = prev === true ? null : true;
-      const dir = result == true ? 1 : 0;
+      let result = { ...prev };
+      if (prev.val === true) {
+        result.offset = result.offset - 1;
+        result.val = null;
+      } else if (prev.val === null) {
+        result.offset = result.offset + 1;
+        result.val = true;
+      } else if (prev.val === false) {
+        result.offset = result.offset + 2;
+        result.val = true;
+      }
+      const dir = result.val == true ? 1 : 0;
       upvoteComment(`t1_${comment.data.id}`, dir);
       return result;
     });
@@ -45,8 +53,18 @@ function Comment({ comment, delay, now }) {
 
   function handleDownvoteClicked() {
     setLikes((prev) => {
-      const result = prev === false ? null : false;
-      const dir = result == false ? -1 : 0;
+      let result = { ...prev };
+      if (prev.val === false) {
+        result.offset = result.offset + 1;
+        result.val = null;
+      } else if (prev.val === null) {
+        result.offset = result.offset - 1;
+        result.val = false;
+      } else if (prev.val === true) {
+        result.offset = result.offset - 2;
+        result.val = false;
+      }
+      const dir = result.val == false ? -1 : 0;
       upvoteComment(`t1_${comment.data.id}`, dir);
       return result;
     });
@@ -56,17 +74,15 @@ function Comment({ comment, delay, now }) {
     <label
       className={
         "score" +
-        (likes === true ? " upvoted" : "") +
-        (likes === false ? " downvoted" : "")
+        (likes.val === true ? " upvoted" : "") +
+        (likes.val === false ? " downvoted" : "")
       }
     >
       <button className="upvote" onClick={handleUpvoteClicked}>
         <ArrowUp size={14} weight="bold" />
       </button>
       <span className="num">
-        {comment.data.score +
-          (likes === true ? 1 : 0) +
-          (likes === false ? -1 : 0)}
+        {comment.data.score_hidden ? "" : comment.data.score + likes.offset}
       </span>
       {user ? (
         <button className="downvote" onClick={handleDownvoteClicked}>
@@ -96,12 +112,12 @@ function Comment({ comment, delay, now }) {
             <span className="author deleted">[deleted]</span>
           )}
           {score}
-          {flair}
           {user ? (
             <button className="reply-btn">
               <ChatsCircle size={14} weight="fill" />
             </button>
           ) : null}
+          {flair}
           <a
             href={`https://reddit.com${comment.data.permalink}`}
             className="timestamp"

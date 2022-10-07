@@ -27,7 +27,7 @@ function LogInBtn({ threadId }) {
           threadId || ""
         }"}&redirect_uri=${
           window.location.origin
-        }/auth&scope=identity vote read`}
+        }/auth&scope=identity vote read submit`}
       >
         log in
       </a>
