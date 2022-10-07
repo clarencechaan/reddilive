@@ -17,9 +17,11 @@ function Auth() {
           window.location.origin + "/auth"
         );
         const username = await fetchMe();
-        localStorage.setItem("username", username);
-        localStorage.setItem("refresh_token", tokens.refreshToken);
-        setUser(username);
+        if (username && tokens.refreshToken) {
+          localStorage.setItem("username", username);
+          localStorage.setItem("refresh_token", tokens.refreshToken);
+          setUser(username);
+        }
       } catch (error) {
         console.log("error", error);
       }

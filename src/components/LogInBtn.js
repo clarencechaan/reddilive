@@ -7,7 +7,7 @@ const { REACT_APP_CLIENT_ID: CLIENT_ID } = process.env;
 function LogInBtn({ threadId }) {
   const { user, setUser } = useContext(UserContext);
 
-  function handleLogOutBtnClicked() {
+  function handleLogOutBtnClick() {
     localStorage.setItem("username", "");
     localStorage.setItem("refresh_token", "");
     setUser("");
@@ -16,7 +16,7 @@ function LogInBtn({ threadId }) {
   return user ? (
     <div className="LogInBtn">
       <label className="username">{user}</label>|
-      <a href="#" onClick={handleLogOutBtnClicked}>
+      <a href="#" onClick={handleLogOutBtnClick}>
         log out
       </a>
     </div>

@@ -103,6 +103,7 @@ async function refreshUserToken() {
     });
 
     userToken = (await res.json()).access_token;
+
     return userToken;
   } catch (error) {
     console.log("error", error);

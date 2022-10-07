@@ -32,7 +32,7 @@ function Comment({ comment, delay, now }) {
     repliesRef.current.classList.toggle("collapsed");
   }
 
-  function handleUpvoteClicked() {
+  function handleUpvoteClick() {
     setLikes((prev) => {
       let result = { ...prev };
       if (prev.val === true) {
@@ -51,7 +51,7 @@ function Comment({ comment, delay, now }) {
     });
   }
 
-  function handleDownvoteClicked() {
+  function handleDownvoteClick() {
     setLikes((prev) => {
       let result = { ...prev };
       if (prev.val === false) {
@@ -70,36 +70,40 @@ function Comment({ comment, delay, now }) {
     });
   }
 
-  const score = user ? (
-    <label
-      className={
-        "score" +
-        (likes.val === true ? " upvoted" : "") +
-        (likes.val === false ? " downvoted" : "")
-      }
-    >
-      <button className="upvote" onClick={handleUpvoteClicked}>
-        <ArrowUp size={14} weight="bold" />
-      </button>
-      <span className="num">
-        {comment.data.score_hidden ? "" : comment.data.score + likes.offset}
-      </span>
-      {user ? (
-        <button className="downvote" onClick={handleDownvoteClicked}>
-          <ArrowDown size={14} weight="bold" />
+  const score =
+    user && user !== comment.data.author ? (
+      <label
+        className={
+          "score" +
+          (likes.val === true ? " upvoted" : "") +
+          (likes.val === false ? " downvoted" : "")
+        }
+      >
+        <button className="upvote" onClick={handleUpvoteClick}>
+          <ArrowUp size={14} weight="bold" />
         </button>
-      ) : null}
-    </label>
-  ) : (
-    <label className="score">
-      <ArrowUp size={14} weight="bold" />
-      {comment.data.score}
-    </label>
-  );
+        <span className="num">
+          {comment.data.score_hidden ? "" : comment.data.score + likes.offset}
+        </span>
+        {user ? (
+          <button className="downvote" onClick={handleDownvoteClick}>
+            <ArrowDown size={14} weight="bold" />
+          </button>
+        ) : null}
+      </label>
+    ) : (
+      <label className="score">
+        <ArrowUp size={14} weight="bold" />
+        {comment.data.score}
+      </label>
+    );
 
-  return getSecondsAgo(comment.data.created, { now }) <= delay ? null : (
+  return getSecondsAgo(comment.data.created, { now }) > delay ||
+    user === comment.data.author ? (
     <div className="Comment">
-      <div className="bubble">
+      <div
+        className={"bubble" + (user === comment.data.author ? " is-me" : "")}
+      >
         <div className="info">
           {comment.data.author !== "[deleted]" ? (
             <a
@@ -138,7 +142,7 @@ function Comment({ comment, delay, now }) {
         </div>
       ) : null}
     </div>
-  );
+  ) : null;
 }
 
 export default Comment;

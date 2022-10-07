@@ -126,7 +126,8 @@ function Thread({ popout }) {
       <Sidebar thread={thread} />
       <div className="main">
         <Chat
-          comments={thread.comments}
+          thread={thread}
+          setThread={setThread}
           refreshing={refreshing}
           setRefreshing={setRefreshing}
           delay={delay}

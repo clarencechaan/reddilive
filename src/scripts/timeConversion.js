@@ -27,8 +27,10 @@ function getTimeAgo(date, options) {
       resultStr = minutes + " minute ago";
     } else if (seconds > 1) {
       resultStr = seconds + " seconds ago";
-    } else {
+    } else if (seconds === 0) {
       resultStr = seconds + " second ago";
+    } else {
+      resultStr = "just now";
     }
   } else {
     if (days >= 1) {
@@ -41,8 +43,10 @@ function getTimeAgo(date, options) {
       resultStr = hours + "h";
     } else if (minutes >= 1) {
       resultStr = minutes + "m";
-    } else {
+    } else if (seconds >= 1) {
       resultStr = seconds + "s";
+    } else {
+      resultStr = "now";
     }
   }
 

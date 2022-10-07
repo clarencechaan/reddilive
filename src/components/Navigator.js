@@ -6,7 +6,7 @@ function Navigator() {
   const navigate = useNavigate();
   const errorMsgRef = useRef(null);
 
-  function handleNavigatorSubmitted(e) {
+  function handleNavigatorSubmit(e) {
     e.preventDefault();
     const text = e.target[0].value;
     let textId = "";
@@ -48,7 +48,7 @@ function Navigator() {
   }
 
   return (
-    <form className="Navigator" onSubmit={handleNavigatorSubmitted}>
+    <form className="Navigator" onSubmit={handleNavigatorSubmit}>
       <input type="text" placeholder="thread URL or ID" />
       <button className="go-btn">GO</button>
       <label className="error-msg" ref={errorMsgRef}>

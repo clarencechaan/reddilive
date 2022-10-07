@@ -21,6 +21,18 @@
   color: rgb(239, 239, 241);
 }
 
+.Comment .bubble.is-me {
+  background-color: #057cfe;
+}
+
+.Comment .bubble.is-me,
+.Comment .bubble.is-me .info .author,
+.Comment .bubble.is-me .info .score,
+.Comment .bubble.is-me .info .reply-btn,
+.Comment .bubble.is-me .info .timestamp {
+  color: white;
+}
+
 .Comment .info {
   height: 16px;
   display: flex;
@@ -74,6 +86,12 @@
   color: rgb(239, 239, 241);
 }
 
+.Comment .bubble.is-me .info .flair {
+  background-color: #3e9bff;
+  border: 1px solid #3e9bff;
+  color: white;
+}
+
 .Comment .info .flair .flair-emoji {
   height: 12px;
   margin-bottom: -2px;
@@ -82,7 +100,7 @@
 .Comment .info .timestamp {
   margin-left: auto;
   color: gray;
-  min-width: 21px;
+  min-width: 24px;
   text-align: right;
   font-family: inherit;
 }

@@ -3,8 +3,10 @@ import { useEffect, useState, useContext, useRef } from "react";
 import Comment from "./Comment";
 import ScrollPauseIndicator from "./ScrollPauseIndicator";
 import UserContext from "../UserContext";
+import { submitComment } from "../api";
 
-function Chat({ comments, refreshing, setRefreshing, delay }) {
+function Chat({ thread, setThread, refreshing, setRefreshing, delay }) {
+  const comments = thread.comments;
   const chatRef = useRef(null);
   const anchorRef = useRef(null);
   const [now, setNow] = useState(Date.now());
@@ -51,22 +53,38 @@ function Chat({ comments, refreshing, setRefreshing, delay }) {
     chatRef.current.scrollTo(0, chatRef.current.scrollHeight);
   }
 
+  async function handleCommentFormSubmit(e) {
+    e.preventDefault();
+    const parent = `t3_${thread.info.id}`;
+    const text = e.target[0].value;
+    if (!text) return;
+    e.target[0].disabled = true;
+    try {
+      const comment = await submitComment(parent, text);
+      setThread((prev) => {
+        let result = { ...prev };
+        result.comments = [...result.comments, comment];
+        console.log(result);
+        return result;
+      });
+      e.target[0].disabled = false;
+      e.target.reset();
+    } catch (error) {}
+  }
+
   return (
     <div className="Chat">
-      {user ? (
-        <input
-          type="text"
-          className="comment-input"
-          placeholder="Write a comment..."
-        />
-      ) : (
-        <input
-          type="text"
-          className="comment-input"
-          placeholder="Log in to comment..."
-          disabled
-        />
-      )}
+      <form
+        action=""
+        className="comment-form"
+        onSubmit={handleCommentFormSubmit}
+      >
+        {user ? (
+          <input type="text" placeholder="Write a comment..." />
+        ) : (
+          <input type="text" placeholder="Log in to comment..." disabled />
+        )}
+      </form>
       <div className="chat-box" ref={chatRef}>
         <div id="scroller">
           {comments.map((comment) => (
