@@ -81,7 +81,7 @@ async function submitComment(parent, text) {
     });
 
     const resObj = await res.json();
-    const comment = resObj.json.data.things[0];
+    const comment = resObj.json?.data?.things[0];
     return comment;
   } catch (error) {
     console.log("error", error);

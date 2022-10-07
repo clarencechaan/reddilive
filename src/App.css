@@ -128,11 +128,12 @@ blockquote {
 }
 
 @media only screen and (max-width: 400px) {
-  ::-webkit-scrollbar {
-    display: none;
+  .main ::-webkit-scrollbar {
+    width: 12px;
   }
 
-  .Sidebar * {
-    scrollbar-width: none;
+  .main ::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    border: 3px solid transparent;
   }
 }

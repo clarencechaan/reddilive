@@ -61,12 +61,12 @@ function Chat({ thread, setThread, refreshing, setRefreshing, delay }) {
     e.target[0].disabled = true;
     try {
       const comment = await submitComment(parent, text);
-      setThread((prev) => {
-        let result = { ...prev };
-        result.comments = [...result.comments, comment];
-        console.log(result);
-        return result;
-      });
+      if (comment)
+        setThread((prev) => {
+          let result = { ...prev };
+          result.comments = [...result.comments, comment];
+          return result;
+        });
       e.target[0].disabled = false;
       e.target.reset();
     } catch (error) {}
