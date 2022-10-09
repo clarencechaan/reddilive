@@ -72,6 +72,18 @@ function Chat({ thread, setThread, refreshing, setRefreshing, delay }) {
     } catch (error) {}
   }
 
+  function setComment(id, cb) {
+    setThread((prevThread) => {
+      let resultThread = { ...prevThread };
+      const idx = resultThread.comments.findIndex(
+        (comment) => comment.data.id === id
+      );
+      resultThread.comments[idx] =
+        typeof cb === "function" ? cb(resultThread.comments[idx]) : cb;
+      return resultThread;
+    });
+  }
+
   return (
     <div className="Chat">
       <form
@@ -93,6 +105,9 @@ function Chat({ thread, setThread, refreshing, setRefreshing, delay }) {
               key={comment.data.id}
               delay={delay}
               now={now}
+              setComment={(cb) => {
+                setComment(comment.data.id, cb);
+              }}
             />
           ))}
           <div id="anchor" ref={anchorRef}></div>

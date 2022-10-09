@@ -7,7 +7,7 @@ import UserContext from "../UserContext";
 import { upvoteComment, submitComment } from "../api";
 import { useEffect } from "react";
 
-function Comment({ comment, delay, now }) {
+function Comment({ comment, delay, now, setComment }) {
   const repliesRef = useRef(null);
   const { user } = useContext(UserContext);
   const [likes, setLikes] = useState({ val: comment.data.likes, offset: 0 });
@@ -89,15 +89,29 @@ function Comment({ comment, delay, now }) {
     e.target[0].disabled = true;
     try {
       const comment = await submitComment(parent, text);
-      // if (comment) setThread();
-      e.target[0].disabled = false;
-      e.target.reset();
+      if (comment)
+        setComment((prev) => {
+          let result = { ...prev };
+          if (!result.data.replies)
+            result.data.replies = { data: { children: [comment] } };
+          else
+            result.data.replies.data.children = [
+              ...result.data.replies.data.children,
+              comment,
+            ];
+          return result;
+        });
       setShowReplyForm(false);
     } catch (error) {}
   }
 
   const score =
-    user && user !== comment.data.author ? (
+    user && user === comment.data.author ? (
+      <label className="score">
+        <ArrowUp size={14} weight="bold" />
+        {comment.data.score}
+      </label>
+    ) : comment.data.author !== "[deleted]" ? (
       <label
         className={
           "score" +
@@ -117,12 +131,21 @@ function Comment({ comment, delay, now }) {
           </button>
         ) : null}
       </label>
-    ) : (
-      <label className="score">
-        <ArrowUp size={14} weight="bold" />
-        {comment.data.score}
-      </label>
-    );
+    ) : null;
+
+  function setChildComment(id, cb) {
+    setComment((prevComment) => {
+      let resultComment = { ...prevComment };
+      const idx = resultComment.data.replies.data.children.findIndex(
+        (reply) => reply.data.id === id
+      );
+      resultComment.data.replies.data.children[idx] =
+        typeof cb === "function"
+          ? cb(resultComment.data.replies.data.children[idx])
+          : cb;
+      return resultComment;
+    });
+  }
 
   return getSecondsAgo(comment.data.created, { now }) > delay ||
     user === comment.data.author ? (
@@ -142,7 +165,7 @@ function Comment({ comment, delay, now }) {
             <span className="author deleted">[deleted]</span>
           )}
           {score}
-          {user ? (
+          {user && comment.data.author !== "[deleted]" ? (
             <button className="reply-btn" onClick={handleReplyBtnClick}>
               <ChatsCircle size={14} weight="fill" />
             </button>
@@ -178,6 +201,9 @@ function Comment({ comment, delay, now }) {
               key={reply.data.id}
               delay={delay}
               now={now}
+              setComment={(cb) => {
+                setChildComment(reply.data.id, cb);
+              }}
             />
           ))}
         </div>

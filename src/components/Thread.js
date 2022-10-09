@@ -82,11 +82,40 @@ function Thread({ popout }) {
           (comment) => comment.data.stickied
         )?.data;
 
+        function replaceComment(comment, fetchedComment) {
+          let resultComment = { ...comment };
+          if (fetchedComment.data.replies) {
+            let resultChildren =
+              resultComment.data.replies?.data?.children || [];
+            fetchedComment.data.replies.data.children.forEach(
+              (fetchedChild) => {
+                const idx = resultChildren.findIndex(
+                  (resultChild) => resultChild.data.id === fetchedChild.data.id
+                );
+                if (idx >= 0)
+                  resultChildren[idx] = replaceComment(
+                    resultChildren[idx],
+                    fetchedChild
+                  );
+                else resultChildren.push(fetchedChild);
+              }
+            );
+            if (!resultComment.data.replies)
+              resultComment.data.replies = { data: {} };
+            resultComment.data.replies.data.children = resultChildren;
+          }
+          return resultComment;
+        }
+
         for (const comment of fetchedComments) {
           const idx = result.comments.findIndex(
             (p) => p.data.id === comment.data.id
           );
-          if (idx >= 0) result.comments[idx] = comment;
+          if (idx >= 0)
+            result.comments[idx] = replaceComment(
+              result.comments[idx],
+              comment
+            );
           else result.comments.push(comment);
         }
 
