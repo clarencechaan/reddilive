@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div className={"App" + (darkMode ? " dark-mode" : "")}>
-      <ThemeContext.Provider value={{ setDarkMode }}>
+      <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
         <UserContext.Provider value={{ user, setUser }}>
           <Routes>
             <Route

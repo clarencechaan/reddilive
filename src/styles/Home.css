@@ -46,18 +46,6 @@
   max-width: 100%;
 }
 
-.Home .Sidebar .url.dark {
-  display: none;
-}
-
-.dark-mode .Home .Sidebar .url.dark {
-  display: block;
-}
-
-.dark-mode .Home .Sidebar .url:not(.dark) {
-  display: none;
-}
-
 .Home .main {
   align-items: center;
   justify-content: center;
@@ -104,4 +92,10 @@
   z-index: 1;
   top: 12px;
   right: 18px;
+}
+
+@media only screen and (max-width: 960px) {
+  .Home .main {
+    padding-left: 16px;
+  }
 }

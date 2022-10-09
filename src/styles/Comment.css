@@ -126,6 +126,10 @@
   margin-top: 2px;
 }
 
+.Comment .bubble.is-me .body a {
+  color: white;
+}
+
 .Comment .body p {
   line-height: 20px;
 }

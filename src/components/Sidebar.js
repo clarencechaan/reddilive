@@ -10,10 +10,12 @@ import { formatBody, formatFlair, deentitize } from "../scripts/markdown";
 import { getTimeAgo } from "../scripts/timeConversion";
 import { ArrowUp, Chat as ChatIcon } from "phosphor-react";
 import { Link } from "react-router-dom";
-import { useRef } from "react";
+import { useRef, useContext } from "react";
+import ThemeContext from "../ThemeContext";
 
 function Sidebar({ thread }) {
   const sidebarRef = useRef(null);
+  const { darkMode } = useContext(ThemeContext);
 
   const selftext = formatBody(
     thread?.info?.selftext,
@@ -124,16 +126,18 @@ function Sidebar({ thread }) {
         <div className="msg">Copy the reddit thread URL to the box above</div>
         <img src={arrow} className="arrow" alt="" />
       </div>
-      <img src={fullUrl} className="url" alt="" />
-      <img src={fullUrlDark} className="url dark" alt="" />
+      <img src={darkMode ? fullUrlDark : fullUrl} className="url" alt="" />
       <div className="how-to-2">
         <div className="msg">
           <div className="big">OR</div>
           Replace "reddit" from the URL with "reddilive"
         </div>
       </div>
-      <img src={replacedUrl} className="url" alt="" />
-      <img src={replacedUrlDark} className="url dark" alt="" />
+      <img
+        src={darkMode ? replacedUrlDark : replacedUrl}
+        className="url"
+        alt=""
+      />
     </>
   );
 
