@@ -4,6 +4,7 @@
   align-items: flex-start;
   animation: slide-in 0.4s;
   max-width: 100%;
+  width: 100%;
   overflow: hidden;
 }
 
@@ -174,6 +175,7 @@
   display: flex;
   flex-direction: row-reverse;
   max-width: 100%;
+  width: 100%;
 }
 
 .Comment .replies {
@@ -234,6 +236,26 @@
 .Comment .score.downvoted .downvote,
 .Comment .score.downvoted .num {
   color: rgb(113, 147, 255);
+}
+
+.Comment .reply-form {
+  width: 100%;
+  padding: 4px 0;
+}
+
+.Comment .reply-form input {
+  width: 100%;
+  height: 26px;
+  padding: 0 10px;
+  border: 1px solid rgb(170, 170, 170);
+  border-radius: 13px;
+  font-family: inherit;
+  font-size: inherit;
+  box-sizing: border-box;
+}
+
+.Comment .reply-form input:focus {
+  outline: none;
 }
 
 @keyframes slide-in {

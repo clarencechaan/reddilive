@@ -4,12 +4,19 @@ import { ArrowUp, ArrowDown, ChatsCircle } from "phosphor-react";
 import { formatBody, formatFlair } from "../scripts/markdown";
 import { useRef, useContext, useState } from "react";
 import UserContext from "../UserContext";
-import { upvoteComment } from "../api";
+import { upvoteComment, submitComment } from "../api";
+import { useEffect } from "react";
 
 function Comment({ comment, delay, now }) {
   const repliesRef = useRef(null);
   const { user } = useContext(UserContext);
   const [likes, setLikes] = useState({ val: comment.data.likes, offset: 0 });
+  const [showReplyForm, setShowReplyForm] = useState(false);
+  const replyInputRef = useRef(null);
+
+  useEffect(() => {
+    if (showReplyForm) replyInputRef.current.focus();
+  }, [showReplyForm]);
 
   const replies =
     comment.data.replies?.data?.children.filter(
@@ -70,6 +77,25 @@ function Comment({ comment, delay, now }) {
     });
   }
 
+  function handleReplyBtnClick() {
+    setShowReplyForm((prev) => !prev);
+  }
+
+  async function handleReplyFormSubmit(e) {
+    e.preventDefault();
+    const parent = `t1_${comment.data.id}`;
+    const text = e.target[0].value;
+    if (!text) return;
+    e.target[0].disabled = true;
+    try {
+      const comment = await submitComment(parent, text);
+      // if (comment) setThread();
+      e.target[0].disabled = false;
+      e.target.reset();
+      setShowReplyForm(false);
+    } catch (error) {}
+  }
+
   const score =
     user && user !== comment.data.author ? (
       <label
@@ -117,7 +143,7 @@ function Comment({ comment, delay, now }) {
           )}
           {score}
           {user ? (
-            <button className="reply-btn">
+            <button className="reply-btn" onClick={handleReplyBtnClick}>
               <ChatsCircle size={14} weight="fill" />
             </button>
           ) : null}
@@ -131,16 +157,32 @@ function Comment({ comment, delay, now }) {
         </div>
         {body}
       </div>
-      {replies.length ? (
-        <div className="replies-container" ref={repliesRef}>
-          <div className="replies">
-            {[...replies].reverse().map((reply) => (
-              <Comment comment={reply} key={reply.data.id} delay={delay} />
-            ))}
-          </div>
-          <button className="connector" onClick={toggleRepliesCollapse} />
+      <div className="replies-container" ref={repliesRef}>
+        <div className="replies">
+          {showReplyForm ? (
+            <form
+              action=""
+              className="reply-form"
+              onSubmit={handleReplyFormSubmit}
+            >
+              <input
+                type="text"
+                placeholder={`Reply to ${comment.data.author}...`}
+                ref={replyInputRef}
+              />
+            </form>
+          ) : null}
+          {[...replies].reverse().map((reply) => (
+            <Comment
+              comment={reply}
+              key={reply.data.id}
+              delay={delay}
+              now={now}
+            />
+          ))}
         </div>
-      ) : null}
+        <button className="connector" onClick={toggleRepliesCollapse} />
+      </div>
     </div>
   ) : null;
 }
