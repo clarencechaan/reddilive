@@ -37,12 +37,12 @@
   font-family: inherit;
   font-size: inherit;
   box-sizing: border-box;
+  color: inherit;
 }
 
 .dark-mode .Chat .comment-form input {
   background-color: hsl(240, 3%, 15.7%);
   border: 1px solid hsl(240, 3%, 21.6%);
-  color: inherit;
 }
 
 .Chat .comment-form input:focus {

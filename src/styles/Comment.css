@@ -252,6 +252,12 @@
   font-family: inherit;
   font-size: inherit;
   box-sizing: border-box;
+  color: inherit;
+}
+
+.Comment .reply-form input {
+  background-color: hsl(240, 3%, 15.7%);
+  border: 1px solid hsl(240, 3%, 21.6%);
 }
 
 .Comment .reply-form input:focus {
