@@ -65,6 +65,7 @@ function Thread({ popout }) {
   async function refreshThread(options) {
     try {
       const fetchedThread = await fetchThread(threadId);
+      if (!fetchedThread) return;
       const fetchedComments = fetchedThread[1].data.children
         .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
         .reverse();

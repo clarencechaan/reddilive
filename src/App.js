@@ -6,10 +6,20 @@ import { Routes, Route } from "react-router-dom";
 import ThemeContext from "./ThemeContext";
 import UserContext from "./UserContext";
 import { useState } from "react";
+import { useEffect } from "react";
 
 function App() {
   const [darkMode, setDarkMode] = useState(localStorage.getItem("dark_mode"));
   const [user, setUser] = useState(localStorage.getItem("username"));
+
+  useEffect(() => {
+    const documentHeight = () => {
+      const doc = document.documentElement;
+      doc.style.setProperty("--doc-height", `${window.innerHeight}px`);
+    };
+    window.addEventListener("resize", documentHeight);
+    documentHeight();
+  }, []);
 
   return (
     <div className={"App" + (darkMode ? " dark-mode" : "")}>
