@@ -1,5 +1,11 @@
-.App {
+body {
   height: 100vh;
+  overflow: hidden;
+}
+
+#root,
+.App {
+  height: 100%;
 }
 
 .App.dark-mode {

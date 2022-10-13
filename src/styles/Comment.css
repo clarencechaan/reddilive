@@ -5,6 +5,7 @@
   max-width: 100%;
   width: 100%;
   overflow: hidden;
+  animation: slide-in 0.4s;
 }
 
 .Comment .bubble {
@@ -268,6 +269,12 @@
 
 .Comment .reply-form input:focus {
   outline: none;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(-100%);
+  }
 }
 
 @media only screen and (max-width: 400px) {
