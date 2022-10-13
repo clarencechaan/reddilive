@@ -162,7 +162,7 @@ function Comment({ comment, delay, now, setComment }) {
 
   return getSecondsAgo(comment.data.created, { now }) > delay ||
     user === comment.data.author ? (
-    <div className="Comment">
+    <div className={"Comment" + (showReplyForm ? " show-children" : "")}>
       <div
         className={"bubble" + (user === comment.data.author ? " is-me" : "")}
       >

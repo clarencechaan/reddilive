@@ -5,7 +5,14 @@
   max-width: 100%;
   width: 100%;
   overflow: hidden;
+}
+
+:not(.replies) > .Comment {
   animation: slide-in 0.4s;
+}
+
+.replies-container {
+  animation: fade-in 0.4s;
 }
 
 .Comment .bubble {
@@ -176,10 +183,14 @@
 }
 
 .Comment .replies-container {
-  display: flex;
+  display: none;
   flex-direction: row-reverse;
   max-width: 100%;
   width: 100%;
+}
+
+.Comment.show-children .replies-container {
+  display: flex;
 }
 
 .Comment .replies {
@@ -274,6 +285,12 @@
 @keyframes slide-in {
   from {
     transform: translateX(-100%);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0.2;
   }
 }
 

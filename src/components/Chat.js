@@ -1,5 +1,5 @@
 import "../styles/Chat.css";
-import { useEffect, useState, useContext, useRef } from "react";
+import { useEffect, useState, useContext } from "react";
 import Comment from "./Comment";
 import UserContext from "../UserContext";
 import { submitComment } from "../api";
@@ -58,7 +58,7 @@ function Chat({ thread, setThread, delay }) {
           className="chat-box"
           followButtonClassName="follow-btn"
           initialScrollBehavior="auto"
-          checkInterval={100}
+          checkInterval={17}
         >
           {comments.map((comment) => (
             <Comment

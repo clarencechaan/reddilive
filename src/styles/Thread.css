@@ -293,7 +293,7 @@
   justify-content: center;
 }
 
-.Thread .popout-chat {
+.Thread .settings .popout-chat {
   min-height: 28px;
   border-radius: 14px;
 }
