@@ -101,7 +101,8 @@ function Comment({ comment, delay, now, setComment }) {
             ];
           return result;
         });
-      setShowReplyForm(false);
+      e.target[0].disabled = false;
+      e.target.reset();
     } catch (error) {}
   }
 
@@ -160,6 +161,25 @@ function Comment({ comment, delay, now, setComment }) {
     });
   }
 
+  function getChildrenCount(
+    replies = comment.data.replies?.data?.children || []
+  ) {
+    const count = replies.filter(
+      (reply) =>
+        getSecondsAgo(reply.data.created, { now }) > delay ||
+        user === reply.data.author
+    ).length;
+    if (!count) return 0;
+    return (
+      count +
+      replies.reduce(
+        (sum, reply) =>
+          getChildrenCount(reply.data.replies?.data?.children || []) + sum,
+        0
+      )
+    );
+  }
+
   return getSecondsAgo(comment.data.created, { now }) > delay ||
     user === comment.data.author ? (
     <div className={"Comment" + (showReplyForm ? " show-children" : "")}>
@@ -180,6 +200,7 @@ function Comment({ comment, delay, now, setComment }) {
           {score}
           {user && comment.data.author !== "[deleted]" ? (
             <button className="reply-btn" onClick={handleReplyBtnClick}>
+              {(comment.data.depth === 0 && getChildrenCount()) || ""}
               <ChatsCircle size={14} weight="fill" />
             </button>
           ) : null}

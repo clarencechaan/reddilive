@@ -116,6 +116,11 @@
 .Comment .info .reply-btn {
   color: gray;
   margin-right: 8px;
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 .dark-mode .Comment .info .timestamp,
