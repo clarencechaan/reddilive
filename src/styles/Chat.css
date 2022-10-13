@@ -1,30 +1,21 @@
 .Chat {
-  overflow: auto;
   height: 100%;
-  box-sizing: border-box;
-  overflow: auto;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
+  position: relative;
 }
 
 .Chat .chat-box {
-  display: flex;
-  flex-direction: column-reverse;
-  flex: 1;
-  overflow: auto;
+  height: calc(100% - 52px);
+}
+
+.Chat .chat-box > div {
   padding: 0 12px;
-}
-
-.Chat .chat-box #scroller * {
-  overflow-anchor: none;
-}
-
-.Chat .chat-box #anchor {
-  height: 1px;
-  overflow-anchor: auto;
+  box-sizing: border-box;
 }
 
 .Chat .comment-form {
+  margin-top: auto;
   padding: 12px 12px;
 }
 
@@ -47,6 +38,15 @@
 
 .Chat .comment-form input:focus {
   outline: none;
+}
+
+.Chat .follow-btn {
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+  backdrop-filter: brightness(0.5);
+  background: url("../images/arrow-circle-down-fill.svg");
+  background-size: 100%;
 }
 
 @media only screen and (max-width: 400px) {

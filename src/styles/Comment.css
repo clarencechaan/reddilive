@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  animation: slide-in 0.4s;
   max-width: 100%;
   width: 100%;
   overflow: hidden;
@@ -229,6 +228,9 @@
   border: none;
   padding: 0;
   line-height: 0;
+}
+
+.Comment .info button:not(:disabled) {
   cursor: pointer;
 }
 
@@ -266,12 +268,6 @@
 
 .Comment .reply-form input:focus {
   outline: none;
-}
-
-@keyframes slide-in {
-  from {
-    transform: translateX(-100%);
-  }
 }
 
 @media only screen and (max-width: 400px) {

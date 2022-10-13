@@ -105,13 +105,17 @@ function Comment({ comment, delay, now, setComment }) {
     } catch (error) {}
   }
 
-  const score =
-    user && user === comment.data.author ? (
+  let score = null;
+  if (comment.data.author === "[deleted]") score = null;
+  else if (user && comment.data.author === user)
+    score = (
       <label className="score">
         <ArrowUp size={14} weight="bold" />
         {comment.data.score}
       </label>
-    ) : comment.data.author !== "[deleted]" ? (
+    );
+  else if (user)
+    score = (
       <label
         className={
           "score" +
@@ -125,13 +129,22 @@ function Comment({ comment, delay, now, setComment }) {
         <span className="num">
           {comment.data.score_hidden ? "" : comment.data.score + likes.offset}
         </span>
-        {user ? (
-          <button className="downvote" onClick={handleDownvoteClick}>
-            <ArrowDown size={14} weight="bold" />
-          </button>
-        ) : null}
+        <button className="downvote" onClick={handleDownvoteClick}>
+          <ArrowDown size={14} weight="bold" />
+        </button>
       </label>
-    ) : null;
+    );
+  else
+    score = (
+      <label className="score">
+        <button className="upvote" disabled>
+          <ArrowUp size={14} weight="bold" />
+        </button>
+        <span className="num">
+          {comment.data.score_hidden ? "" : comment.data.score}
+        </span>
+      </label>
+    );
 
   function setChildComment(id, cb) {
     setComment((prevComment) => {

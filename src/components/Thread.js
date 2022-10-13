@@ -21,7 +21,6 @@ function Thread({ popout }) {
   const [delay, setDelay] = useState(
     parseInt(localStorage.getItem("delay")) || 0
   );
-  const [refreshing, setRefreshing] = useState(true);
   let refreshInterval;
 
   useEffect(() => {
@@ -39,19 +38,12 @@ function Thread({ popout }) {
 
     // initiate thread and create refresh interval
     initiateThread();
-    const clearRefreshInterval = startRefreshInterval(delay);
-    return clearRefreshInterval;
   }, [threadId]);
 
   useEffect(() => {
-    if (refreshing) refreshThread();
-  }, [refreshing]);
-
-  useEffect(() => {
-    if (!refreshing) return clearInterval(refreshInterval);
     const clearRefreshInterval = startRefreshInterval(delay);
     return clearRefreshInterval;
-  }, [refreshing, delay]);
+  }, [threadId, delay]);
 
   function startRefreshInterval(delay) {
     clearInterval(refreshInterval);
@@ -155,13 +147,7 @@ function Thread({ popout }) {
     <div className={"Thread" + (popout ? " popout" : "")}>
       <Sidebar thread={thread} />
       <div className="main">
-        <Chat
-          thread={thread}
-          setThread={setThread}
-          refreshing={refreshing}
-          setRefreshing={setRefreshing}
-          delay={delay}
-        />
+        <Chat thread={thread} setThread={setThread} delay={delay} />
         {!thread.comments.length && !loading ? (
           <div className="no-comments-msg">No comments found.</div>
         ) : null}

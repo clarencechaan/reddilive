@@ -1,57 +1,24 @@
 import "../styles/Chat.css";
 import { useEffect, useState, useContext, useRef } from "react";
 import Comment from "./Comment";
-import ScrollPauseIndicator from "./ScrollPauseIndicator";
 import UserContext from "../UserContext";
 import { submitComment } from "../api";
+import ScrollToBottom from "react-scroll-to-bottom";
 
-function Chat({ thread, setThread, refreshing, setRefreshing, delay }) {
+function Chat({ thread, setThread, delay }) {
   const comments = thread.comments;
-  const chatRef = useRef(null);
-  const anchorRef = useRef(null);
   const [now, setNow] = useState(Date.now());
   const { user } = useContext(UserContext);
-  let nowInterval;
 
   useEffect(() => {
-    const unobserveAnchor = observeAnchor();
-    return unobserveAnchor;
-  }, []);
-
-  useEffect(() => {
-    if (!refreshing) return clearInterval(nowInterval);
-    nowInterval = setInterval(() => {
+    const nowInterval = setInterval(() => {
       setNow(Date.now());
     }, 1000);
 
     return () => {
       clearInterval(nowInterval);
     };
-  }, [refreshing]);
-
-  function observeAnchor() {
-    let observer = new window.IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setRefreshing(true);
-        else setRefreshing(false);
-      },
-      {
-        root: null,
-        rootMargin: "10px",
-        threshold: 0,
-      }
-    );
-
-    observer.observe(anchorRef.current);
-
-    return () => {
-      anchorRef.current && observer.unobserve(anchorRef.current);
-    };
-  }
-
-  function scrollToBottom() {
-    chatRef.current.scrollTo(0, chatRef.current.scrollHeight);
-  }
+  }, []);
 
   async function handleCommentFormSubmit(e) {
     e.preventDefault();
@@ -86,19 +53,13 @@ function Chat({ thread, setThread, refreshing, setRefreshing, delay }) {
 
   return (
     <div className="Chat">
-      <form
-        action=""
-        className="comment-form"
-        onSubmit={handleCommentFormSubmit}
-      >
-        {user ? (
-          <input type="text" placeholder="Write a comment..." />
-        ) : (
-          <input type="text" placeholder="Log in to comment..." disabled />
-        )}
-      </form>
-      <div className="chat-box" ref={chatRef}>
-        <div id="scroller">
+      {comments.length ? (
+        <ScrollToBottom
+          className="chat-box"
+          followButtonClassName="follow-btn"
+          initialScrollBehavior="auto"
+          checkInterval={100}
+        >
           {comments.map((comment) => (
             <Comment
               comment={comment}
@@ -110,12 +71,19 @@ function Chat({ thread, setThread, refreshing, setRefreshing, delay }) {
               }}
             />
           ))}
-          <div id="anchor" ref={anchorRef}></div>
-        </div>
-        {refreshing ? null : (
-          <ScrollPauseIndicator scrollToBottom={scrollToBottom} />
+        </ScrollToBottom>
+      ) : null}
+      <form
+        action=""
+        className="comment-form"
+        onSubmit={handleCommentFormSubmit}
+      >
+        {user ? (
+          <input type="text" placeholder="Write a comment..." />
+        ) : (
+          <input type="text" placeholder="Log in to comment..." disabled />
         )}
-      </div>
+      </form>
     </div>
   );
 }
