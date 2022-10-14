@@ -180,6 +180,29 @@ function Comment({ comment, delay, now, setComment }) {
     );
   }
 
+  let replyForm = null;
+  if (showReplyForm && user)
+    replyForm = (
+      <form action="" className="reply-form" onSubmit={handleReplyFormSubmit}>
+        <input
+          type="text"
+          placeholder={`Reply to ${comment.data.author}...`}
+          ref={replyInputRef}
+        />
+      </form>
+    );
+  else if (showReplyForm && !user)
+    replyForm = (
+      <form action="" className="reply-form">
+        <input
+          type="text"
+          placeholder={`Log in to reply...`}
+          ref={replyInputRef}
+          disabled
+        />
+      </form>
+    );
+
   return getSecondsAgo(comment.data.created, { now }) > delay ||
     user === comment.data.author ? (
     <div className={"Comment" + (showReplyForm ? " show-children" : "")}>
@@ -198,10 +221,10 @@ function Comment({ comment, delay, now, setComment }) {
             <span className="author deleted">[deleted]</span>
           )}
           {score}
-          {user && comment.data.author !== "[deleted]" ? (
+          {comment.data.author !== "[deleted]" ? (
             <button className="reply-btn" onClick={handleReplyBtnClick}>
-              {(comment.data.depth === 0 && getChildrenCount()) || ""}
               <ChatsCircle size={14} weight="fill" />
+              {(comment.data.depth === 0 && getChildrenCount()) || ""}
             </button>
           ) : null}
           {flair}
@@ -216,19 +239,7 @@ function Comment({ comment, delay, now, setComment }) {
       </div>
       <div className="replies-container" ref={repliesRef}>
         <div className="replies">
-          {showReplyForm ? (
-            <form
-              action=""
-              className="reply-form"
-              onSubmit={handleReplyFormSubmit}
-            >
-              <input
-                type="text"
-                placeholder={`Reply to ${comment.data.author}...`}
-                ref={replyInputRef}
-              />
-            </form>
-          ) : null}
+          {replyForm}
           {[...replies].reverse().map((reply) => (
             <Comment
               comment={reply}

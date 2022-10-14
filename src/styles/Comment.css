@@ -44,6 +44,7 @@
 .Comment .info {
   height: 16px;
   display: flex;
+  align-items: center;
   font-size: 12px;
   white-space: nowrap;
 }
@@ -73,6 +74,8 @@
   color: gray;
   margin-right: 8px;
   column-gap: 2px;
+  height: 100%;
+  line-height: 0;
 }
 
 .Comment .info .flair {
@@ -121,6 +124,8 @@
   column-gap: 4px;
   font-family: inherit;
   font-size: inherit;
+  height: 100%;
+  line-height: 0;
 }
 
 .dark-mode .Comment .info .timestamp,
