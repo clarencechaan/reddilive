@@ -208,16 +208,16 @@
 .Thread .settings {
   position: fixed;
   z-index: 1;
-  top: 12px;
-  right: 16px;
-  width: 28px;
+  top: 16px;
+  right: 18px;
+  width: 32px;
   border-radius: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
   row-gap: 4px;
   color: white;
-  max-height: 28px;
+  max-height: 32px;
   transition: 0.5s;
   overflow: hidden;
 }
@@ -230,7 +230,7 @@
   background-color: hsl(0, 0%, 35%);
   font-family: inherit;
   color: inherit;
-  width: 28px;
+  width: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -250,12 +250,12 @@
 }
 
 .Thread .settings .gear {
-  min-height: 28px;
-  border-radius: 14px;
+  min-height: 32px;
+  border-radius: 16px;
 }
 
 .Thread .settings:focus-within {
-  max-height: 164px;
+  max-height: 188px;
 }
 
 .Thread .settings:focus-within .gear {
@@ -264,9 +264,9 @@
 }
 
 .Thread .settings .delay-rocker {
-  width: 28px;
-  min-height: 68px;
-  border-radius: 14px;
+  width: 32px;
+  min-height: 80px;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -294,8 +294,8 @@
 }
 
 .Thread .settings .popout-chat {
-  min-height: 28px;
-  border-radius: 14px;
+  min-height: 32px;
+  border-radius: 16px;
 }
 
 .Thread.popout .SidebarContainer {

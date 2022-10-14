@@ -15,8 +15,8 @@ function ThemeSwitch() {
   }
   return (
     <button className="ThemeSwitch" onClick={handleThemeSwitchClick}>
-      <Moon size={24} weight="fill" className="moon" />
-      <SunDim size={24} weight="bold" className="sun" />
+      <Moon size={26} weight="fill" className="moon" />
+      <SunDim size={26} weight="bold" className="sun" />
     </button>
   );
 }

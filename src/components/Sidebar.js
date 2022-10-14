@@ -8,7 +8,7 @@ import replacedUrlDark from "../images/replaced_url_dark.png";
 import arrow from "../images/arrow.png";
 import { formatBody, formatFlair, deentitize } from "../scripts/markdown";
 import { getTimeAgo } from "../scripts/timeConversion";
-import { ArrowUp, Chat as ChatIcon } from "phosphor-react";
+import { ArrowUp, Chat as ChatIcon, List } from "phosphor-react";
 import { Link } from "react-router-dom";
 import { useRef, useContext } from "react";
 import ThemeContext from "../ThemeContext";
@@ -109,7 +109,7 @@ function Sidebar({ thread }) {
   ) : null;
 
   const sidebarContent = thread ? (
-    <>
+    <div className="sidebar-content">
       {infoBox}
       {stickiedBox}
       {thread.error ? (
@@ -119,9 +119,9 @@ function Sidebar({ thread }) {
           No thread by that ID was found.
         </div>
       ) : null}
-    </>
+    </div>
   ) : (
-    <>
+    <div className="sidebar-content">
       <div className="how-to-1">
         <div className="msg">Copy the reddit thread URL to the box above</div>
         <img src={arrow} className="arrow" alt="" />
@@ -138,7 +138,7 @@ function Sidebar({ thread }) {
         className="url"
         alt=""
       />
-    </>
+    </div>
   );
 
   function toggleCollapse() {
@@ -153,6 +153,9 @@ function Sidebar({ thread }) {
       <div className="Sidebar">
         <div className="drawer">
           <div className="top-bar">
+            <button className="collapser in-line" onClick={toggleCollapse}>
+              <List size={22} weight="bold" />
+            </button>
             <Link to="/" className="logo">
               <img src={logo} alt="" />
             </Link>
@@ -160,10 +163,10 @@ function Sidebar({ thread }) {
           </div>
           {sidebarContent}
         </div>
-        <button className="collapser" onClick={toggleCollapse}>
-          <span>• • • • • • • • •</span>
-        </button>
       </div>
+      <button className="collapser floating" onClick={toggleCollapse}>
+        <List size={22} weight="bold" />
+      </button>
       <div className="overlay" onClick={toggleCollapse}></div>
     </div>
   );

@@ -12,7 +12,7 @@
 }
 
 .Sidebar .drawer {
-  padding: 16px;
+  padding: 16px 16px 0 16px;
   display: flex;
   flex-direction: column;
   row-gap: 16px;
@@ -23,12 +23,18 @@
   box-sizing: border-box;
 }
 
+.Sidebar .drawer .sidebar-content {
+  flex: 1;
+  overflow: auto;
+  padding-bottom: 16px;
+}
+
 .Sidebar .top-bar {
   display: flex;
   max-width: 100%;
   flex-wrap: wrap;
   row-gap: 16px;
-  justify-content: center;
+  justify-content: flex-start;
   column-gap: 16px;
 }
 
@@ -41,34 +47,44 @@
   height: 100%;
 }
 
-.Sidebar .collapser {
-  display: none;
-  min-width: 16px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  color: rgb(160, 160, 160);
-  font-size: 11px;
-  position: absolute;
-  right: 0;
-  height: 100%;
-  margin: 0;
-}
-
-.Sidebar .collapser:hover {
-  color: rgb(111, 111, 111);
-}
-
-.Sidebar .collapser span {
-  writing-mode: tb-rl;
-  width: 100%;
-  font-family: "SFUIText-Light";
-}
-
 .dark-mode .Sidebar {
   background-color: #0e0e10;
   border-color: #18181b;
+}
+
+.SidebarContainer .collapser {
+  height: 32px;
+  width: 32px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  display: none;
+  border-radius: 50%;
+}
+
+.SidebarContainer .collapser.in-line {
+  background-color: transparent;
+  color: inherit;
+}
+
+.SidebarContainer .collapser.floating {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  background-color: hsl(0, 0%, 35%);
+  color: white;
+}
+
+.SidebarContainer .collapser.floating:hover {
+  filter: brightness(1.2);
+}
+
+.dark-mode .SidebarContainer .collapser.floating {
+  background-color: hsl(0, 0%, 90%);
+  color: hsl(0, 0%, 20%);
 }
 
 @media only screen and (max-width: 960px) {
@@ -105,14 +121,10 @@
   }
 
   .SidebarContainer.collapsed .Sidebar {
-    transform: translateX(calc(-100% + 17px));
+    transform: translateX(-100%);
   }
 
-  .Sidebar .collapser {
-    display: block;
-  }
-
-  .Thread:not(.popout) .main {
-    padding-left: 16px;
+  .SidebarContainer .collapser {
+    display: flex;
   }
 }

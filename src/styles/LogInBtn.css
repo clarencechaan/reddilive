@@ -2,8 +2,8 @@
   position: fixed;
   z-index: 1;
   border: none;
-  top: 12px;
-  right: 54px;
+  top: 16px;
+  right: 60px;
   padding: 3px 8px;
   backdrop-filter: brightness(0.5) blur(10px);
   border-radius: 5px;

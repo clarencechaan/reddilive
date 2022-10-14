@@ -154,7 +154,7 @@ function Thread({ popout }) {
       </div>
       <div className="settings" tabIndex={-1}>
         <button className="gear">
-          <GearSix size={24} weight="fill" />
+          <GearSix size={26} weight="fill" />
         </button>
         <ThemeSwitch />
         <div className="delay-rocker">
@@ -176,7 +176,7 @@ function Thread({ popout }) {
             );
           }}
         >
-          <ArrowSquareOut size={19} weight="bold" />
+          <ArrowSquareOut size={22} weight="bold" />
         </button>
       </div>
       <LogInBtn threadId={threadId} />

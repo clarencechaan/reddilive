@@ -41,8 +41,8 @@
 }
 
 .Chat .follow-btn {
-  height: 42px;
-  width: 42px;
+  height: 36px;
+  width: 36px;
   border-radius: 50%;
   backdrop-filter: brightness(0.5);
   background: url("../images/arrow-circle-down-fill.svg");
