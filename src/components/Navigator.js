@@ -37,6 +37,7 @@ function Navigator() {
     }
 
     e.target.reset();
+    e.target[0].blur();
     navigate(`/comments/${textId}`);
   }
 
@@ -49,7 +50,7 @@ function Navigator() {
 
   return (
     <form className="Navigator" onSubmit={handleNavigatorSubmit}>
-      <input type="text" placeholder="thread URL or ID" />
+      <input type="text" placeholder="thread URL or ID" enterKeyHint="go" />
       <button className="go-btn">GO</button>
       <label className="error-msg" ref={errorMsgRef}>
         That URL or ID is invalid!

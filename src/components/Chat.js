@@ -36,6 +36,7 @@ function Chat({ thread, setThread, delay }) {
           return result;
         });
       e.target[0].disabled = false;
+      e.target[0].style.minHeight = "12px";
       e.target.reset();
     } catch (error) {}
   }
@@ -63,8 +64,9 @@ function Chat({ thread, setThread, delay }) {
   }
 
   function onEnterPress(e) {
-    if (e.keyCode == 13 && e.shiftKey == false) {
+    if (e.keyCode == 13) {
       e.preventDefault();
+      e.target.blur();
       const form = commentFormRef.current;
       if (form) {
         if (typeof form.requestSubmit === "function") {
@@ -111,6 +113,7 @@ function Chat({ thread, setThread, delay }) {
             onKeyDown={onEnterPress}
             onChange={handleTextInputChanged}
             maxLength={10000}
+            enterKeyHint="send"
           />
         ) : (
           <textarea type="text" placeholder="Log in to comment..." disabled />

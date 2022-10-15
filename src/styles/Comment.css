@@ -141,6 +141,7 @@
 
 .Comment .body {
   margin-top: 2px;
+  word-wrap: break-word;
 }
 
 .Comment .bubble.is-me .body a {

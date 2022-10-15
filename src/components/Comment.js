@@ -5,7 +5,6 @@ import { formatBody, formatFlair } from "../scripts/markdown";
 import { useRef, useContext, useState } from "react";
 import UserContext from "../UserContext";
 import { upvoteComment, submitComment } from "../api";
-import { useEffect } from "react";
 
 function Comment({ comment, delay, now, setComment }) {
   const repliesRef = useRef(null);
@@ -13,11 +12,6 @@ function Comment({ comment, delay, now, setComment }) {
   const [likes, setLikes] = useState({ val: comment.data.likes, offset: 0 });
   const [showReplyForm, setShowReplyForm] = useState(false);
   const replyFormRef = useRef(null);
-  const replyInputRef = useRef(null);
-
-  useEffect(() => {
-    if (showReplyForm) replyInputRef.current.focus();
-  }, [showReplyForm]);
 
   const replies =
     comment.data.replies?.data?.children.filter(
@@ -103,6 +97,7 @@ function Comment({ comment, delay, now, setComment }) {
           return result;
         });
       e.target[0].disabled = false;
+      e.target[0].style.minHeight = "12px";
       e.target.reset();
     } catch (error) {}
   }
@@ -118,8 +113,9 @@ function Comment({ comment, delay, now, setComment }) {
   }
 
   function onEnterPress(e) {
-    if (e.keyCode == 13 && e.shiftKey == false) {
+    if (e.keyCode == 13) {
       e.preventDefault();
+      e.target.blur();
       const form = replyFormRef.current;
       if (form) {
         if (typeof form.requestSubmit === "function") {
@@ -217,22 +213,17 @@ function Comment({ comment, delay, now, setComment }) {
         <textarea
           type="text"
           placeholder={`Reply to ${comment.data.author}...`}
-          ref={replyInputRef}
           onKeyDown={onEnterPress}
           onChange={handleTextInputChanged}
           maxLength={10000}
+          enterKeyHint="send"
         />
       </form>
     );
   else if (showReplyForm && !user)
     replyForm = (
       <form action="" className="reply-form">
-        <textarea
-          type="text"
-          placeholder={`Log in to reply...`}
-          ref={replyInputRef}
-          disabled
-        />
+        <textarea type="text" placeholder={`Log in to reply...`} disabled />
       </form>
     );
 

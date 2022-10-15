@@ -1,6 +1,15 @@
+:root {
+  --doc-height: 100%;
+}
+
 body {
-  height: 100vh;
+  height: 100vh; /* fallback for Js load */
+  height: var(--doc-height);
   overflow: hidden;
+}
+
+body * {
+  touch-action: pan-x pan-y;
 }
 
 #root,

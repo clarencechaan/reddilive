@@ -12,7 +12,14 @@ function App() {
   const [darkMode, setDarkMode] = useState(localStorage.getItem("dark_mode"));
   const [user, setUser] = useState(localStorage.getItem("username"));
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const documentHeight = () => {
+      const doc = document.documentElement;
+      doc.style.setProperty("--doc-height", `${window.innerHeight}px`);
+    };
+    window.addEventListener("resize", documentHeight);
+    documentHeight();
+  }, []);
 
   return (
     <div className={"App" + (darkMode ? " dark-mode" : "")}>
