@@ -18,6 +18,7 @@
 
 .Chat .comment-form {
   padding: 12px 12px;
+  line-height: 0;
 }
 
 .Chat .comment-form textarea {

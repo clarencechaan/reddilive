@@ -8,7 +8,7 @@ import ThemeSwitch from "./ThemeSwitch";
 import LogInBtn from "./LogInBtn";
 import "../styles/Thread.css";
 import { deentitize } from "../scripts/markdown";
-import { GearSix, ArrowSquareOut } from "phosphor-react";
+import { GearSix, ArrowSquareOut, X } from "phosphor-react";
 
 function Thread({ popout }) {
   const [thread, setThread] = useState({
@@ -158,8 +158,12 @@ function Thread({ popout }) {
         ) : null}
       </div>
       <div className={"settings" + (settingsShown ? " shown" : "")}>
-        <button className="gear" onClick={toggleSettingsShown}>
-          <GearSix size={26} weight="fill" />
+        <button className="toggle" onClick={toggleSettingsShown}>
+          {settingsShown ? (
+            <X size={20} weight="bold" />
+          ) : (
+            <GearSix size={26} weight="fill" />
+          )}
         </button>
         <ThemeSwitch />
         <div className="delay-rocker">

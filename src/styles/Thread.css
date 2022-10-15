@@ -217,9 +217,13 @@
   align-items: center;
   row-gap: 4px;
   color: white;
-  max-height: 32px;
-  transition: 0.5s;
+
   overflow: hidden;
+  pointer-events: none;
+}
+
+.Thread .settings > * {
+  pointer-events: auto;
 }
 
 .Thread .settings button {
@@ -249,17 +253,29 @@
   filter: brightness(1);
 }
 
-.Thread .settings .gear {
+.Thread .settings .toggle {
   min-height: 32px;
   border-radius: 16px;
 }
 
-.Thread .settings.shown {
-  max-height: 188px;
+.Thread .settings .toggle ~ * {
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  opacity: 0;
 }
 
-.Thread .settings.shown .gear {
-  filter: brightness(0.75);
+.Thread .settings.shown .toggle ~ * {
+  visibility: visible;
+  opacity: 1;
+}
+
+.Thread .settings.shown .toggle {
+  color: black;
+  background-color: transparent;
+}
+
+.dark-mode .Thread .settings.shown .toggle {
+  color: white;
 }
 
 .Thread .settings .delay-rocker {
