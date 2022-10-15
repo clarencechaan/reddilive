@@ -254,13 +254,12 @@
   border-radius: 16px;
 }
 
-.Thread .settings:focus-within {
+.Thread .settings.shown {
   max-height: 188px;
 }
 
-.Thread .settings:focus-within .gear {
+.Thread .settings.shown .gear {
   filter: brightness(0.75);
-  cursor: initial;
 }
 
 .Thread .settings .delay-rocker {

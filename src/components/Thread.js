@@ -21,6 +21,7 @@ function Thread({ popout }) {
   const [delay, setDelay] = useState(
     parseInt(localStorage.getItem("delay")) || 0
   );
+  const [settingsShown, setSettingsShown] = useState(false);
   let refreshInterval;
 
   useEffect(() => {
@@ -143,6 +144,10 @@ function Thread({ popout }) {
     });
   }
 
+  function toggleSettingsShown() {
+    setSettingsShown((prev) => !prev);
+  }
+
   return (
     <div className={"Thread" + (popout ? " popout" : "")}>
       <Sidebar thread={thread} />
@@ -152,8 +157,8 @@ function Thread({ popout }) {
           <div className="no-comments-msg">No comments found.</div>
         ) : null}
       </div>
-      <div className="settings" tabIndex={-1}>
-        <button className="gear">
+      <div className={"settings" + (settingsShown ? " shown" : "")}>
+        <button className="gear" onClick={toggleSettingsShown}>
           <GearSix size={26} weight="fill" />
         </button>
         <ThemeSwitch />
