@@ -12,6 +12,7 @@ function Comment({ comment, delay, now, setComment }) {
   const { user } = useContext(UserContext);
   const [likes, setLikes] = useState({ val: comment.data.likes, offset: 0 });
   const [showReplyForm, setShowReplyForm] = useState(false);
+  const replyFormRef = useRef(null);
   const replyInputRef = useRef(null);
 
   useEffect(() => {
@@ -106,6 +107,30 @@ function Comment({ comment, delay, now, setComment }) {
     } catch (error) {}
   }
 
+  function resizeTextInput(textInput) {
+    textInput.style.minHeight = "0px";
+    textInput.style.minHeight =
+      Math.min(textInput.scrollHeight + 2, 129) + "px";
+  }
+
+  function handleTextInputChanged(e) {
+    resizeTextInput(e.target);
+  }
+
+  function onEnterPress(e) {
+    if (e.keyCode == 13 && e.shiftKey == false) {
+      e.preventDefault();
+      const form = replyFormRef.current;
+      if (form) {
+        if (typeof form.requestSubmit === "function") {
+          form.requestSubmit();
+        } else {
+          form.dispatchEvent(new Event("submit", { cancelable: true }));
+        }
+      }
+    }
+  }
+
   let score = null;
   if (comment.data.author === "[deleted]") score = null;
   else if (user && comment.data.author === user)
@@ -183,18 +208,26 @@ function Comment({ comment, delay, now, setComment }) {
   let replyForm = null;
   if (showReplyForm && user)
     replyForm = (
-      <form action="" className="reply-form" onSubmit={handleReplyFormSubmit}>
-        <input
+      <form
+        action=""
+        className="reply-form"
+        onSubmit={handleReplyFormSubmit}
+        ref={replyFormRef}
+      >
+        <textarea
           type="text"
           placeholder={`Reply to ${comment.data.author}...`}
           ref={replyInputRef}
+          onKeyDown={onEnterPress}
+          onChange={handleTextInputChanged}
+          maxLength={10000}
         />
       </form>
     );
   else if (showReplyForm && !user)
     replyForm = (
       <form action="" className="reply-form">
-        <input
+        <textarea
           type="text"
           placeholder={`Log in to reply...`}
           ref={replyInputRef}
@@ -249,6 +282,7 @@ function Comment({ comment, delay, now, setComment }) {
               setComment={(cb) => {
                 setChildComment(reply.data.id, cb);
               }}
+              handleTextInputChanged={handleTextInputChanged}
             />
           ))}
         </div>

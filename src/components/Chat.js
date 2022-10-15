@@ -1,5 +1,5 @@
 import "../styles/Chat.css";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import Comment from "./Comment";
 import UserContext from "../UserContext";
 import { submitComment } from "../api";
@@ -9,6 +9,7 @@ function Chat({ thread, setThread, delay }) {
   const comments = thread.comments;
   const [now, setNow] = useState(Date.now());
   const { user } = useContext(UserContext);
+  const commentFormRef = useRef(null);
 
   useEffect(() => {
     const nowInterval = setInterval(() => {
@@ -51,6 +52,30 @@ function Chat({ thread, setThread, delay }) {
     });
   }
 
+  function resizeTextInput(textInput) {
+    textInput.style.minHeight = "0px";
+    textInput.style.minHeight =
+      Math.min(textInput.scrollHeight + 2, 129) + "px";
+  }
+
+  function handleTextInputChanged(e) {
+    resizeTextInput(e.target);
+  }
+
+  function onEnterPress(e) {
+    if (e.keyCode == 13 && e.shiftKey == false) {
+      e.preventDefault();
+      const form = commentFormRef.current;
+      if (form) {
+        if (typeof form.requestSubmit === "function") {
+          form.requestSubmit();
+        } else {
+          form.dispatchEvent(new Event("submit", { cancelable: true }));
+        }
+      }
+    }
+  }
+
   return (
     <div className="Chat">
       {comments.length ? (
@@ -77,11 +102,18 @@ function Chat({ thread, setThread, delay }) {
         action=""
         className="comment-form"
         onSubmit={handleCommentFormSubmit}
+        ref={commentFormRef}
       >
         {user ? (
-          <input type="text" placeholder="Write a comment..." />
+          <textarea
+            type="text"
+            placeholder="Write a comment..."
+            onKeyDown={onEnterPress}
+            onChange={handleTextInputChanged}
+            maxLength={10000}
+          />
         ) : (
-          <input type="text" placeholder="Log in to comment..." disabled />
+          <textarea type="text" placeholder="Log in to comment..." disabled />
         )}
       </form>
     </div>
