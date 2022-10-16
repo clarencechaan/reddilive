@@ -57,6 +57,8 @@ p {
 }
 
 h1 {
+  font-weight: 500;
+  font-family: "SFUIText-Regular";
   margin: 8px 0;
   font-size: 1.6em;
 }
