@@ -238,6 +238,10 @@ function Comment({ comment, delay, now, setComment }) {
             <a
               href={`https://www.reddit.com/user/${comment.data.author}`}
               className="author"
+              onClick={(e) => {
+                !window.confirm("Are you sure you want to leave?") &&
+                  e.preventDefault();
+              }}
             >
               {comment.data.author}
             </a>
@@ -255,6 +259,10 @@ function Comment({ comment, delay, now, setComment }) {
           <a
             href={`https://reddit.com${comment.data.permalink}`}
             className="timestamp"
+            onClick={(e) => {
+              !window.confirm("Are you sure you want to leave?") &&
+                e.preventDefault();
+            }}
           >
             {getTimeAgo(comment.data.created, { now })}
           </a>
