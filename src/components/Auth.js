@@ -10,6 +10,7 @@ function Auth() {
   const { setUser } = useContext(UserContext);
 
   useEffect(() => {
+    // set localStorage and state with user login details
     async function login(code) {
       try {
         const tokens = await fetchUserTokens(
@@ -38,6 +39,7 @@ function Auth() {
       login(code);
     }
 
+    // redirect back to thread or home
     if (threadId) navigate(`/comments/${threadId}`);
     else navigate("/");
   }, []);

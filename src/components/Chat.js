@@ -11,6 +11,8 @@ function Chat({ thread, setThread, delay }) {
   const { user } = useContext(UserContext);
   const commentFormRef = useRef(null);
 
+  // set up clock to calculate time since post or comment creation
+  // ticking every second
   useEffect(() => {
     const nowInterval = setInterval(() => {
       setNow(Date.now());
@@ -21,6 +23,7 @@ function Chat({ thread, setThread, delay }) {
     };
   }, []);
 
+  // attempt to submit comment to reddit thread and update thread state if successful
   async function handleCommentFormSubmit(e) {
     e.preventDefault();
     const parent = `t3_${thread.info.id}`;
@@ -38,9 +41,12 @@ function Chat({ thread, setThread, delay }) {
       e.target[0].disabled = false;
       e.target[0].style.minHeight = "12px";
       e.target.reset();
-    } catch (error) {}
+    } catch (error) {
+      console.log("error", error);
+    }
   }
 
+  // set comment in thread state by comment ID
   function setComment(id, cb) {
     setThread((prevThread) => {
       let resultThread = { ...prevThread };
@@ -53,6 +59,7 @@ function Chat({ thread, setThread, delay }) {
     });
   }
 
+  // update height of text input based on content height
   function resizeTextInput(textInput) {
     textInput.style.minHeight = "0px";
     textInput.style.minHeight =
@@ -63,6 +70,7 @@ function Chat({ thread, setThread, delay }) {
     resizeTextInput(e.target);
   }
 
+  // submit comment to reddit when Enter key is pressed
   function onEnterPress(e) {
     if (e.keyCode == 13) {
       e.preventDefault();

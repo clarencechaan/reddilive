@@ -13,27 +13,35 @@ function Comment({ comment, delay, now, setComment }) {
   const [showReplyForm, setShowReplyForm] = useState(false);
   const replyFormRef = useRef(null);
 
+  // get array of the comment's replies, discarding MoreChildren objects
   const replies =
     comment.data.replies?.data?.children.filter(
       (comment) => comment.kind !== "more"
     ) || [];
 
+  // get comment body, formatted from markdown to JSX with emotes and gifs
   const body = (
     <div className="body">
       {formatBody(comment.data.body, comment.data.media_metadata)}
     </div>
   );
 
-  let flair = formatFlair(
-    comment.data.author_flair_text,
-    comment.data.author_flair_richtext
-  );
-  if (flair) flair = <label className="flair">{flair}</label>;
+  // get user flair, formatted from markdown to JSX with emojis
+  const flair = comment.data.author_flair_text ? (
+    <label className="flair">
+      {formatFlair(
+        comment.data.author_flair_text,
+        comment.data.author_flair_richtext
+      )}
+    </label>
+  ) : null;
 
+  // show/hide (expand/collapse) comment replies
   function toggleRepliesCollapse() {
     repliesRef.current.classList.toggle("collapsed");
   }
 
+  // update comment state to reflect upvote then submit upvote to reddit
   function handleUpvoteClick() {
     setLikes((prev) => {
       let result = { ...prev };
@@ -53,6 +61,7 @@ function Comment({ comment, delay, now, setComment }) {
     });
   }
 
+  // update comment state to reflect downvote then submit upvote to reddit
   function handleDownvoteClick() {
     setLikes((prev) => {
       let result = { ...prev };
@@ -72,10 +81,12 @@ function Comment({ comment, delay, now, setComment }) {
     });
   }
 
+  // show/hide reply input when reply button is clicked
   function handleReplyBtnClick() {
     setShowReplyForm((prev) => !prev);
   }
 
+  // attempt to submit reply to reddit comment and update comment state if successful
   async function handleReplyFormSubmit(e) {
     e.preventDefault();
     const parent = `t1_${comment.data.id}`;
@@ -99,9 +110,12 @@ function Comment({ comment, delay, now, setComment }) {
       e.target[0].disabled = false;
       e.target[0].style.minHeight = "12px";
       e.target.reset();
-    } catch (error) {}
+    } catch (error) {
+      console.log("error", error);
+    }
   }
 
+  // update height of text input based on content height
   function resizeTextInput(textInput) {
     textInput.style.minHeight = "0px";
     textInput.style.minHeight =
@@ -112,6 +126,7 @@ function Comment({ comment, delay, now, setComment }) {
     resizeTextInput(e.target);
   }
 
+  // submit comment to reddit when Enter key is pressed
   function onEnterPress(e) {
     if (e.keyCode == 13) {
       e.preventDefault();
@@ -127,9 +142,13 @@ function Comment({ comment, delay, now, setComment }) {
     }
   }
 
+  // if...
+  // (a) comment is deleted, score is not shown
+  // (b) user is logged in and author is the user, or user is not logged in, show score only
+  // (c) user is logged in and author is not the user, show score along with upvote/downvote buttons
   let score = null;
   if (comment.data.author === "[deleted]") score = null;
-  else if (user && comment.data.author === user)
+  else if (comment.data.author === user || !user)
     score = (
       <label className="score">
         <ArrowUp size={14} weight="bold" />
@@ -156,18 +175,8 @@ function Comment({ comment, delay, now, setComment }) {
         </button>
       </label>
     );
-  else
-    score = (
-      <label className="score">
-        <button className="upvote" disabled>
-          <ArrowUp size={14} weight="bold" />
-        </button>
-        <span className="num">
-          {comment.data.score_hidden ? "" : comment.data.score}
-        </span>
-      </label>
-    );
 
+  // set reply (child comment) in comment state by reply ID
   function setChildComment(id, cb) {
     setComment((prevComment) => {
       let resultComment = { ...prevComment };
@@ -182,6 +191,7 @@ function Comment({ comment, delay, now, setComment }) {
     });
   }
 
+  // count the number of replies of any depth
   function getChildrenCount(
     replies = comment.data.replies?.data?.children || []
   ) {
@@ -201,6 +211,8 @@ function Comment({ comment, delay, now, setComment }) {
     );
   }
 
+  // reply form is shown/hidden depending on whether user has toggled reply button
+  // input placeholder and functionality is dependent on whether user is logged in
   let replyForm = null;
   if (showReplyForm && user)
     replyForm = (
@@ -227,6 +239,7 @@ function Comment({ comment, delay, now, setComment }) {
       </form>
     );
 
+  // show comment only when it is old enough (i.e., reached the delay threshold)
   return getSecondsAgo(comment.data.created, { now }) > delay ||
     user === comment.data.author ? (
     <div className={"Comment" + (showReplyForm ? " show-children" : "")}>
@@ -239,8 +252,7 @@ function Comment({ comment, delay, now, setComment }) {
               href={`https://www.reddit.com/user/${comment.data.author}`}
               className="author"
               onClick={(e) => {
-                !window.confirm("Are you sure you want to leave?") &&
-                  e.preventDefault();
+                !window.confirm("Go to reddit?") && e.preventDefault();
               }}
             >
               {comment.data.author}
@@ -265,8 +277,7 @@ function Comment({ comment, delay, now, setComment }) {
             href={`https://reddit.com${comment.data.permalink}`}
             className="timestamp"
             onClick={(e) => {
-              !window.confirm("Are you sure you want to leave?") &&
-                e.preventDefault();
+              !window.confirm("Go to reddit?") && e.preventDefault();
             }}
           >
             {getTimeAgo(comment.data.created, { now })}

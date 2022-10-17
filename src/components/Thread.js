@@ -24,6 +24,8 @@ function Thread({ popout }) {
   const [settingsShown, setSettingsShown] = useState(false);
   let refreshInterval;
 
+  // set thread to an empty thread, then attempt to fetch thread by threadId
+  // and set thread if found
   useEffect(() => {
     async function initiateThread() {
       setThread({
@@ -37,15 +39,16 @@ function Thread({ popout }) {
       setLoading(false);
     }
 
-    // initiate thread and create refresh interval
     initiateThread();
   }, [threadId]);
 
+  // update interval when thread or delay is changed
   useEffect(() => {
     const clearRefreshInterval = startRefreshInterval(delay);
     return clearRefreshInterval;
   }, [threadId, delay]);
 
+  // create/clear interval to refresh thread every period specified by delay
   function startRefreshInterval(delay) {
     clearInterval(refreshInterval);
     refreshInterval = setInterval(refreshThread, delay * 1000 || 2000);
@@ -55,15 +58,21 @@ function Thread({ popout }) {
     };
   }
 
+  // attempt to fetch thread from reddit, then set thread state if found
+  // otherwise set thread to empty thread
   async function refreshThread(options) {
     try {
       const fetchedThread = await fetchThread(threadId);
       if (!fetchedThread) return;
+
+      // get array of the thread's comments, discarding MoreChildren objects and stickied comment
       const fetchedComments = fetchedThread[1].data.children
         .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
         .reverse();
 
       setThread((prev) => {
+        // do not update thread state if "initiate" flag is not passed
+        // and state thread ID and fetched thread ID do not match
         if (
           !options?.initiate &&
           prev.info?.id !== fetchedThread[0].data.children[0].data.id
@@ -76,6 +85,9 @@ function Thread({ popout }) {
           (comment) => comment.data.stickied
         )?.data;
 
+        // replace comment in thread state, ensuring any replies to the comment
+        // in the previous state that were not found in the fetched response
+        // are not discarded
         function replaceComment(comment, fetchedComment) {
           let resultComment = { ...comment };
           if (fetchedComment.data.replies) {
@@ -101,6 +113,7 @@ function Thread({ popout }) {
           return resultComment;
         }
 
+        // update old comments, add newly fetched comments
         for (const comment of fetchedComments) {
           const idx = result.comments.findIndex(
             (p) => p.data.id === comment.data.id
@@ -113,6 +126,7 @@ function Thread({ popout }) {
           else result.comments.push(comment);
         }
 
+        // limit the number of top level comments to 200
         result.comments = result.comments.slice(-200);
 
         return result;
@@ -132,6 +146,7 @@ function Thread({ popout }) {
     }
   }
 
+  // increase/decrease delay in state and local storage
   function addDelay(val) {
     setDelay((prev) => {
       let newDelay;
@@ -144,6 +159,7 @@ function Thread({ popout }) {
     });
   }
 
+  // show/hide settings menu
   function toggleSettingsShown() {
     setSettingsShown((prev) => !prev);
   }
@@ -154,7 +170,7 @@ function Thread({ popout }) {
       <div className="main">
         <Chat thread={thread} setThread={setThread} delay={delay} />
         {!thread.comments.length && !loading ? (
-          <div className="no-comments-msg">No comments found.</div>
+          <div className="no-comments-msg">No comments.</div>
         ) : null}
       </div>
       <div className={"settings" + (settingsShown ? " shown" : "")}>

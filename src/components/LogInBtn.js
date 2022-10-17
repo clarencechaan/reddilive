@@ -7,12 +7,15 @@ const { REACT_APP_CLIENT_ID: CLIENT_ID } = process.env;
 function LogInBtn({ threadId }) {
   const { user, setUser } = useContext(UserContext);
 
+  // clear user login info from local storage and remove account from state
   function handleLogOutBtnClick() {
     localStorage.setItem("username", "");
     localStorage.setItem("refresh_token", "");
     setUser("");
   }
 
+  // show username and log out button if user is logged in
+  // otherwise show log in button
   return user ? (
     <div className="LogInBtn">
       <label className="username">{user}</label>|

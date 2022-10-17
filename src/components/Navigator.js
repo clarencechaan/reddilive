@@ -6,24 +6,27 @@ function Navigator() {
   const navigate = useNavigate();
   const errorMsgRef = useRef(null);
 
+  // read thread ID or URL from input, then navigate to thread if found
   function handleNavigatorSubmit(e) {
     e.preventDefault();
     const text = e.target[0].value;
-    let textId = "";
+    let threadId = "";
 
+    // parse input for thread ID
     if (text.includes("/comments/")) {
       const idx = text.indexOf("/comments/");
-      textId = text.substring(idx + 10, idx + 16);
+      threadId = text.substring(idx + 10, idx + 16);
     } else if (text.includes("redd.it/")) {
       const idx = text.indexOf("redd.it/");
-      textId = text.substring(idx + 8, idx + 14);
+      threadId = text.substring(idx + 8, idx + 14);
     } else {
-      textId = text;
+      threadId = text;
     }
 
+    // flash error message and return if ID is invalid
     if (
-      textId.length !== 6 ||
-      !textId
+      threadId.length !== 6 ||
+      !threadId
         .split("")
         .every(
           (char) =>
@@ -36,11 +39,13 @@ function Navigator() {
       return;
     }
 
+    // navigate to thread of parsed ID
     e.target.reset();
     e.target[0].blur();
-    navigate(`/comments/${textId}`);
+    navigate(`/comments/${threadId}`);
   }
 
+  // display error message on screen
   function flashErrorMsg() {
     errorMsgRef.current.classList.remove("flash-in");
     setTimeout(() => {

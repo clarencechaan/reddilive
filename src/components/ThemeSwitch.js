@@ -6,6 +6,7 @@ import "../styles/ThemeSwitch.css";
 function ThemeSwitch() {
   const { setDarkMode } = useContext(ThemeContext);
 
+  // toggle theme, setting state and local storage to reflect changes
   function handleThemeSwitchClick() {
     setDarkMode((prev) => {
       if (prev) localStorage.setItem("dark_mode", "");
@@ -13,6 +14,7 @@ function ThemeSwitch() {
       return !prev;
     });
   }
+
   return (
     <button className="ThemeSwitch" onClick={handleThemeSwitchClick}>
       <Moon size={26} weight="fill" className="moon" />
