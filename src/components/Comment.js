@@ -251,8 +251,13 @@ function Comment({ comment, delay, now, setComment }) {
           {score}
           {comment.data.author !== "[deleted]" ? (
             <button className="reply-btn" onClick={handleReplyBtnClick}>
-              <ChatsCircle size={14} weight="fill" />
-              {(comment.data.depth === 0 && getChildrenCount()) || ""}
+              {comment.data.depth === 0 && getChildrenCount() ? (
+                <>
+                  <ChatsCircle size={14} weight="fill" /> {getChildrenCount()}
+                </>
+              ) : (
+                <ChatsCircle size={14} />
+              )}
             </button>
           ) : null}
           {flair}

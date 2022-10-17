@@ -16,6 +16,7 @@
   flex: 1;
   font-size: 18px;
   min-width: 0;
+  height: 100%;
 }
 
 .dark-mode .Navigator input {
