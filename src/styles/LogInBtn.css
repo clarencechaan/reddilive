@@ -5,7 +5,8 @@
   top: 16px;
   right: 60px;
   padding: 3px 8px;
-  backdrop-filter: brightness(0.5) blur(10px);
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
   border-radius: 5px;
   overflow: hidden;
   color: white;
