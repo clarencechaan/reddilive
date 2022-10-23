@@ -16,7 +16,6 @@
   font-size: 12px;
   width: 100%;
   box-sizing: border-box;
-  animation: slide-in 0.4s;
 }
 
 .dark-mode .Thread .info-box,
