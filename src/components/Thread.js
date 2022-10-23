@@ -126,9 +126,6 @@ function Thread({ popout }) {
           else result.comments.push(comment);
         }
 
-        // limit the number of top level comments to 200
-        result.comments = result.comments.slice(-200);
-
         return result;
       });
 
