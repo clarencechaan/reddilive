@@ -90,6 +90,28 @@
   color: hsl(0, 0%, 20%);
 }
 
+.SidebarContainer .me {
+  margin-top: auto;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  color: gray;
+  font-size: 12px;
+}
+
+.SidebarContainer .me a {
+  line-height: 0;
+}
+
+.SidebarContainer .me .github {
+  height: 20px;
+}
+
+.dark-mode .SidebarContainer .me .github {
+  filter: invert(1);
+}
+
 @media only screen and (max-width: 960px) {
   .SidebarContainer {
     flex: 0;

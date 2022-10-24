@@ -6,6 +6,7 @@ import replacedUrl from "../images/replaced_url.png";
 import fullUrlDark from "../images/full_url_dark.png";
 import replacedUrlDark from "../images/replaced_url_dark.png";
 import arrow from "../images/arrow.png";
+import github from "../images/github.png";
 import { formatBody, formatFlair, deentitize } from "../scripts/markdown";
 import { getTimeAgo } from "../scripts/timeConversion";
 import { ArrowUp, Chat as ChatIcon, List } from "phosphor-react";
@@ -127,6 +128,12 @@ function Sidebar({ thread }) {
           No thread found.
         </div>
       ) : null}
+      <label className="me">
+        created by Clarence Chan
+        <a href="https://github.com/clarencechaan">
+          <img src={github} className="github" alt="" />
+        </a>
+      </label>
     </div>
   ) : (
     <div className="sidebar-content">
