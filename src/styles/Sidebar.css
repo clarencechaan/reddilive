@@ -92,7 +92,7 @@
 
 .SidebarContainer .me {
   margin-top: auto;
-  margin-left: auto;
+  align-self: center;
   display: flex;
   align-items: center;
   column-gap: 8px;
