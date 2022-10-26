@@ -216,7 +216,6 @@
   align-items: center;
   row-gap: 4px;
   color: white;
-
   overflow: hidden;
   pointer-events: none;
 }
@@ -263,18 +262,14 @@
   opacity: 0;
 }
 
-.Thread .settings.shown .toggle ~ * {
+.Thread .settings:focus-within .toggle {
+  pointer-events: none;
+  filter: brightness(0.75);
+}
+
+.Thread .settings:focus-within .toggle ~ * {
   visibility: visible;
   opacity: 1;
-}
-
-.Thread .settings.shown .toggle {
-  color: black;
-  background-color: transparent;
-}
-
-.dark-mode .Thread .settings.shown .toggle {
-  color: white;
 }
 
 .Thread .settings .delay-rocker {

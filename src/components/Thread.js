@@ -21,7 +21,6 @@ function Thread({ popout }) {
   const [delay, setDelay] = useState(
     parseInt(localStorage.getItem("delay")) || 0
   );
-  const [settingsShown, setSettingsShown] = useState(false);
   let refreshInterval;
 
   // set thread to an empty thread, then attempt to fetch thread by threadId
@@ -156,11 +155,6 @@ function Thread({ popout }) {
     });
   }
 
-  // show/hide settings menu
-  function toggleSettingsShown() {
-    setSettingsShown((prev) => !prev);
-  }
-
   return (
     <div className={"Thread" + (popout ? " popout" : "")}>
       <Sidebar thread={thread} />
@@ -170,13 +164,9 @@ function Thread({ popout }) {
           <div className="no-comments-msg">No comments.</div>
         ) : null}
       </div>
-      <div className={"settings" + (settingsShown ? " shown" : "")}>
-        <button className="toggle" onClick={toggleSettingsShown}>
-          {settingsShown ? (
-            <X size={20} weight="bold" />
-          ) : (
-            <GearSix size={26} weight="fill" />
-          )}
+      <div className="settings" tabIndex={-1}>
+        <button className="toggle">
+          <GearSix size={26} weight="fill" />
         </button>
         <ThemeSwitch />
         <div className="delay-rocker">
