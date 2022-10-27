@@ -264,7 +264,7 @@
 
 .Thread .settings:focus-within .toggle {
   pointer-events: none;
-  filter: brightness(0.75);
+  filter: brightness(0.65);
 }
 
 .Thread .settings:focus-within .toggle ~ * {
