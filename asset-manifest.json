@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/live-reddit/static/css/main.c81989bd.css",
+    "main.js": "/live-reddit/static/js/main.9849ae14.js",
+    "static/js/787.3a9083cb.chunk.js": "/live-reddit/static/js/787.3a9083cb.chunk.js",
+    "static/media/SFUIText-Medium.otf": "/live-reddit/static/media/SFUIText-Medium.991d8a04af41230b1281.otf",
+    "static/media/SFUIText-Light.otf": "/live-reddit/static/media/SFUIText-Light.f147e8e52dab4a416362.otf",
+    "static/media/SFUIText-Regular.otf": "/live-reddit/static/media/SFUIText-Regular.3891cf449d0d4808a8b5.otf",
+    "static/media/IndieFlower-Regular.ttf": "/live-reddit/static/media/IndieFlower-Regular.599d26584b9afc1d20b1.ttf",
+    "static/media/logo.png": "/live-reddit/static/media/logo.a51a6f34e8a5011bf79a.png",
+    "static/media/full_url_dark.png": "/live-reddit/static/media/full_url_dark.b04f9a942b4a047b8fc1.png",
+    "static/media/replaced_url.png": "/live-reddit/static/media/replaced_url.416613d69152e2b70552.png",
+    "static/media/full_url.png": "/live-reddit/static/media/full_url.51555329ed861e84188e.png",
+    "static/media/replaced_url_dark.png": "/live-reddit/static/media/replaced_url_dark.b6b8281dd9558cbb4e4f.png",
+    "static/media/logo_small.png": "/live-reddit/static/media/logo_small.f4ee8d5560b25fce223e.png",
+    "index.html": "/live-reddit/index.html",
+    "static/media/arrow-circle-down-fill.svg": "/live-reddit/static/media/arrow-circle-down-fill.4371729b4af3080b6df1.svg",
+    "main.c81989bd.css.map": "/live-reddit/static/css/main.c81989bd.css.map",
+    "main.9849ae14.js.map": "/live-reddit/static/js/main.9849ae14.js.map",
+    "787.3a9083cb.chunk.js.map": "/live-reddit/static/js/787.3a9083cb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c81989bd.css",
+    "static/js/main.9849ae14.js"
+  ]
+}
