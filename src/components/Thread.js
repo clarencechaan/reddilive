@@ -8,7 +8,7 @@ import ThemeSwitch from "./ThemeSwitch";
 import LogInBtn from "./LogInBtn";
 import "../styles/Thread.css";
 import { deentitize } from "../scripts/markdown";
-import { GearSix, ArrowSquareOut, X } from "phosphor-react";
+import { GearSix, ArrowSquareOut } from "phosphor-react";
 
 function Thread({ popout }) {
   const [thread, setThread] = useState({

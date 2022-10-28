@@ -15,7 +15,9 @@ function formatBody(text, mediaDict) {
       );
       body = body.replaceAll(
         `![gif](${key})`,
-        `<video className="gif" src="${mediaDict[key].s.mp4}" autoplay loop muted playsinline/>`
+        mediaDict[key].s.mp4
+          ? `<video className="gif" src="${mediaDict[key].s.mp4}" autoplay loop muted playsinline/>`
+          : `<img className="gif" src="${mediaDict[key].s.gif}" />`
       );
     }
 
