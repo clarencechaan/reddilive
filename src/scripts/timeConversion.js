@@ -1,6 +1,9 @@
+// return string of the length of time since a given date (Unix time)
 function getTimeAgo(date, options) {
   if (!date) return "";
 
+  // date is offset by 9 seconds to compensate for reddit's delay before
+  // a submitted comment or post becomes public
   const dateObj = new Date(date * 1000 + 9000);
   const now = options?.now || Date.now();
   const seconds = Math.floor(now / 1000 - dateObj / 1000);
@@ -53,9 +56,12 @@ function getTimeAgo(date, options) {
   return resultStr;
 }
 
+// return the number of seconds since a given date (Unix time)
 function getSecondsAgo(date, options) {
   if (!date) return 0;
 
+  // date is offset by 9 seconds to compensate for reddit's delay before
+  // a submitted comment becomes public
   const dateObj = new Date(date * 1000 + 9000);
   const now = options?.now || Date.now();
   const seconds = Math.floor(now / 1000 - dateObj / 1000);

@@ -1,5 +1,6 @@
 import { getToken, getUserToken } from "./auth";
 
+// fetch reddit thread given thread ID
 async function fetchThread(threadId) {
   const url = `https://oauth.reddit.com/comments/${threadId}/?sort=new`;
 
@@ -17,6 +18,7 @@ async function fetchThread(threadId) {
   }
 }
 
+// fetch the logged in user
 async function fetchMe() {
   const url = `https://oauth.reddit.com/api/v1/me`;
 
@@ -34,6 +36,7 @@ async function fetchMe() {
   }
 }
 
+// upvote reddit comment given the comment ID and upvote direction
 async function upvoteComment(id, dir) {
   const url = `https://oauth.reddit.com/api/vote`;
 
@@ -60,6 +63,7 @@ async function upvoteComment(id, dir) {
   }
 }
 
+// submit new reddit comment given the parent fullname and markdown text
 async function submitComment(parent, text) {
   const url = `https://oauth.reddit.com/api/comment`;
 

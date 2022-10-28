@@ -1,12 +1,13 @@
 import { v4 as uuidv4 } from "uuid";
 
 const { REACT_APP_CLIENT_ID: CLIENT_ID } = process.env;
-
 const url = "https://www.reddit.com/api/v1/access_token";
 
 let token;
 let userToken;
 
+// return user access token if user is logged in,
+// otherwise return general access token
 async function getToken() {
   try {
     if (localStorage.getItem("refresh_token")) return getUserToken();
@@ -16,6 +17,7 @@ async function getToken() {
   }
 }
 
+// fetch new general access token
 async function fetchToken() {
   const grantType = "https://oauth.reddit.com/grants/installed_client";
   let deviceId = localStorage.getItem("device_id");
@@ -47,6 +49,8 @@ async function fetchToken() {
   }
 }
 
+// return user access token if previously fetched
+// otherwise fetch and return new user access token
 async function getUserToken() {
   try {
     return userToken || (await refreshUserToken());
@@ -55,6 +59,8 @@ async function getUserToken() {
   }
 }
 
+// given authorization code after user logs in,
+// fetch and return user access token and refresh token
 async function fetchUserTokens(code, redirect_uri) {
   const grantType = "authorization_code";
 
@@ -83,6 +89,7 @@ async function fetchUserTokens(code, redirect_uri) {
   }
 }
 
+// refresh user access token using refresh token saved in local storage
 async function refreshUserToken() {
   const grantType = "refresh_token";
   const refreshToken = localStorage.getItem("refresh_token");
