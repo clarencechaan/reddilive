@@ -253,13 +253,13 @@
   cursor: pointer;
 }
 
-.Comment .score.upvoted .upvote,
-.Comment .score.upvoted .num {
+.Comment .bubble:not(.is-me) .score.upvoted .upvote,
+.Comment .bubble:not(.is-me) .score.upvoted .num {
   color: rgb(255, 69, 0);
 }
 
-.Comment .score.downvoted .downvote,
-.Comment .score.downvoted .num {
+.Comment .bubble:not(.is-me) .score.downvoted .downvote,
+.Comment .bubble:not(.is-me) .score.downvoted .num {
   color: rgb(113, 147, 255);
 }
 

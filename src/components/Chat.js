@@ -72,7 +72,7 @@ function Chat({ thread, setThread, delay }) {
 
   // submit comment to reddit when Enter key is pressed
   function onEnterPress(e) {
-    if (e.keyCode == 13) {
+    if (e.keyCode === 13) {
       e.preventDefault();
       e.target.blur();
       const form = commentFormRef.current;

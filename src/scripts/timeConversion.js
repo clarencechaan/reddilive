@@ -19,11 +19,11 @@ function getTimeAgo(date, options) {
       });
     } else if (hours > 1) {
       resultStr = hours + " hours ago";
-    } else if (hours == 1) {
+    } else if (hours === 1) {
       resultStr = hours + " hour ago";
     } else if (minutes > 1) {
       resultStr = minutes + " minutes ago";
-    } else if (minutes == 1) {
+    } else if (minutes === 1) {
       resultStr = minutes + " minute ago";
     } else if (seconds > 1) {
       resultStr = seconds + " seconds ago";

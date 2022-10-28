@@ -55,7 +55,7 @@ function Comment({ comment, delay, now, setComment }) {
         result.offset = result.offset + 2;
         result.val = true;
       }
-      const dir = result.val == true ? 1 : 0;
+      const dir = result.val === true ? 1 : 0;
       upvoteComment(`t1_${comment.data.id}`, dir);
       return result;
     });
@@ -75,7 +75,7 @@ function Comment({ comment, delay, now, setComment }) {
         result.offset = result.offset - 2;
         result.val = false;
       }
-      const dir = result.val == false ? -1 : 0;
+      const dir = result.val === false ? -1 : 0;
       upvoteComment(`t1_${comment.data.id}`, dir);
       return result;
     });
@@ -128,7 +128,7 @@ function Comment({ comment, delay, now, setComment }) {
 
   // submit comment to reddit when Enter key is pressed
   function onEnterPress(e) {
-    if (e.keyCode == 13) {
+    if (e.keyCode === 13) {
       e.preventDefault();
       e.target.blur();
       const form = replyFormRef.current;
@@ -142,21 +142,10 @@ function Comment({ comment, delay, now, setComment }) {
     }
   }
 
-  // if...
-  // (a) comment is deleted, score is not shown
-  // (b) user is logged in and author is the user, or user is not logged in, show score only
-  // (c) user is logged in and author is not the user, show score along with upvote/downvote buttons
-  let score = null;
-  if (comment.data.author === "[deleted]") score = null;
-  else if (comment.data.author === user || !user)
-    score = (
-      <label className="score">
-        <ArrowUp size={14} weight="bold" />
-        {comment.data.score}
-      </label>
-    );
-  else if (user)
-    score = (
+  // display score only if comment has not been deleted
+  // upvote/downvote buttons are disabled if user is not logged in
+  let score =
+    comment.data.author === "[deleted]" ? null : (
       <label
         className={
           "score" +
@@ -164,13 +153,17 @@ function Comment({ comment, delay, now, setComment }) {
           (likes.val === false ? " downvoted" : "")
         }
       >
-        <button className="upvote" onClick={handleUpvoteClick}>
+        <button className="upvote" onClick={handleUpvoteClick} disabled={!user}>
           <ArrowUp size={14} weight="bold" />
         </button>
         <span className="num">
           {comment.data.score_hidden ? "" : comment.data.score + likes.offset}
         </span>
-        <button className="downvote" onClick={handleDownvoteClick}>
+        <button
+          className="downvote"
+          onClick={handleDownvoteClick}
+          disabled={!user}
+        >
           <ArrowDown size={14} weight="bold" />
         </button>
       </label>
