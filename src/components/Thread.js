@@ -89,9 +89,8 @@ function Thread({ popout }) {
         // comment in the previous state that were not found in the fetched
         // response are not discarded
         function replaceComment(comment, fetchedComment) {
-          let resultComment = cloneDeep(fetchedComment);
-          if (comment.data.replies)
-            resultComment.data.replies = cloneDeep(comment.data.replies);
+          let resultComment = cloneDeep(comment);
+          resultComment.data.score = fetchedComment.data.score;
           if (fetchedComment.data.replies) {
             let resultChildren =
               resultComment.data.replies?.data?.children || [];
