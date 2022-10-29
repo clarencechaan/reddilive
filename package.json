@@ -1,6 +1,6 @@
 {
-  "name": "live-reddit",
-  "version": "0.1.0",
+  "name": "reddilive",
+  "version": "1.0.0",
   "homepage": "https://reddilive.com/",
   "private": true,
   "dependencies": {
