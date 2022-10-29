@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { cloneDeep } from "lodash";
 import { fetchThread } from "../api";
 import Chat from "./Chat";
 import Throbber from "./Throbber";
@@ -78,17 +79,19 @@ function Thread({ popout }) {
         )
           return prev;
 
-        let result = { ...prev };
+        let result = cloneDeep(prev);
         result.info = fetchedThread[0].data.children[0].data;
         result.stickied = fetchedThread[1].data.children.find(
           (comment) => comment.data.stickied
         )?.data;
 
-        // replace comment in thread state, ensuring any replies to the comment
-        // in the previous state that were not found in the fetched response
-        // are not discarded
+        // replace comment in thread state while ensuring any replies to the
+        // comment in the previous state that were not found in the fetched
+        // response are not discarded
         function replaceComment(comment, fetchedComment) {
-          let resultComment = { ...comment };
+          let resultComment = cloneDeep(fetchedComment);
+          if (comment.data.replies)
+            resultComment.data.replies = cloneDeep(comment.data.replies);
           if (fetchedComment.data.replies) {
             let resultChildren =
               resultComment.data.replies?.data?.children || [];
@@ -102,13 +105,14 @@ function Thread({ popout }) {
                     resultChildren[idx],
                     fetchedChild
                   );
-                else resultChildren.push(fetchedChild);
+                else resultChildren = [fetchedChild, ...resultChildren];
               }
             );
             if (!resultComment.data.replies)
               resultComment.data.replies = { data: {} };
             resultComment.data.replies.data.children = resultChildren;
           }
+
           return resultComment;
         }
 

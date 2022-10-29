@@ -3,6 +3,7 @@ import { getTimeAgo, getSecondsAgo } from "../scripts/timeConversion";
 import { ArrowUp, ArrowDown, ChatsCircle } from "phosphor-react";
 import { formatBody, formatFlair } from "../scripts/markdown";
 import { useRef, useContext, useState } from "react";
+import { cloneDeep } from "lodash";
 import UserContext from "../UserContext";
 import { upvoteComment, submitComment } from "../api";
 
@@ -44,7 +45,7 @@ function Comment({ comment, delay, now, setComment }) {
   // update comment state to reflect upvote then submit upvote to reddit
   function handleUpvoteClick() {
     setLikes((prev) => {
-      let result = { ...prev };
+      let result = cloneDeep(prev);
       if (prev.val === true) {
         result.offset = result.offset - 1;
         result.val = null;
@@ -64,7 +65,7 @@ function Comment({ comment, delay, now, setComment }) {
   // update comment state to reflect downvote then submit upvote to reddit
   function handleDownvoteClick() {
     setLikes((prev) => {
-      let result = { ...prev };
+      let result = cloneDeep(prev);
       if (prev.val === false) {
         result.offset = result.offset + 1;
         result.val = null;
@@ -97,7 +98,7 @@ function Comment({ comment, delay, now, setComment }) {
       const comment = await submitComment(parent, text);
       if (comment)
         setComment((prev) => {
-          let result = { ...prev };
+          let result = cloneDeep(prev);
           if (!result.data.replies)
             result.data.replies = { data: { children: [comment] } };
           else
@@ -172,7 +173,7 @@ function Comment({ comment, delay, now, setComment }) {
   // set reply (child comment) in comment state by reply ID
   function setChildComment(id, cb) {
     setComment((prevComment) => {
-      let resultComment = { ...prevComment };
+      let resultComment = cloneDeep(prevComment);
       const idx = resultComment.data.replies.data.children.findIndex(
         (reply) => reply.data.id === id
       );

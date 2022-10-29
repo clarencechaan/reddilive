@@ -1,5 +1,6 @@
 import "../styles/Chat.css";
 import { useEffect, useState, useContext, useRef } from "react";
+import { cloneDeep } from "lodash";
 import Comment from "./Comment";
 import UserContext from "../UserContext";
 import { submitComment } from "../api";
@@ -34,7 +35,7 @@ function Chat({ thread, setThread, delay }) {
       const comment = await submitComment(parent, text);
       if (comment)
         setThread((prev) => {
-          let result = { ...prev };
+          let result = cloneDeep(prev);
           result.comments = [...result.comments, comment];
           return result;
         });
@@ -49,7 +50,7 @@ function Chat({ thread, setThread, delay }) {
   // set comment in thread state by comment ID
   function setComment(id, cb) {
     setThread((prevThread) => {
-      let resultThread = { ...prevThread };
+      let resultThread = cloneDeep(prevThread);
       const idx = resultThread.comments.findIndex(
         (comment) => comment.data.id === id
       );
