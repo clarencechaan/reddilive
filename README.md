@@ -2,7 +2,7 @@
 
 # reddilive - live threads for reddit
 
-[Reddilive](https://reddilive.com/) is a free web app that provides a chat-like UI for fast-moving, live reddit threads, such as live discussion and sports game threads.
+[Reddilive](https://reddilive.com/) is a free web app that provides a chat-like UI for fast-moving reddit threads, such as live discussion and sports game threads.
 
 ## Features
 
