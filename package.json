@@ -2,6 +2,8 @@
   "name": "reddilive",
   "version": "1.0.0",
   "homepage": "https://reddilive.com/",
+  "author": "Clarence Chan <clarencechaan@icloud.com> (https://www.clarencechan.dev/)",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
