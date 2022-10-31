@@ -2,11 +2,11 @@ import "./App.css";
 import Thread from "./components/Thread";
 import Home from "./components/Home";
 import Auth from "./components/Auth";
+import Redirect from "./components/Redirect";
 import { Routes, Route } from "react-router-dom";
 import ThemeContext from "./ThemeContext";
 import UserContext from "./UserContext";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [darkMode, setDarkMode] = useState(localStorage.getItem("dark_mode"));
@@ -32,6 +32,7 @@ function App() {
             />
             <Route path="/comments/:threadId" element={<Thread />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/redirect" element={<Redirect />} />
             <Route path="/*" element={<Home />} />
           </Routes>
         </UserContext.Provider>
