@@ -16,8 +16,12 @@
 
 ## How to use it
 
-1. Replace `reddit` from the URL of any reddit thread with `reddilive` and navigate.
+1. Replace `reddit` from the URL of any reddit thread with `reddilive` and navigate
 
 **OR**
 
 2. Open https://reddilive.com/ and paste the URL of any reddit thread to the navigation textbox and click **"GO"**
+
+**For thread creators:** 
+* Link to `https://reddilive.com/redirect` in your thread selftext or comment for users to automatically redirect to the originating thread
+* Note: this functionality relies on reading the referrer URL and is therefore not as robust as hard linking directly, e.g., `https://reddilive.com/comments/<thread ID>`
