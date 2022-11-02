@@ -98,10 +98,7 @@
   column-gap: 8px;
   color: gray;
   font-size: 12px;
-}
-
-.SidebarContainer .me a {
-  line-height: 0;
+  font-family: inherit;
 }
 
 .SidebarContainer .me .github {

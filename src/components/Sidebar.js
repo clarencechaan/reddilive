@@ -128,12 +128,10 @@ function Sidebar({ thread }) {
           No thread found.
         </div>
       ) : null}
-      <label className="me">
-        created by Clarence Chan
-        <a href="https://github.com/clarencechaan">
-          <img src={github} className="github" alt="" />
-        </a>
-      </label>
+      <a href="https://github.com/clarencechaan" className="me">
+        by Clarence Chan
+        <img src={github} className="github" alt="" />
+      </a>
     </div>
   ) : (
     <div className="sidebar-content">
