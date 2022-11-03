@@ -2,7 +2,7 @@ import "../styles/Chat.css";
 import { useEffect, useState, useContext, useRef } from "react";
 import { cloneDeep } from "lodash";
 import Comment from "./Comment";
-import UserContext from "../UserContext";
+import UserContext from "../context/UserContext";
 import { submitComment } from "../api";
 import ScrollToBottom from "react-scroll-to-bottom";
 

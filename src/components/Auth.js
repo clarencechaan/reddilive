@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Home from "./Home";
 import { fetchUserTokens } from "../auth";
 import { fetchMe } from "../api";
-import UserContext from "../UserContext";
+import UserContext from "../context/UserContext";
 
 function Auth() {
   const navigate = useNavigate();

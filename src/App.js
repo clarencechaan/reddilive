@@ -4,8 +4,8 @@ import Home from "./components/Home";
 import Auth from "./components/Auth";
 import Redirect from "./components/Redirect";
 import { Routes, Route } from "react-router-dom";
-import ThemeContext from "./ThemeContext";
-import UserContext from "./UserContext";
+import ThemeContext from "./context/ThemeContext";
+import UserContext from "./context/UserContext";
 import { useState, useEffect } from "react";
 
 function App() {

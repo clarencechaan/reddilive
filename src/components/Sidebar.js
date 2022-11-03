@@ -12,7 +12,7 @@ import { getTimeAgo } from "../scripts/timeConversion";
 import { ArrowUp, Chat as ChatIcon, List } from "phosphor-react";
 import { Link } from "react-router-dom";
 import { useRef, useContext } from "react";
-import ThemeContext from "../ThemeContext";
+import ThemeContext from "../context/ThemeContext";
 
 function Sidebar({ thread }) {
   const sidebarRef = useRef(null);

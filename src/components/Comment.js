@@ -4,7 +4,7 @@ import { ArrowUp, ArrowDown, ChatsCircle } from "phosphor-react";
 import { formatBody, formatFlair } from "../scripts/markdown";
 import { useRef, useContext, useState } from "react";
 import { cloneDeep } from "lodash";
-import UserContext from "../UserContext";
+import UserContext from "../context/UserContext";
 import { upvoteComment, submitComment } from "../api";
 
 function Comment({ comment, delay, now, setComment }) {
