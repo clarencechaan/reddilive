@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { cloneDeep } from "lodash";
-import { fetchThread } from "../api";
+import { fetchThread } from "../scripts/api";
 import Chat from "./Chat";
 import Throbber from "./Throbber";
 import Sidebar from "./Sidebar";

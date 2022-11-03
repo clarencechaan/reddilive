@@ -3,7 +3,7 @@ import { useEffect, useState, useContext, useRef } from "react";
 import { cloneDeep } from "lodash";
 import Comment from "./Comment";
 import UserContext from "../context/UserContext";
-import { submitComment } from "../api";
+import { submitComment } from "../scripts/api";
 import ScrollToBottom from "react-scroll-to-bottom";
 
 function Chat({ thread, setThread, delay }) {

@@ -5,7 +5,7 @@ import { formatBody, formatFlair } from "../scripts/markdown";
 import { useRef, useContext, useState } from "react";
 import { cloneDeep } from "lodash";
 import UserContext from "../context/UserContext";
-import { upvoteComment, submitComment } from "../api";
+import { upvoteComment, submitComment } from "../scripts/api";
 
 function Comment({ comment, delay, now, setComment }) {
   const repliesRef = useRef(null);
