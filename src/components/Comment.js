@@ -123,6 +123,7 @@ function Comment({ comment, delay, now, setComment }) {
       Math.min(textInput.scrollHeight + 2, 129) + "px";
   }
 
+  // resize input when user types
   function handleTextInputChanged(e) {
     resizeTextInput(e.target);
   }

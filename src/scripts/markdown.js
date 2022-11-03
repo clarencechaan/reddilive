@@ -1,6 +1,7 @@
 const Snudown = require("snudown-js");
 const parse = require("html-react-parser");
 
+// convert reddit selftext/thread markdown to JSX, with optional media
 function formatBody(text, mediaDict) {
   let body = text || "";
   body = deentitize(body);
@@ -31,6 +32,7 @@ function formatBody(text, mediaDict) {
   return body;
 }
 
+// convert flair text to JSX, with optional emojis
 function formatFlair(text, emojiDict) {
   if (!text) return null;
 
@@ -46,6 +48,7 @@ function formatFlair(text, emojiDict) {
   return flair;
 }
 
+// replace HTML entities with characters
 function deentitize(str) {
   let ret = str.replace(/&gt;/g, ">");
   ret = ret.replace(/&lt;/g, "<");
@@ -55,6 +58,7 @@ function deentitize(str) {
   return ret;
 }
 
+// return true if URL is a relative URL
 function isUrlRelative(url) {
   return !(url.indexOf("://") > 0 || url.indexOf("//") === 0);
 }
