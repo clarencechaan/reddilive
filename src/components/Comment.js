@@ -130,7 +130,7 @@ function Comment({ comment, delay, now, setComment }) {
 
   // submit comment to reddit when Enter key is pressed
   function onEnterPress(e) {
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && !e.shiftKey) {
       e.preventDefault();
       e.target.blur();
       const form = replyFormRef.current;
