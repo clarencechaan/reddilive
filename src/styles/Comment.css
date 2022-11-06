@@ -263,36 +263,9 @@
   color: rgb(113, 147, 255);
 }
 
-.Comment .reply-form {
+.Comment .CommentInput {
   width: 100%;
   padding: 4px 0;
-  line-height: 0;
-}
-
-.Comment .reply-form textarea {
-  width: 100%;
-  height: 28px;
-  padding: 4px 12px;
-  border: 1px solid rgb(200, 200, 200);
-  border-radius: 14px;
-  font-family: inherit;
-  font-size: inherit;
-  box-sizing: border-box;
-  color: inherit;
-  resize: none;
-}
-
-.Comment .reply-form textarea::-webkit-scrollbar {
-  display: none;
-}
-
-.dark-mode .Comment .reply-form textarea {
-  background-color: hsl(240, 3%, 15.7%);
-  border: 1px solid hsl(240, 3%, 21.6%);
-}
-
-.Comment .reply-form textarea:focus {
-  outline: none;
 }
 
 @keyframes fade-in {

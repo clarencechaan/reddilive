@@ -1,16 +1,13 @@
 import "../styles/Chat.css";
-import { useEffect, useState, useContext, useRef } from "react";
+import { useEffect, useState } from "react";
 import { cloneDeep } from "lodash";
 import Comment from "./Comment";
-import UserContext from "../context/UserContext";
-import { submitComment } from "../scripts/api";
+import CommentInput from "./CommentInput";
 import ScrollToBottom from "react-scroll-to-bottom";
 
 function Chat({ thread, setThread, delay }) {
   const comments = thread.comments;
   const [now, setNow] = useState(Date.now());
-  const { user } = useContext(UserContext);
-  const commentFormRef = useRef(null);
 
   // set up clock to calculate time since post or comment creation
   // ticking every second
@@ -24,29 +21,6 @@ function Chat({ thread, setThread, delay }) {
     };
   }, []);
 
-  // attempt to submit comment to reddit thread and update thread state if successful
-  async function handleCommentFormSubmit(e) {
-    e.preventDefault();
-    const parent = `t3_${thread.info.id}`;
-    const text = e.target[0].value;
-    if (!text) return;
-    e.target[0].disabled = true;
-    try {
-      const comment = await submitComment(parent, text);
-      if (comment)
-        setThread((prev) => {
-          let result = cloneDeep(prev);
-          result.comments = [...result.comments, comment];
-          return result;
-        });
-      e.target[0].disabled = false;
-      e.target[0].style.minHeight = "12px";
-      e.target.reset();
-    } catch (error) {
-      console.log("error", error);
-    }
-  }
-
   // set comment in thread state by comment ID
   function setComment(id, cb) {
     setThread((prevThread) => {
@@ -58,34 +32,6 @@ function Chat({ thread, setThread, delay }) {
         typeof cb === "function" ? cb(resultThread.comments[idx]) : cb;
       return resultThread;
     });
-  }
-
-  // update height of text input based on content height
-  function resizeTextInput(textInput) {
-    textInput.style.minHeight = "0px";
-    textInput.style.minHeight =
-      Math.min(textInput.scrollHeight + 2, 129) + "px";
-  }
-
-  // resize input when user types
-  function handleTextInputChanged(e) {
-    resizeTextInput(e.target);
-  }
-
-  // submit comment to reddit when Enter key is pressed
-  function onEnterPress(e) {
-    if (e.keyCode === 13 && !e.shiftKey) {
-      e.preventDefault();
-      e.target.blur();
-      const form = commentFormRef.current;
-      if (form) {
-        if (typeof form.requestSubmit === "function") {
-          form.requestSubmit();
-        } else {
-          form.dispatchEvent(new Event("submit", { cancelable: true }));
-        }
-      }
-    }
   }
 
   return (
@@ -110,25 +56,10 @@ function Chat({ thread, setThread, delay }) {
           ))}
         </ScrollToBottom>
       ) : null}
-      <form
-        action=""
-        className="comment-form"
-        onSubmit={handleCommentFormSubmit}
-        ref={commentFormRef}
-      >
-        {user ? (
-          <textarea
-            type="text"
-            placeholder="Write a comment..."
-            onKeyDown={onEnterPress}
-            onChange={handleTextInputChanged}
-            maxLength={10000}
-            enterKeyHint="send"
-          />
-        ) : (
-          <textarea type="text" placeholder="Log in to comment..." disabled />
-        )}
-      </form>
+      <CommentInput
+        parentFullname={`t3_${thread?.info?.id}`}
+        setThread={setThread}
+      />
     </div>
   );
 }
