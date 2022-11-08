@@ -2,7 +2,7 @@ import "../styles/Chat.css";
 import { useEffect, useState } from "react";
 import { cloneDeep } from "lodash";
 import Comment from "./Comment";
-import CommentInput from "./CommentInput";
+import CommentForm from "./CommentForm";
 import ScrollToBottom from "react-scroll-to-bottom";
 
 function Chat({ thread, setThread, delay }) {
@@ -56,7 +56,7 @@ function Chat({ thread, setThread, delay }) {
           ))}
         </ScrollToBottom>
       ) : null}
-      <CommentInput
+      <CommentForm
         parentFullname={`t3_${thread?.info?.id}`}
         setThread={setThread}
       />

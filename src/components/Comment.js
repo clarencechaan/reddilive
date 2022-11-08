@@ -6,13 +6,13 @@ import { useRef, useContext, useState } from "react";
 import { cloneDeep } from "lodash";
 import UserContext from "../context/UserContext";
 import { upvoteComment } from "../utils/redditAPI";
-import CommentInput from "./CommentInput";
+import CommentForm from "./CommentForm";
 
 function Comment({ comment, delay, now, setComment }) {
   const repliesRef = useRef(null);
   const { user } = useContext(UserContext);
   const [likes, setLikes] = useState({ val: comment.data.likes, offset: 0 });
-  const [showCommentInput, setShowCommentInput] = useState(false);
+  const [showCommentForm, setShowCommentForm] = useState(false);
 
   // get array of the comment's replies, discarding MoreChildren objects
   const replies =
@@ -84,7 +84,7 @@ function Comment({ comment, delay, now, setComment }) {
 
   // show/hide reply input when reply button is clicked
   function handleReplyBtnClick() {
-    setShowCommentInput((prev) => !prev);
+    setShowCommentForm((prev) => !prev);
   }
 
   // display score only if comment has not been deleted
@@ -155,7 +155,7 @@ function Comment({ comment, delay, now, setComment }) {
   // or when the comment author is the user
   return getSecondsAgo(comment.data.created, { now }) > delay ||
     user === comment.data.author ? (
-    <div className={"Comment" + (showCommentInput ? " show-children" : "")}>
+    <div className={"Comment" + (showCommentForm ? " show-children" : "")}>
       <div
         className={"bubble" + (user === comment.data.author ? " is-me" : "")}
       >
@@ -200,8 +200,8 @@ function Comment({ comment, delay, now, setComment }) {
       </div>
       <div className="replies-container" ref={repliesRef}>
         <div className="replies">
-          {showCommentInput ? (
-            <CommentInput
+          {showCommentForm ? (
+            <CommentForm
               parentFullname={`t1_${comment.data.id}`}
               setComment={setComment}
               parentAuthor={comment.data.author}

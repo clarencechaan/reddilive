@@ -2,9 +2,9 @@ import { useContext, useRef } from "react";
 import { cloneDeep } from "lodash";
 import UserContext from "../context/UserContext";
 import { submitComment } from "../utils/redditAPI";
-import "../styles/CommentInput.css";
+import "../styles/CommentForm.css";
 
-function CommentInput({ parentFullname, setThread, setComment, parentAuthor }) {
+function CommentForm({ parentFullname, setThread, setComment, parentAuthor }) {
   const { user } = useContext(UserContext);
   const commentFormRef = useRef(null);
 
@@ -74,7 +74,7 @@ function CommentInput({ parentFullname, setThread, setComment, parentAuthor }) {
   return (
     <form
       action=""
-      className="CommentInput"
+      className="CommentForm"
       onSubmit={handleCommentFormSubmit}
       ref={commentFormRef}
     >
@@ -104,4 +104,4 @@ function CommentInput({ parentFullname, setThread, setComment, parentAuthor }) {
   );
 }
 
-export default CommentInput;
+export default CommentForm;
