@@ -1,4 +1,5 @@
 import "../styles/Throbber.css";
+import React from "react";
 
 function Throbber() {
   return (

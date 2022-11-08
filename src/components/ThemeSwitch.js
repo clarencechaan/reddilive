@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Moon, SunDim } from "phosphor-react";
 import ThemeContext from "../context/ThemeContext";
 import "../styles/ThemeSwitch.css";

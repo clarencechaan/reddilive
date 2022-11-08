@@ -1,6 +1,6 @@
 import "../styles/Navigator.css";
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import React, { useRef } from "react";
 
 function Navigator() {
   const navigate = useNavigate();

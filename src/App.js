@@ -6,7 +6,7 @@ import Redirect from "./components/Redirect";
 import { Routes, Route } from "react-router-dom";
 import ThemeContext from "./context/ThemeContext";
 import UserContext from "./context/UserContext";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 function App() {
   const [darkMode, setDarkMode] = useState(localStorage.getItem("dark_mode"));

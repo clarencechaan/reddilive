@@ -1,5 +1,5 @@
 import "../styles/Chat.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { cloneDeep } from "lodash";
 import Comment from "./Comment";
 import CommentForm from "./CommentForm";

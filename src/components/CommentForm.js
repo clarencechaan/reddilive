@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { cloneDeep } from "lodash";
 import UserContext from "../context/UserContext";
 import { submitComment } from "../utils/redditAPI";

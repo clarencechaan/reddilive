@@ -2,7 +2,7 @@ import "../styles/Comment.css";
 import { getTimeAgo, getSecondsAgo } from "../utils/timeConversion";
 import { ArrowUp, ArrowDown, ChatsCircle } from "phosphor-react";
 import { formatBody, formatFlair } from "../utils/markdown";
-import { useRef, useContext, useState } from "react";
+import React, { useRef, useContext, useState } from "react";
 import { cloneDeep } from "lodash";
 import UserContext from "../context/UserContext";
 import { upvoteComment } from "../utils/redditAPI";

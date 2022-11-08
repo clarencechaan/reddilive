@@ -1,6 +1,7 @@
 import "../styles/LogInBtn.css";
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
+import React from "react";
 
 const { REACT_APP_CLIENT_ID: CLIENT_ID } = process.env;
 

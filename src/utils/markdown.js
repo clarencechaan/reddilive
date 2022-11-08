@@ -23,7 +23,7 @@ function formatBody(text, mediaDict) {
     }
 
   // prepend relative links with https://www.reddit.com
-  body = body.replace(/href=".*?\"/g, (match) => {
+  body = body.replace(/href=".*?"/g, (match) => {
     const url = match.split(`href="`)[1].split(`"`)[0];
     return isUrlRelative(url) ? `href="https://www.reddit.com${url}"` : match;
   });

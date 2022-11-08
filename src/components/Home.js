@@ -4,6 +4,7 @@ import ThemeSwitch from "./ThemeSwitch";
 import logo from "../images/logo.png";
 import github from "../images/github.png";
 import LogInBtn from "./LogInBtn";
+import React from "react";
 
 function Home() {
   return (

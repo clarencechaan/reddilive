@@ -11,7 +11,7 @@ import { formatBody, formatFlair, deentitize } from "../utils/markdown";
 import { getTimeAgo } from "../utils/timeConversion";
 import { ArrowUp, Chat as ChatIcon, List } from "phosphor-react";
 import { Link } from "react-router-dom";
-import { useRef, useContext } from "react";
+import React, { useRef, useContext } from "react";
 import ThemeContext from "../context/ThemeContext";
 
 function Sidebar({ thread }) {
@@ -143,7 +143,7 @@ function Sidebar({ thread }) {
       <div className="how-to-2">
         <div className="msg">
           <div className="big">OR</div>
-          Replace "reddit" from the URL with "reddilive"
+          Replace &quot;reddit&quot; from the URL with &quot;reddilive&quot;
         </div>
       </div>
       <img
