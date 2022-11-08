@@ -1,15 +1,15 @@
+import { cloneDeep } from "lodash";
+import { GearSix, ArrowSquareOut } from "phosphor-react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { cloneDeep } from "lodash";
-import { fetchThread } from "../utils/redditAPI";
-import Chat from "./Chat";
-import Throbber from "./Throbber";
-import Sidebar from "./Sidebar";
-import ThemeSwitch from "./ThemeSwitch";
-import LogInBtn from "./LogInBtn";
 import "../styles/Thread.css";
 import { deentitize } from "../utils/markdown";
-import { GearSix, ArrowSquareOut } from "phosphor-react";
+import { fetchThread } from "../utils/redditAPI";
+import Chat from "./Chat";
+import LogInBtn from "./LogInBtn";
+import Sidebar from "./Sidebar";
+import ThemeSwitch from "./ThemeSwitch";
+import Throbber from "./Throbber";
 
 function Thread({ popout }) {
   const [thread, setThread] = useState({

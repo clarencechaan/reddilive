@@ -1,12 +1,12 @@
-import "./App.css";
-import Thread from "./components/Thread";
-import Home from "./components/Home";
-import Auth from "./components/Auth";
-import Redirect from "./components/Redirect";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import "./App.css";
+import Auth from "./components/Auth";
+import Home from "./components/Home";
+import Redirect from "./components/Redirect";
+import Thread from "./components/Thread";
 import ThemeContext from "./context/ThemeContext";
 import UserContext from "./context/UserContext";
-import React, { useState, useEffect } from "react";
 
 function App() {
   const [darkMode, setDarkMode] = useState(localStorage.getItem("dark_mode"));

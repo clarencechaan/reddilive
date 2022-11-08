@@ -1,8 +1,8 @@
-import React, { useContext, useRef } from "react";
 import { cloneDeep } from "lodash";
+import React, { useContext, useRef } from "react";
 import UserContext from "../context/UserContext";
-import { submitComment } from "../utils/redditAPI";
 import "../styles/CommentForm.css";
+import { submitComment } from "../utils/redditAPI";
 
 function CommentForm({ parentFullname, setThread, setComment, parentAuthor }) {
   const { user } = useContext(UserContext);

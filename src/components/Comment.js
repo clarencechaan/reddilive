@@ -1,11 +1,11 @@
-import "../styles/Comment.css";
-import { getTimeAgo, getSecondsAgo } from "../utils/timeConversion";
-import { ArrowUp, ArrowDown, ChatsCircle } from "phosphor-react";
-import { formatBody, formatFlair } from "../utils/markdown";
-import React, { useRef, useContext, useState } from "react";
 import { cloneDeep } from "lodash";
+import { ArrowUp, ArrowDown, ChatsCircle } from "phosphor-react";
+import React, { useRef, useContext, useState } from "react";
 import UserContext from "../context/UserContext";
+import "../styles/Comment.css";
+import { formatBody, formatFlair } from "../utils/markdown";
 import { upvoteComment } from "../utils/redditAPI";
+import { getTimeAgo, getSecondsAgo } from "../utils/timeConversion";
 import CommentForm from "./CommentForm";
 
 function Comment({ comment, delay, now, setComment }) {

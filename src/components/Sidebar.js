@@ -1,18 +1,18 @@
-import "../styles/Sidebar.css";
-import Navigator from "./Navigator";
-import logo from "../images/logo_small.png";
-import fullUrl from "../images/full_url.png";
-import replacedUrl from "../images/replaced_url.png";
-import fullUrlDark from "../images/full_url_dark.png";
-import replacedUrlDark from "../images/replaced_url_dark.png";
+import { ArrowUp, Chat as ChatIcon, List } from "phosphor-react";
+import React, { useRef, useContext } from "react";
+import { Link } from "react-router-dom";
+import ThemeContext from "../context/ThemeContext";
 import arrow from "../images/arrow.png";
+import fullUrl from "../images/full_url.png";
+import fullUrlDark from "../images/full_url_dark.png";
 import github from "../images/github.png";
+import logo from "../images/logo_small.png";
+import replacedUrl from "../images/replaced_url.png";
+import replacedUrlDark from "../images/replaced_url_dark.png";
+import "../styles/Sidebar.css";
 import { formatBody, formatFlair, deentitize } from "../utils/markdown";
 import { getTimeAgo } from "../utils/timeConversion";
-import { ArrowUp, Chat as ChatIcon, List } from "phosphor-react";
-import { Link } from "react-router-dom";
-import React, { useRef, useContext } from "react";
-import ThemeContext from "../context/ThemeContext";
+import Navigator from "./Navigator";
 
 function Sidebar({ thread }) {
   const sidebarRef = useRef(null);

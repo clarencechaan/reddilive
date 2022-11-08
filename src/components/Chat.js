@@ -1,9 +1,9 @@
-import "../styles/Chat.css";
-import React, { useEffect, useState } from "react";
 import { cloneDeep } from "lodash";
+import React, { useEffect, useState } from "react";
+import ScrollToBottom from "react-scroll-to-bottom";
+import "../styles/Chat.css";
 import Comment from "./Comment";
 import CommentForm from "./CommentForm";
-import ScrollToBottom from "react-scroll-to-bottom";
 
 function Chat({ thread, setThread, delay }) {
   const comments = thread.comments;

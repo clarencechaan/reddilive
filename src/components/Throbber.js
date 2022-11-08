@@ -1,5 +1,5 @@
-import "../styles/Throbber.css";
 import React from "react";
+import "../styles/Throbber.css";
 
 function Throbber() {
   return (

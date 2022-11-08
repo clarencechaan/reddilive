@@ -1,9 +1,9 @@
 import React, { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Home from "./Home";
+import UserContext from "../context/UserContext";
 import { fetchUserTokens } from "../utils/auth";
 import { fetchMe } from "../utils/redditAPI";
-import UserContext from "../context/UserContext";
+import Home from "./Home";
 
 function Auth() {
   const navigate = useNavigate();
