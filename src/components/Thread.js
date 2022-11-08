@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { cloneDeep } from "lodash";
-import { fetchThread } from "../scripts/api";
+import { fetchThread } from "../utils/api";
 import Chat from "./Chat";
 import Throbber from "./Throbber";
 import Sidebar from "./Sidebar";
 import ThemeSwitch from "./ThemeSwitch";
 import LogInBtn from "./LogInBtn";
 import "../styles/Thread.css";
-import { deentitize } from "../scripts/markdown";
+import { deentitize } from "../utils/markdown";
 import { GearSix, ArrowSquareOut } from "phosphor-react";
 
 function Thread({ popout }) {

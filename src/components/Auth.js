@@ -1,8 +1,8 @@
 import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Home from "./Home";
-import { fetchUserTokens } from "../scripts/auth";
-import { fetchMe } from "../scripts/api";
+import { fetchUserTokens } from "../utils/auth";
+import { fetchMe } from "../utils/api";
 import UserContext from "../context/UserContext";
 
 function Auth() {
