@@ -5,7 +5,7 @@ import { formatBody, formatFlair } from "../utils/markdown";
 import { useRef, useContext, useState } from "react";
 import { cloneDeep } from "lodash";
 import UserContext from "../context/UserContext";
-import { upvoteComment } from "../utils/api";
+import { upvoteComment } from "../utils/redditAPI";
 import CommentInput from "./CommentInput";
 
 function Comment({ comment, delay, now, setComment }) {

@@ -1,7 +1,7 @@
 import { useContext, useRef } from "react";
 import { cloneDeep } from "lodash";
 import UserContext from "../context/UserContext";
-import { submitComment } from "../utils/api";
+import { submitComment } from "../utils/redditAPI";
 import "../styles/CommentInput.css";
 
 function CommentInput({ parentFullname, setThread, setComment, parentAuthor }) {
