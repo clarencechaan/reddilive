@@ -143,7 +143,7 @@ function Sidebar({ thread }) {
       <div className="how-to-2">
         <div className="msg">
           <div className="big">OR</div>
-          Replace &quot;reddit&quot; from the URL with &quot;reddilive&quot;
+          Replace <code>reddit</code> from the URL with <code>reddilive</code>
         </div>
       </div>
       <img

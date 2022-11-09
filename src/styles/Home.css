@@ -36,6 +36,14 @@
   flex: 1;
 }
 
+.Home .Sidebar .how-to-2 .msg code {
+  font-size: 22px;
+  font-weight: 400;
+  background-color: hsl(218, 22%, 70%, 25%);
+  padding: 0 8px;
+  border-radius: 6px;
+}
+
 .Home .Sidebar .how-to-2 .big {
   text-align: center;
   font-size: 48px;
