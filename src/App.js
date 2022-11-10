@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Auth from "./components/Auth";
 import Home from "./components/Home";
@@ -22,22 +22,24 @@ function App() {
   }, []);
 
   return (
-    <div className={"App" + (darkMode ? " dark-mode" : "")}>
-      <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
-        <UserContext.Provider value={{ user, setUser }}>
-          <Routes>
-            <Route
-              path="/r/:subreddit/comments/:threadId/*"
-              element={<Thread />}
-            />
-            <Route path="/comments/:threadId" element={<Thread />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/redirect" element={<Redirect />} />
-            <Route path="/*" element={<Home />} />
-          </Routes>
-        </UserContext.Provider>
-      </ThemeContext.Provider>
-    </div>
+    <BrowserRouter>
+      <div className={"App" + (darkMode ? " dark-mode" : "")}>
+        <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
+          <UserContext.Provider value={{ user, setUser }}>
+            <Routes>
+              <Route
+                path="/r/:subreddit/comments/:threadId/*"
+                element={<Thread />}
+              />
+              <Route path="/comments/:threadId" element={<Thread />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/redirect" element={<Redirect />} />
+              <Route path="/*" element={<Home />} />
+            </Routes>
+          </UserContext.Provider>
+        </ThemeContext.Provider>
+      </div>
+    </BrowserRouter>
   );
 }
 

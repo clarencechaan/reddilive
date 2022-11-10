@@ -9,7 +9,7 @@ function Navigator() {
   // read thread ID or URL from input, then navigate to thread if found
   function handleNavigatorSubmit(e) {
     e.preventDefault();
-    const text = e.target[0].value;
+    const text = e.target.children[0].value;
     let threadId = "";
 
     // parse input for thread ID
@@ -41,7 +41,7 @@ function Navigator() {
 
     // navigate to thread of parsed ID
     e.target.reset();
-    e.target[0].blur();
+    e.target.children[0].blur();
     navigate(`/comments/${threadId}`);
   }
 
