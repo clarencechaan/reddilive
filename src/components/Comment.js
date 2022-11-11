@@ -155,7 +155,10 @@ function Comment({ comment, delay, now, setComment }) {
   // or when the comment author is the user
   return getSecondsAgo(comment.data.created, { now }) > delay ||
     user === comment.data.author ? (
-    <div className={"Comment" + (showCommentForm ? " show-children" : "")}>
+    <div
+      className={"Comment" + (showCommentForm ? " show-children" : "")}
+      data-testid={comment.data.id}
+    >
       <div
         className={"bubble" + (user === comment.data.author ? " is-me" : "")}
       >

@@ -3,8 +3,11 @@ import { render, fireEvent, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
 import App from "../App";
 
-test("blank input", async () => {
+beforeEach(() => {
   render(<App />);
+});
+
+test("blank input", async () => {
   const goButton = screen.getByText("GO");
 
   fireEvent.click(goButton);
@@ -12,7 +15,6 @@ test("blank input", async () => {
 });
 
 test("invalid URL", async () => {
-  render(<App />);
   const invalid = "https://www.google.com/";
   const userInput = screen.getByPlaceholderText("thread URL or ID");
   const goButton = screen.getByText("GO");
@@ -23,7 +25,6 @@ test("invalid URL", async () => {
 });
 
 test("full URL", async () => {
-  render(<App />);
   const URL =
     "https://www.reddit.com/r/MMA/comments/xb0fqv/official_ufc_279_diaz_vs_ferguson_live_discussion/";
   const userInput = screen.getByPlaceholderText("thread URL or ID");
@@ -35,7 +36,6 @@ test("full URL", async () => {
 });
 
 test("only thread ID", async () => {
-  render(<App />);
   const threadId = "yap2dt";
   const userInput = screen.getByPlaceholderText("thread URL or ID");
   const goButton = screen.getByText("GO");
@@ -46,7 +46,6 @@ test("only thread ID", async () => {
 });
 
 test("shortlink", async () => {
-  render(<App />);
   const shortlink = "https://redd.it/wti10n";
   const userInput = screen.getByPlaceholderText("thread URL or ID");
   const goButton = screen.getByText("GO");
