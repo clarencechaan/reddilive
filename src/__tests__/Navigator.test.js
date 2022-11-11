@@ -13,7 +13,7 @@ test("blank input", async () => {
 
 test("invalid URL", async () => {
   render(<App />);
-  const invalid = "https://www.reddit.com/";
+  const invalid = "https://www.google.com/";
   const userInput = screen.getByPlaceholderText("thread URL or ID");
   const goButton = screen.getByText("GO");
 
