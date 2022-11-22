@@ -132,7 +132,7 @@ function Thread({ popout }) {
       });
 
       document.title =
-        "reddilive | " +
+        "reddiLive | " +
         deentitize(fetchedThread[0].data.children[0].data.title);
     } catch (error) {
       setThread({
