@@ -128,10 +128,12 @@
   min-width: 60px;
 }
 
+.Thread .Sidebar .info-box .stats .speed,
 .Thread .Sidebar .info-box .stats .view-on-reddit {
   margin-left: auto;
   align-self: flex-end;
   color: gray;
+  text-align: center;
 }
 
 .Thread .Sidebar .stickied .by-line {

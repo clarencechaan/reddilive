@@ -105,6 +105,14 @@ function Sidebar({ thread }) {
           <ChatIcon size={16} className="icon" />
           {thread.info.num_comments}
         </a>
+        <label className="speed">
+          {
+            thread.comments.filter(
+              (comment) => getTimeAgo(comment.data.created).slice(-1) === "s"
+            ).length
+          }{" "}
+          comment(s) per minute
+        </label>
         <a
           href={`https://reddit.com${thread.info.permalink}`}
           className="view-on-reddit"
