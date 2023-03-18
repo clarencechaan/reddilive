@@ -18,15 +18,14 @@ function Navigator() {
       threadId = text.substring(idx + 10);
       threadId = threadId.substring(
         0,
-        threadId.indexOf("/") !== 0 ? threadId.indexOf("/") : threadId.length
+        threadId.indexOf("/") !== -1 ? threadId.indexOf("/") : threadId.length
       );
     } else if (text.includes("redd.it/")) {
       const idx = text.indexOf("redd.it/");
       threadId = text.substring(idx + 8);
-      threadId = text.substring(idx + 10);
       threadId = threadId.substring(
         0,
-        threadId.indexOf("/") !== 0 ? threadId.indexOf("/") : threadId.length
+        threadId.indexOf("/") !== -1 ? threadId.indexOf("/") : threadId.length
       );
     } else {
       threadId = text;
