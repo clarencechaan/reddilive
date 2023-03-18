@@ -69,7 +69,7 @@ function Thread({ popout }) {
       const fetchedComments = fetchedThread[1].data.children
         .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
         .reverse()
-        .slice(-50);
+        .slice(-150);
 
       setThread((prev) => {
         // do not update thread state if "initiate" flag is not passed
@@ -116,6 +116,7 @@ function Thread({ popout }) {
           return resultComment;
         }
 
+        let insertCount = 0;
         // update old comments, add newly fetched comments
         for (const comment of fetchedComments) {
           const idx = result.comments.findIndex(
@@ -126,10 +127,14 @@ function Thread({ popout }) {
               result.comments[idx],
               comment
             );
-          else result.comments.push(comment);
+          else {
+            result.comments.push(comment);
+            insertCount++;
+          }
         }
 
-        result.comments = result.comments.slice(-100);
+        if (result.comments.length > 170)
+          result.comments = result.comments.slice(insertCount + 1);
 
         return result;
       });
