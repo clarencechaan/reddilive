@@ -20,7 +20,7 @@ function Thread({ popout }) {
   const { threadId } = useParams();
   const [loading, setLoading] = useState(false);
   const [delay, setDelay] = useState(
-    parseInt(localStorage.getItem("delay")) || 0
+    parseInt(localStorage.getItem("delay")) || 5
   );
   let refreshInterval;
 
@@ -51,7 +51,7 @@ function Thread({ popout }) {
   // create/clear interval to refresh thread every period specified by delay
   function startRefreshInterval(delay) {
     clearInterval(refreshInterval);
-    refreshInterval = setInterval(refreshThread, delay * 1000 || 2000);
+    refreshInterval = setInterval(refreshThread, delay * 1000);
 
     return () => {
       clearInterval(refreshInterval);
@@ -150,7 +150,7 @@ function Thread({ popout }) {
     setDelay((prev) => {
       let newDelay;
       if (prev + val > 90) newDelay = 90;
-      else if (prev + val < 0) newDelay = 0;
+      else if (prev + val < 5) newDelay = 5;
       else newDelay = prev + val;
 
       localStorage.setItem("delay", newDelay);
