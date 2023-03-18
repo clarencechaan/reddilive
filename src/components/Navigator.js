@@ -15,17 +15,25 @@ function Navigator() {
     // parse input for thread ID
     if (text.includes("/comments/")) {
       const idx = text.indexOf("/comments/");
-      threadId = text.substring(idx + 10, idx + 16);
+      threadId = text.substring(idx + 10);
+      threadId = threadId.substring(
+        0,
+        threadId.indexOf("/") !== 0 ? threadId.indexOf("/") : threadId.length
+      );
     } else if (text.includes("redd.it/")) {
       const idx = text.indexOf("redd.it/");
-      threadId = text.substring(idx + 8, idx + 14);
+      threadId = text.substring(idx + 8);
+      threadId = text.substring(idx + 10);
+      threadId = threadId.substring(
+        0,
+        threadId.indexOf("/") !== 0 ? threadId.indexOf("/") : threadId.length
+      );
     } else {
       threadId = text;
     }
 
     // flash error message and return if ID is invalid
     if (
-      threadId.length !== 6 ||
       !threadId
         .split("")
         .every(
