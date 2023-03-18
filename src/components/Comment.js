@@ -163,32 +163,34 @@ function Comment({ comment, delay, now, setComment }) {
         className={"bubble" + (user === comment.data.author ? " is-me" : "")}
       >
         <div className="info">
-          {comment.data.author !== "[deleted]" ? (
-            <a
-              href={`https://www.reddit.com/user/${comment.data.author}`}
-              className="author"
-              onClick={(e) => {
-                !window.confirm("Go to reddit?") && e.preventDefault();
-              }}
-            >
-              {comment.data.author}
-            </a>
-          ) : (
-            <span className="author deleted">[deleted]</span>
-          )}
-          {score}
-          {comment.data.author !== "[deleted]" ? (
-            <button className="reply-btn" onClick={handleReplyBtnClick}>
-              {comment.data.depth === 0 && getChildrenCount() ? (
-                <>
-                  <ChatsCircle size={14} weight="fill" /> {getChildrenCount()}
-                </>
-              ) : (
-                <ChatsCircle size={14} />
-              )}
-            </button>
-          ) : null}
-          {flair}
+          <div className="left">
+            {comment.data.author !== "[deleted]" ? (
+              <a
+                href={`https://www.reddit.com/user/${comment.data.author}`}
+                className="author"
+                onClick={(e) => {
+                  !window.confirm("Go to reddit?") && e.preventDefault();
+                }}
+              >
+                {comment.data.author}
+              </a>
+            ) : (
+              <span className="author deleted">[deleted]</span>
+            )}
+            {score}
+            {comment.data.author !== "[deleted]" ? (
+              <button className="reply-btn" onClick={handleReplyBtnClick}>
+                {comment.data.depth === 0 && getChildrenCount() ? (
+                  <>
+                    <ChatsCircle size={14} weight="fill" /> {getChildrenCount()}
+                  </>
+                ) : (
+                  <ChatsCircle size={14} />
+                )}
+              </button>
+            ) : null}
+            {flair}
+          </div>
           <a
             href={`https://reddit.com${comment.data.permalink}`}
             className="timestamp"

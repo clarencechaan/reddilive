@@ -45,6 +45,11 @@
   white-space: nowrap;
 }
 
+.Comment .info .left {
+  display: flex;
+  overflow: hidden;
+}
+
 .Comment .info .author {
   font-family: "SFUIText-Medium";
   color: black;
