@@ -68,7 +68,8 @@ function Thread({ popout }) {
       // get array of the thread's comments, discarding MoreChildren objects and stickied comment
       const fetchedComments = fetchedThread[1].data.children
         .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
-        .reverse();
+        .reverse()
+        .slice(-50);
 
       setThread((prev) => {
         // do not update thread state if "initiate" flag is not passed
@@ -127,6 +128,8 @@ function Thread({ popout }) {
             );
           else result.comments.push(comment);
         }
+
+        result.comments = result.comments.slice(-100);
 
         return result;
       });
