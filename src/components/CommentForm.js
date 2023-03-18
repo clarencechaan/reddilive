@@ -3,8 +3,16 @@ import React, { useContext, useRef } from "react";
 import UserContext from "../context/UserContext";
 import "../styles/CommentForm.css";
 import { submitComment } from "../utils/redditAPI";
+import { getSecondsAgo } from "../utils/timeConversion";
 
-function CommentForm({ parentFullname, setThread, setComment, parentAuthor }) {
+function CommentForm({
+  parentFullname,
+  setThread,
+  setComment,
+  parentAuthor,
+  delay,
+  now,
+}) {
   const { user } = useContext(UserContext);
   const commentFormRef = useRef(null);
 
@@ -20,7 +28,16 @@ function CommentForm({ parentFullname, setThread, setComment, parentAuthor }) {
       if (comment && setThread)
         setThread((prev) => {
           let result = cloneDeep(prev);
-          result.comments = [...result.comments, comment];
+          let idx = result.comments.findLastIndex(
+            (c) =>
+              getSecondsAgo(c.data.created, { now }) > delay ||
+              user === c.data.author
+          );
+          result.comments = [
+            ...result.comments.slice(0, idx + 1),
+            comment,
+            ...result.comments.slice(idx + 1),
+          ];
           return result;
         });
       else if (comment && setComment)

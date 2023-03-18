@@ -59,6 +59,8 @@ function Chat({ thread, setThread, delay }) {
       <CommentForm
         parentFullname={`t3_${thread?.info?.id}`}
         setThread={setThread}
+        delay={delay}
+        now={now}
       />
     </div>
   );

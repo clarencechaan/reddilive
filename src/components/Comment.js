@@ -208,6 +208,8 @@ function Comment({ comment, delay, now, setComment }) {
               parentFullname={`t1_${comment.data.id}`}
               setComment={setComment}
               parentAuthor={comment.data.author}
+              delay={delay}
+              now={now}
             />
           ) : null}
           {[...replies].reverse().map((reply) => (
