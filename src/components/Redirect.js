@@ -10,7 +10,11 @@ function Redirect() {
     if (referrer.includes("/comments/")) {
       // parse referrer for thread ID
       const idx = referrer.indexOf("/comments/");
-      const threadId = referrer.substring(idx + 10, idx + 16);
+      let threadId = referrer.substring(idx + 10);
+      threadId = threadId.substring(
+        0,
+        threadId.indexOf("/") !== 0 ? threadId.indexOf("/") : threadId.length
+      );
 
       // navigate to thread of parsed ID
       navigate(`/comments/${threadId}`);
