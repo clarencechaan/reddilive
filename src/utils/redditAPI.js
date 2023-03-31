@@ -92,4 +92,31 @@ async function submitComment(parent, text) {
   }
 }
 
-export { fetchThread, fetchMe, upvoteComment, submitComment };
+// retrieve the most active threads of the past 6 hours
+async function fetchActiveThreads() {
+  const url = `https://oauth.reddit.com/search?q=nsfw%3Ano&sort=comments&t=day`;
+
+  try {
+    const token = await getToken();
+    const res = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const resObj = await res.json();
+    const active = resObj?.data?.children
+      ?.filter((child) => child.data.created > Date.now() / 1000 - 6 * 60 * 60)
+      .slice(0, 5);
+    return active;
+  } catch (error) {
+    console.log("error", error);
+  }
+}
+
+export {
+  fetchThread,
+  fetchMe,
+  upvoteComment,
+  submitComment,
+  fetchActiveThreads,
+};

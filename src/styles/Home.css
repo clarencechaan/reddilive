@@ -56,11 +56,11 @@
 
 .Home .main {
   align-items: center;
-  justify-content: center;
 }
 
 .Home .main .logo {
-  width: min(600px, 100%);
+  margin-top: 18vh;
+  width: min(400px, 100%);
   padding: 0 16px;
   box-sizing: border-box;
   filter: drop-shadow(0 0 80px rgba(255, 255, 255, 0.25));
@@ -68,18 +68,18 @@
 
 .Home .main .tag-line {
   margin-top: 12px;
-  font-size: min(7vw, 32px);
+  font-size: min(7vw, 24px);
   padding: 0 20px;
   text-align: center;
 }
 
 .Home .main .me {
-  font-size: 16px;
-  margin-top: 72px;
+  margin-top: auto;
+  margin-bottom: 24px;
   display: flex;
   align-items: center;
   column-gap: 8px;
-  color: inherit;
+  color: gray;
   font-family: inherit;
 }
 
@@ -100,4 +100,39 @@
   z-index: 1;
   top: 16px;
   right: 18px;
+}
+
+.Home .main .active-threads {
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 64px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 12px;
+}
+
+.Home .main .active-threads h1 {
+  align-self: center;
+}
+
+.Home .main .active-threads .thread {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.Home .main .active-threads .thread .title {
+  font-size: 16px;
+  color: inherit;
+  width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.Home .main .active-threads .thread .subtext {
+  color: gray;
 }
