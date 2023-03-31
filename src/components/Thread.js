@@ -22,7 +22,6 @@ function Thread({ popout }) {
   const [delay, setDelay] = useState(
     parseInt(localStorage.getItem("delay")) || 5
   );
-  let refreshInterval;
 
   // set thread to an empty thread, then attempt to fetch thread by threadId
   // and set thread if found
@@ -44,19 +43,21 @@ function Thread({ popout }) {
 
   // update interval when thread or delay is changed
   useEffect(() => {
+    let refreshInterval;
+
+    // create/clear interval to refresh thread every period specified by delay
+    function startRefreshInterval(delay) {
+      clearInterval(refreshInterval);
+      refreshInterval = setInterval(refreshThread, delay * 1000);
+
+      return () => {
+        clearInterval(refreshInterval);
+      };
+    }
+
     const clearRefreshInterval = startRefreshInterval(delay);
     return clearRefreshInterval;
   }, [threadId, delay]);
-
-  // create/clear interval to refresh thread every period specified by delay
-  function startRefreshInterval(delay) {
-    clearInterval(refreshInterval);
-    refreshInterval = setInterval(refreshThread, delay * 1000);
-
-    return () => {
-      clearInterval(refreshInterval);
-    };
-  }
 
   // attempt to fetch thread from reddit, then set thread state if found
   // otherwise set thread to empty thread
