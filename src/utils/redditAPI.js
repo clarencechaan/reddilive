@@ -1,8 +1,11 @@
 import { getToken, getUserToken } from "./auth";
 
 // fetch reddit thread given thread ID
-async function fetchThread(threadId) {
-  const url = `https://oauth.reddit.com/comments/${threadId}/?sort=new`;
+// (pass error500Count to bypass internal server error 500)
+async function fetchThread(threadId, error500Count = 0) {
+  const url =
+    `https://oauth.reddit.com/comments/${threadId}/?sort=new` +
+    "&".repeat(error500Count);
 
   try {
     const token = await getToken();

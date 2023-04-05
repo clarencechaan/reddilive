@@ -22,6 +22,7 @@ function Thread({ popout }) {
   const [delay, setDelay] = useState(
     parseInt(localStorage.getItem("delay")) || 5
   );
+  let error500Count = 0;
 
   // set thread to an empty thread, then attempt to fetch thread by threadId
   // and set thread if found
@@ -63,8 +64,12 @@ function Thread({ popout }) {
   // otherwise set thread to empty thread
   async function refreshThread(options) {
     try {
-      const fetchedThread = await fetchThread(threadId);
+      let fetchedThread = await fetchThread(threadId, error500Count);
       if (!fetchedThread) return;
+      while (fetchedThread?.error === 500) {
+        error500Count++;
+        fetchedThread = await fetchThread(threadId, error500Count);
+      }
 
       // get array of the thread's comments, discarding MoreChildren objects and stickied comment
       const fetchedComments = fetchedThread[1].data.children
