@@ -137,7 +137,7 @@ function Comment({ comment, delay, now, setComment }) {
   ) {
     const count = replies.filter(
       (reply) =>
-        getSecondsAgo(reply.data.created, { now }) > delay ||
+        getSecondsAgo(reply.data.created, { now }) >= delay ||
         user === reply.data.author
     ).length;
     if (!count) return 0;
@@ -153,7 +153,7 @@ function Comment({ comment, delay, now, setComment }) {
 
   // show comment only when it is old enough (i.e., reached the delay threshold)
   // or when the comment author is the user
-  return getSecondsAgo(comment.data.created, { now }) > delay ||
+  return getSecondsAgo(comment.data.created, { now }) >= delay ||
     user === comment.data.author ? (
     <div
       className={"Comment" + (showCommentForm ? " show-children" : "")}

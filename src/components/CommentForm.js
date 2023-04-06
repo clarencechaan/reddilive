@@ -30,7 +30,7 @@ function CommentForm({
           let result = cloneDeep(prev);
           let idx = result.comments.findLastIndex(
             (c) =>
-              getSecondsAgo(c.data.created, { now }) > delay ||
+              getSecondsAgo(c.data.created, { now }) >= delay ||
               user === c.data.author
           );
           result.comments = [
