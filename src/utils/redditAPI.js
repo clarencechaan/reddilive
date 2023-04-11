@@ -14,6 +14,7 @@ async function fetchThread(threadId, error500Count = 0) {
         Authorization: `Bearer ${token}`,
       },
     });
+    if (res.status === 500) return { error: 500 };
     const thread = await res.json();
     return thread;
   } catch (error) {
