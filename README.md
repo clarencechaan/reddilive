@@ -7,7 +7,7 @@
 ## Features
 
 - Auto-refreshing thread
-- Custom refresh delay from 0 to 90 seconds
+- Custom refresh delay from 5 to 90 seconds
 - Upvoting & downvoting comments
 - Submitting comments (both top-level and comment replies)
 - Dark and light themes
