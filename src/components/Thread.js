@@ -75,7 +75,7 @@ function Thread({ popout }) {
       const fetchedComments = fetchedThread[1].data.children
         .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
         .reverse()
-        .slice(-150);
+        .slice(-100);
 
       setThread((prev) => {
         // do not update thread state if "initiate" flag is not passed
@@ -139,7 +139,7 @@ function Thread({ popout }) {
           }
         }
 
-        if (result.comments.length > 170)
+        if (result.comments.length > 200)
           result.comments = result.comments.slice(insertCount + 1);
 
         return result;

@@ -98,19 +98,36 @@ async function submitComment(parent, text) {
 
 // retrieve the most active threads of the past 6 hours
 async function fetchActiveThreads() {
-  const url = `https://oauth.reddit.com/search?q=nsfw%3Ano&sort=comments&t=day`;
+  const url1 = `https://oauth.reddit.com/search?q=nsfw%3Ano&sort=comments&t=day`;
+  const url2 = `https://oauth.reddit.com/search?q=nsfw%3Ano&sort=comments&t=hour`;
 
   try {
     const token = await getToken();
-    const res = await fetch(url, {
+    const res1 = await fetch(url1, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    const resObj = await res.json();
-    const active = resObj?.data?.children
-      ?.filter((child) => child.data.created > Date.now() / 1000 - 6 * 60 * 60)
-      .slice(0, 5);
+    const res2 = await fetch(url2, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const resObj1 = await res1.json();
+    const resObj2 = await res2.json();
+    let active = [];
+    if (resObj1?.data?.children) active.push(...resObj1.data.children);
+    if (resObj2?.data?.children)
+      active.push(
+        ...resObj2.data.children.filter(
+          (thread) =>
+            thread.data.num_comments /
+              ((Date.now() / 1000 - thread.data.created) / 60) >=
+            5
+        )
+      );
+    active.sort((a, b) => (a.data.created > b.data.created ? -1 : 1));
+    active = active.slice(0, 5);
     return active;
   } catch (error) {
     console.log("error", error);
