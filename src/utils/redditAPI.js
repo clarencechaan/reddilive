@@ -96,7 +96,7 @@ async function submitComment(parent, text) {
   }
 }
 
-// retrieve the most active threads of the past 6 hours
+// retrieve the most active threads
 async function fetchActiveThreads() {
   const url1 = `https://oauth.reddit.com/search?q=nsfw%3Ano&sort=comments&t=day`;
   const url2 = `https://oauth.reddit.com/search?q=nsfw%3Ano&sort=comments&t=hour`;
@@ -127,6 +127,9 @@ async function fetchActiveThreads() {
         )
       );
     active.sort((a, b) => (a.data.created > b.data.created ? -1 : 1));
+    active = active.filter(
+      (thread) => thread.data.subreddit_subscribers > 100000
+    );
     active = active.slice(0, 5);
     return active;
   } catch (error) {
