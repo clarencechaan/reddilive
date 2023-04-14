@@ -146,8 +146,8 @@ function Thread({ popout }) {
       });
 
       document.title =
-        "reddiLive | " +
-        deentitize(fetchedThread[0].data.children[0].data.title);
+        deentitize(fetchedThread[0].data.children[0].data.title) +
+        " - reddiLive";
     } catch (error) {
       setThread({
         info: null,

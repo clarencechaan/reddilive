@@ -18,6 +18,8 @@ function Home() {
       if (threads) setActiveThreads(threads);
     }
 
+    document.title = "reddiLive: live threads for reddit";
+
     getActiveThreads();
   }, []);
 
