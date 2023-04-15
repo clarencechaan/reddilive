@@ -98,7 +98,7 @@ async function submitComment(parent, text) {
 
 // retrieve the most active threads
 async function fetchActiveThreads() {
-  const url1 = `https://oauth.reddit.com/search?q=nsfw%3Ano&sort=comments&t=day`;
+  const url1 = `https://oauth.reddit.com/search?q=nsfw%3Ano&sort=comments&t=day&limit=100`;
   const url2 = `https://oauth.reddit.com/search?q=nsfw%3Ano&sort=comments&t=hour`;
 
   try {
@@ -115,22 +115,31 @@ async function fetchActiveThreads() {
     });
     const resObj1 = await res1.json();
     const resObj2 = await res2.json();
-    let active = [];
-    if (resObj1?.data?.children) active.push(...resObj1.data.children);
+
+    let map = {};
+
+    if (resObj1?.data?.children)
+      resObj1.data.children.forEach((child) => {
+        map[child.data.id] = child;
+      });
+
     if (resObj2?.data?.children)
-      active.push(
-        ...resObj2.data.children.filter(
-          (thread) =>
-            thread.data.num_comments /
-              ((Date.now() / 1000 - thread.data.created) / 60) >=
-            5
-        )
-      );
-    active.sort((a, b) => (a.data.created > b.data.created ? -1 : 1));
+      resObj2.data.children.forEach((child) => {
+        map[child.data.id] = child;
+      });
+
+    let active = [];
+    for (const id in map) active.push(map[id]);
+
     active = active.filter(
-      (thread) => thread.data.subreddit_subscribers > 100000
+      (thread) =>
+        thread.data.subreddit_subscribers > 100000 &&
+        thread.data.num_comments /
+          ((Date.now() / 1000 - thread.data.created) / 60) >=
+          5
     );
-    active = active.slice(0, 5);
+    active.sort((a, b) => (a.data.created > b.data.created ? -1 : 1));
+    active = active.slice(0, 8);
     return active;
   } catch (error) {
     console.log("error", error);
