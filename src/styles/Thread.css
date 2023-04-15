@@ -189,13 +189,6 @@
   color: rgb(239, 239, 241);
 }
 
-.Thread .Throbber {
-  position: fixed;
-  bottom: 75px;
-  right: 50px;
-  z-index: 2;
-}
-
 .Thread .main .no-comments-msg {
   position: absolute;
   top: 50%;

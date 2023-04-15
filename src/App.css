@@ -146,3 +146,10 @@ button {
 .dark-mode hr {
   border-color: gray;
 }
+
+.Throbber {
+  position: fixed;
+  bottom: 75px;
+  right: 50px;
+  z-index: 2;
+}

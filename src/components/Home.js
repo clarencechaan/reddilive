@@ -6,15 +6,19 @@ import "../styles/Home.css";
 import LogInBtn from "./LogInBtn";
 import Sidebar from "./Sidebar";
 import ThemeSwitch from "./ThemeSwitch";
+import Throbber from "./Throbber";
 import { fetchActiveThreads } from "../utils/redditAPI";
 import { getTimeAgo } from "../utils/timeConversion";
 
 function Home() {
   const [activeThreads, setActiveThreads] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function getActiveThreads() {
+      setLoading(true);
       const threads = await fetchActiveThreads();
+      setLoading(false);
       if (threads) setActiveThreads(threads);
     }
 
@@ -52,6 +56,7 @@ function Home() {
       </div>
       <ThemeSwitch />
       <LogInBtn />
+      {loading ? <Throbber /> : null}
     </div>
   );
 }
