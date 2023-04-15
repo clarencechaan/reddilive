@@ -136,7 +136,7 @@ async function fetchActiveThreads() {
         thread.data.subreddit_subscribers > 100000 &&
         thread.data.num_comments /
           ((Date.now() / 1000 - thread.data.created) / 60) >=
-          5
+          10
     );
     active.sort((a, b) => (a.data.created > b.data.created ? -1 : 1));
     active = active.slice(0, 8);
