@@ -20,7 +20,7 @@ import Navigator from "./Navigator";
  * the app. Uses various utility functions to format the thread's body, flair,
  * and time ago.
  *
- * @param {Object} thread - An object containing the thread information and
+ * @param {object} thread - An object containing the thread information and
  *                          comments. If null or undefined, the "how to" diagram
  *                          will be displayed instead.
  */

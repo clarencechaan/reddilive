@@ -93,7 +93,7 @@ function CommentForm({
   /**
    * Resizes the input when the user types.
    *
-   * @param {Object} e - The event object.
+   * @param {object} e - The event object.
    */
   function handleTextInputChanged(e) {
     resizeTextInput(e.target);
@@ -102,7 +102,7 @@ function CommentForm({
   /**
    * Submits comment to reddit when Enter key is pressed.
    *
-   * @param {Object} e - The event object.
+   * @param {object} e - The event object.
    */
   function onEnterPress(e) {
     if (e.keyCode === 13 && !e.shiftKey) {
