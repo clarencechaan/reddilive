@@ -7,6 +7,7 @@ import LogInBtn from "./LogInBtn";
 import Sidebar from "./Sidebar";
 import ThemeSwitch from "./ThemeSwitch";
 import Throbber from "./Throbber";
+import { deentitize } from "../utils/markdown";
 import { fetchActiveThreads } from "../utils/redditAPI";
 import { getTimeAgo } from "../utils/timeConversion";
 
@@ -43,7 +44,7 @@ function Home() {
             {activeThreads.map((thread) => (
               <div key={thread.data.id} className="thread">
                 <Link to={`/comments/${thread.data.id}`} className="title">
-                  {thread.data.title}
+                  {deentitize(thread.data.title)}
                 </Link>
                 <p className="subtext">{`(r/${
                   thread.data.subreddit
