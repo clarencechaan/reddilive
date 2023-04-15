@@ -168,10 +168,7 @@ function Sidebar({ thread }) {
   }
 
   return (
-    <div
-      className={"SidebarContainer" + (thread ? " collapsed" : "")}
-      ref={sidebarRef}
-    >
+    <div className={"SidebarContainer collapsed"} ref={sidebarRef}>
       <div className="Sidebar">
         <div className="drawer">
           <div className="top-bar">
