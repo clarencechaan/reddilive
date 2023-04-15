@@ -1,6 +1,9 @@
 import React from "react";
 import "../styles/Throbber.css";
 
+/**
+ * Component for a throbber animation consisting of eight blocks.
+ */
 function Throbber() {
   return (
     <div className="Throbber">

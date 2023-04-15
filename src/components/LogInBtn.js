@@ -4,18 +4,25 @@ import "../styles/LogInBtn.css";
 
 const { REACT_APP_CLIENT_ID: CLIENT_ID } = process.env;
 
+/**
+ * Component for a log in button if user is not logged in, or a username and log
+ * out button if user is logged in.
+ *
+ * @param {string} threadId - ID of the thread to redirect to after successful authentication.
+ */
 function LogInBtn({ threadId }) {
   const { user, setUser } = useContext(UserContext);
 
-  // clear user login info from local storage and remove account from state
+  /**
+   * Handles the click event for the logout button. Remove the user's login info
+   * from local storage and remove the account from the UserContext state.
+   */
   function handleLogOutBtnClick() {
     localStorage.setItem("username", "");
     localStorage.setItem("refresh_token", "");
     setUser("");
   }
 
-  // show username and log out button if user is logged in
-  // otherwise show log in button
   return user ? (
     <div className="LogInBtn">
       <label className="username">{user}</label>|
@@ -26,11 +33,14 @@ function LogInBtn({ threadId }) {
   ) : (
     <div className="LogInBtn">
       <a
-        href={`https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=code&duration=permanent&state={"threadId":"${
-          threadId || ""
-        }"}&redirect_uri=${
-          window.location.origin
-        }/auth&scope=identity vote read submit`}
+        href={
+          `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}` +
+          `&response_type=code&duration=permanent&state={"threadId":"${
+            threadId || ""
+          }"}&redirect_uri=${
+            window.location.origin
+          }/auth&scope=identity vote read submit`
+        }
       >
         log in
       </a>

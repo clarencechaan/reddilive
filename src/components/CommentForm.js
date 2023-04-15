@@ -5,6 +5,20 @@ import "../styles/CommentForm.css";
 import { submitComment } from "../utils/redditAPI";
 import { getSecondsAgo } from "../utils/timeConversion";
 
+/**
+ * Component for submitting comments to a Reddit thread.
+ *
+ * @param {string} parentFullname - The unique identifier of the parent thread.
+ * @param {function} setThread - A function to set the state of the parent
+ *                               thread if the comment is successfully
+ *                               submitted.
+ * @param {function} setComment - A function to set the state of the current
+ *                                comment if the comment is successfully
+ *                                submitted.
+ * @param {string} parentAuthor - The username of the author of the parent thread.
+ * @param {number} delay - The delay before comments are visible, in seconds.
+ * @param {number} now - The current time.
+ */
 function CommentForm({
   parentFullname,
   setThread,
@@ -16,7 +30,12 @@ function CommentForm({
   const { user } = useContext(UserContext);
   const commentFormRef = useRef(null);
 
-  // attempt to submit comment to reddit thread and update thread state if successful
+  /**
+   * Attempts to submit the comment to the Reddit thread and update the state of
+   * the parent thread or the current comment if successful.
+   *
+   * @param {object} e - The event object.
+   */
   async function handleCommentFormSubmit(e) {
     e.preventDefault();
     const parent = parentFullname;
@@ -60,19 +79,31 @@ function CommentForm({
     }
   }
 
-  // update height of text input based on content height
+  /**
+   * Resizes the text input based on the content height.
+   *
+   * @param {object} textInput - The text input element.
+   */
   function resizeTextInput(textInput) {
     textInput.style.minHeight = "0px";
     textInput.style.minHeight =
       Math.min(textInput.scrollHeight + 2, 129) + "px";
   }
 
-  // resize input when user types
+  /**
+   * Resizes the input when the user types.
+   *
+   * @param {Object} e - The event object.
+   */
   function handleTextInputChanged(e) {
     resizeTextInput(e.target);
   }
 
-  // submit comment to reddit when Enter key is pressed
+  /**
+   * Submits comment to reddit when Enter key is pressed.
+   *
+   * @param {Object} e - The event object.
+   */
   function onEnterPress(e) {
     if (e.keyCode === 13 && !e.shiftKey) {
       e.preventDefault();

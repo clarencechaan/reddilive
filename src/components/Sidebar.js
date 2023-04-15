@@ -14,17 +14,28 @@ import { formatBody, formatFlair, deentitize } from "../utils/markdown";
 import { getTimeAgo } from "../utils/timeConversion";
 import Navigator from "./Navigator";
 
+/**
+ * Component for the sidebar, which displays the thread information and a
+ * stickied comment if provided, otherwise displays a diagram showing how to use
+ * the app. Uses various utility functions to format the thread's body, flair,
+ * and time ago.
+ *
+ * @param {Object} thread - An object containing the thread information and
+ *                          comments. If null or undefined, the "how to" diagram
+ *                          will be displayed instead.
+ */
 function Sidebar({ thread }) {
+  // The useRef and useContext hooks are used to access the ThemeContext and sidebarRef.
   const sidebarRef = useRef(null);
   const { darkMode } = useContext(ThemeContext);
 
-  // format thread selftext from markdown to JSX with emotes and gifs
+  // This function formats the thread selftext from markdown to JSX with emotes and gifs
   const selftext = formatBody(
     thread?.info?.selftext,
     thread?.info?.media_metadata
   );
 
-  // get author flair, formatted from markdown to JSX with emojis
+  // Get the author flair, formatted from markdown to JSX with emojis
   let flair = thread?.info?.author_flair_text ? (
     <label className="flair">
       {formatFlair(
@@ -34,7 +45,7 @@ function Sidebar({ thread }) {
     </label>
   ) : null;
 
-  // get link flair, formatted from markdown to JSX with emojis
+  // Get the link flair, formatted from markdown to JSX with emojis
   const linkFlair = thread?.info?.link_flair_text ? (
     <label className="link-flair">
       {formatFlair(
@@ -44,7 +55,7 @@ function Sidebar({ thread }) {
     </label>
   ) : null;
 
-  // get stickied comment, formatted from markdown to JSX with emotes and gifs
+  // Get the stickied comment, formatted from markdown to JSX with emotes and gifs
   const stickiedBox = thread?.stickied ? (
     <div className="stickied">
       <div className="by-line">
@@ -68,8 +79,8 @@ function Sidebar({ thread }) {
     </div>
   ) : null;
 
-  // get thread info including author, title, selftext, creation time, etc.
-  // formatted from markdown to JSX with emotes and gifs
+  // Get the thread info including author, title, selftext, creation time, etc., formatted from
+  // markdown to JSX with emotes and gifs
   const infoBox = thread?.info ? (
     <div className="info-box">
       <div className="title-bar">
@@ -123,8 +134,7 @@ function Sidebar({ thread }) {
     </div>
   ) : null;
 
-  // show thread info and stickied comment if thread prop is found
-  // otherwise show "how to" diagram
+  // Show thread info and stickied comment if thread prop is found, otherwise show "how to" diagram
   const sidebarContent = thread ? (
     <div className="sidebar-content">
       {infoBox}
@@ -162,7 +172,9 @@ function Sidebar({ thread }) {
     </div>
   );
 
-  // show/hide (expand/collapse) sidebar
+  /**
+   * Shows/hides (expands/collapses) sidebar
+   */
   function toggleCollapse() {
     sidebarRef.current.classList.toggle("collapsed");
   }

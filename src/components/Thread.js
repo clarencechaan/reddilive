@@ -11,21 +11,32 @@ import Sidebar from "./Sidebar";
 import ThemeSwitch from "./ThemeSwitch";
 import Throbber from "./Throbber";
 
-function Thread({ popout }) {
+/**
+ * Component for displaying a Reddit thread with live updating comments.
+ */
+function Thread() {
+  // Initialize the thread state with an empty thread
   const [thread, setThread] = useState({
     info: null,
     stickied: null,
     comments: [],
   });
+
+  // Get the thread ID from the URL parameter
   const { threadId } = useParams();
+
+  // Initialize the loading state to false and the delay state to the value
+  // stored in localStorage or 5 seconds if no value is stored
   const [loading, setLoading] = useState(false);
   const [delay, setDelay] = useState(
     parseInt(localStorage.getItem("delay")) || 5
   );
+
+  // Initialize the error500Count variable to track the number of 500 errors
   let error500Count = 0;
 
-  // set thread to an empty thread, then attempt to fetch thread by threadId
-  // and set thread if found
+  // Initialize a thread object with an empty state, and fetch the thread with
+  // the given ID if it exists, then set the thread state.
   useEffect(() => {
     async function initiateThread() {
       setThread({
@@ -35,6 +46,7 @@ function Thread({ popout }) {
       });
 
       setLoading(true);
+      // Refresh the thread with the given ID.
       await refreshThread({ initiate: true });
       setLoading(false);
     }
@@ -42,11 +54,11 @@ function Thread({ popout }) {
     initiateThread();
   }, [threadId]);
 
-  // update interval when thread or delay is changed
+  // Set up an interval to refresh a thread based on the specified delay.
+  // The interval is cleared and created whenever the thread ID or delay changes.
   useEffect(() => {
     let refreshInterval;
 
-    // create/clear interval to refresh thread every period specified by delay
     function startRefreshInterval(delay) {
       clearInterval(refreshInterval);
       refreshInterval = setInterval(refreshThread, delay * 1000);
@@ -60,8 +72,15 @@ function Thread({ popout }) {
     return clearRefreshInterval;
   }, [threadId, delay]);
 
-  // attempt to fetch thread from reddit, then set thread state if found
-  // otherwise set thread to empty thread
+  /**
+   * Refreshes the thread by fetching the latest thread comments from Reddit's API.
+   *
+   * @param {object} [options] - Optional configuration options.
+   * @param {boolean} [options.initiate] - If true, the thread state will be
+   *                                       updated regardless of whether the
+   *                                       state thread ID and fetched thread
+   *                                       ID match.
+   */
   async function refreshThread(options) {
     try {
       let fetchedThread = await fetchThread(threadId, error500Count);
@@ -71,14 +90,14 @@ function Thread({ popout }) {
         fetchedThread = await fetchThread(threadId, error500Count);
       }
 
-      // get array of the thread's comments, discarding MoreChildren objects and stickied comment
+      // Get array of the thread's comments, discarding MoreChildren objects and stickied comment
       const fetchedComments = fetchedThread[1].data.children
         .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
         .reverse()
         .slice(-100);
 
       setThread((prev) => {
-        // do not update thread state if "initiate" flag is not passed
+        // Do not update thread state if "initiate" flag is not passed,
         // and state thread ID and fetched thread ID do not match
         if (
           !options?.initiate &&
@@ -92,9 +111,15 @@ function Thread({ popout }) {
           (comment) => comment.data.stickied
         )?.data;
 
-        // replace comment in thread state while ensuring any replies to the
-        // comment in the previous state that were not found in the fetched
-        // response are not discarded
+        /**
+         * Replaces the score and replies of a comment with the corresponding
+         * values from a fetched comment object.
+         *
+         * @param {object} comment - The original comment object.
+         * @param {object} fetchedComment - The fetched comment object containing
+         *                                  the new score and replies.
+         * @returns {object} - A new comment object with the updated score and replies.
+         */
         function replaceComment(comment, fetchedComment) {
           let resultComment = cloneDeep(comment);
           resultComment.data.score = fetchedComment.data.score;
@@ -123,7 +148,7 @@ function Thread({ popout }) {
         }
 
         let insertCount = 0;
-        // update old comments, add newly fetched comments
+        // Update old comments and add newly fetched comments
         for (const comment of fetchedComments) {
           const idx = result.comments.findIndex(
             (p) => p.data.id === comment.data.id
@@ -159,7 +184,11 @@ function Thread({ popout }) {
     }
   }
 
-  // increase/decrease delay in state and local storage
+  /**
+   * Adds a delay to the current delay value.
+   *
+   * @param {number} val - The value to add to the current delay.
+   */
   function addDelay(val) {
     setDelay((prev) => {
       let newDelay;
@@ -173,7 +202,7 @@ function Thread({ popout }) {
   }
 
   return (
-    <div className={"Thread" + (popout ? " popout" : "")}>
+    <div className="Thread">
       <Sidebar thread={thread} />
       <div className="main">
         <Chat thread={thread} setThread={setThread} delay={delay} />

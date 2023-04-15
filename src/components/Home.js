@@ -10,10 +10,14 @@ import Throbber from "./Throbber";
 import { fetchActiveThreads } from "../utils/redditAPI";
 import { getTimeAgo } from "../utils/timeConversion";
 
+/**
+ * Component for the homepage, which displays a list of active threads from Reddit.
+ */
 function Home() {
   const [activeThreads, setActiveThreads] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // Fetch the active threads from the Reddit API and update the state with the results.
   useEffect(() => {
     async function getActiveThreads() {
       setLoading(true);

@@ -3,10 +3,16 @@ import React, { useContext } from "react";
 import ThemeContext from "../context/ThemeContext";
 import "../styles/ThemeSwitch.css";
 
+/**
+ * Component for a button that toggles between light and dark mode for the app's theme.
+ */
 function ThemeSwitch() {
   const { setDarkMode } = useContext(ThemeContext);
 
-  // toggle theme, setting state and local storage to reflect changes
+  /**
+   * Toggles the app's theme between light and dark mode, and saves the current
+   * state to local storage.
+   */
   function handleThemeSwitchClick() {
     setDarkMode((prev) => {
       if (prev) localStorage.setItem("dark_mode", "");

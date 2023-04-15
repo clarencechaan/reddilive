@@ -1,3 +1,7 @@
+/**
+ * Module for managing Reddit API tokens.
+ */
+
 import { v4 as uuidv4 } from "uuid";
 
 const { REACT_APP_CLIENT_ID: CLIENT_ID } = process.env;
@@ -6,8 +10,12 @@ const url = "https://www.reddit.com/api/v1/access_token";
 let token;
 let userToken;
 
-// return user access token if user is logged in,
-// otherwise return general access token
+/**
+ * Returns the user access token if the user is logged in, or the general access
+ * token otherwise.
+ *
+ * @returns {Promise<string>} - The access token.
+ */
 async function getToken() {
   try {
     if (localStorage.getItem("refresh_token")) return getUserToken();
@@ -17,7 +25,11 @@ async function getToken() {
   }
 }
 
-// fetch new general access token
+/**
+ * Fetches a new general access token.
+ *
+ * @returns {Promise<string>} - The access token.
+ */
 async function fetchToken() {
   const grantType = "https://oauth.reddit.com/grants/installed_client";
   let deviceId = localStorage.getItem("device_id");
@@ -49,8 +61,12 @@ async function fetchToken() {
   }
 }
 
-// return user access token if previously fetched
-// otherwise fetch and return new user access token
+/**
+ * Returns the user access token if it has been previously fetched, or fetches a
+ * new one.
+ *
+ * @returns {Promise<string>} - The user access token.
+ */
 async function getUserToken() {
   try {
     return userToken || (await refreshUserToken());
@@ -59,8 +75,14 @@ async function getUserToken() {
   }
 }
 
-// given authorization code after user logs in,
-// fetch and return user access token and refresh token
+/**
+ * Fetches the user access and refresh tokens using an authorization code.
+ *
+ * @param {string} code - The authorization code.
+ * @param {string} redirect_uri - The redirect URI.
+ * @returns {Promise<object>} - An object containing the user access token and
+ *                              refresh token.
+ */
 async function fetchUserTokens(code, redirect_uri) {
   const grantType = "authorization_code";
 
@@ -89,7 +111,11 @@ async function fetchUserTokens(code, redirect_uri) {
   }
 }
 
-// refresh user access token using refresh token saved in local storage
+/**
+ * Refreshes the user access token using the refresh token saved in local storage.
+ *
+ * @returns {Promise<string>} - The refreshed user access token.
+ */
 async function refreshUserToken() {
   const grantType = "refresh_token";
   const refreshToken = localStorage.getItem("refresh_token");

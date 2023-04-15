@@ -1,7 +1,13 @@
 import { getToken, getUserToken } from "./auth";
 
-// fetch reddit thread given thread ID
-// (pass error500Count to bypass internal server error 500)
+/**
+ * Fetches a reddit thread given the thread ID.
+ *
+ * @param {string} threadId - the ID of the thread to fetch
+ * @param {number} error500Count - the number of times to bypass internal server error 500
+ * @returns {Promise<object>} - a Promise that resolves with the thread object
+ *                              or rejects with an error
+ */
 async function fetchThread(threadId, error500Count = 0) {
   const url =
     `https://oauth.reddit.com/comments/${threadId}/?sort=new` +
@@ -22,7 +28,12 @@ async function fetchThread(threadId, error500Count = 0) {
   }
 }
 
-// fetch the logged in user
+/**
+ * Fetches the logged-in user.
+ *
+ * @returns {Promise<string>} - a Promise that resolves with the username or
+ *                              rejects with an error
+ */
 async function fetchMe() {
   const url = `https://oauth.reddit.com/api/v1/me`;
 
@@ -40,7 +51,15 @@ async function fetchMe() {
   }
 }
 
-// upvote reddit comment given the comment ID and upvote direction
+/**
+ * Upvotes a reddit comment given the comment ID and upvote direction.
+ *
+ * @param {string} id - the ID of the comment to upvote
+ * @param {number} dir - the direction of the upvote (-1 for downvote, 0 for no
+ *                       vote, 1 for upvote)
+ * @returns {Promise<object>} - a Promise that resolves with the result of the
+ *                              upvote or rejects with an error
+ */
 async function upvoteComment(id, dir) {
   const url = `https://oauth.reddit.com/api/vote`;
 
@@ -67,7 +86,14 @@ async function upvoteComment(id, dir) {
   }
 }
 
-// submit new reddit comment given the parent fullname and markdown text
+/**
+ * Submits a new reddit comment given the parent fullname and markdown text.
+ *
+ * @param {string} parent - the fullname of the parent comment or thread to reply to
+ * @param {string} text - the markdown text of the comment to submit
+ * @returns {Promise<object>} - a Promise that resolves with the submitted
+ *                              comment object or rejects with an error
+ */
 async function submitComment(parent, text) {
   const url = `https://oauth.reddit.com/api/comment`;
 
@@ -96,7 +122,11 @@ async function submitComment(parent, text) {
   }
 }
 
-// retrieve the most active threads
+/**
+ * Fetches a list of active threads from Reddit API.
+ *
+ * @returns {object[]} An array of active threads.
+ */
 async function fetchActiveThreads() {
   const url1 = `https://oauth.reddit.com/search?q=nsfw%3Ano&sort=comments&t=day&limit=100`;
   const url2 = `https://oauth.reddit.com/search?q=nsfw%3Ano&sort=comments&t=hour`;

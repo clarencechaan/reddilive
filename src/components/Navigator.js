@@ -2,17 +2,24 @@ import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Navigator.css";
 
+/**
+ * Component for a form with a text input and a button for navigating to a Reddit thread.
+ */
 function Navigator() {
   const navigate = useNavigate();
   const errorMsgRef = useRef(null);
 
-  // read thread ID or URL from input, then navigate to thread if found
+  /**
+   * Parses the user input and navigates to the corresponding thread if it exists.
+   *
+   * @param {object} e - The form submit event object
+   */
   function handleNavigatorSubmit(e) {
     e.preventDefault();
     const text = e.target.children[0].value;
     let threadId = "";
 
-    // parse input for thread ID
+    // Parse input for thread ID
     if (text.includes("/comments/")) {
       const idx = text.indexOf("/comments/");
       threadId = text.substring(idx + 10);
@@ -31,7 +38,7 @@ function Navigator() {
       threadId = text;
     }
 
-    // flash error message and return if ID is invalid
+    // Flash error message and return if ID is invalid
     if (
       !threadId
         .split("")
@@ -46,13 +53,15 @@ function Navigator() {
       return;
     }
 
-    // navigate to thread of parsed ID
+    // Navigate to thread of parsed ID
     e.target.reset();
     e.target.children[0].blur();
     navigate(`/comments/${threadId}`);
   }
 
-  // display error message on screen
+  /**
+   * Displays the error message on screen by adding a CSS class to the corresponding element.
+   */
   function flashErrorMsg() {
     errorMsgRef.current.classList.remove("flash-in");
     setTimeout(() => {

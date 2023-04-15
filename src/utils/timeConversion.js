@@ -1,8 +1,18 @@
-// return string of the length of time since a given date (Unix time)
+/**
+ * Returns a string representing the length of time since a given date (Unix time).
+ *
+ * @param {number} date - The Unix time to calculate time since.
+ * @param {object} [options] - Optional options object.
+ * @param {number} [options.now] - A number representing the current Unix time
+ *                                 (default is Date.now()).
+ * @param {boolean} [options.long] - A boolean indicating whether to return a
+ *                                   longer string representation.
+ * @returns {string} - A string representing the length of time since the given date.
+ */
 function getTimeAgo(date, options) {
   if (!date) return "";
 
-  // date is offset by 9 seconds to compensate for reddit's delay before
+  // Date is offset by 9 seconds to compensate for reddit's delay before
   // a submitted comment or post becomes public
   const dateObj = new Date(date * 1000 + 9000);
   const now = options?.now || Date.now();
@@ -56,11 +66,19 @@ function getTimeAgo(date, options) {
   return resultStr;
 }
 
-// return the number of seconds since a given date (Unix time)
+/**
+ * Returns the number of seconds since a given date (Unix time).
+ *
+ * @param {number} date - The Unix time to calculate seconds since.
+ * @param {object} [options] - Optional options object.
+ * @param {number} [options.now] - A number representing the current Unix time
+ *                                 (default is Date.now()).
+ * @returns {number} - The number of seconds since the given date.
+ */
 function getSecondsAgo(date, options) {
   if (!date) return 0;
 
-  // date is offset by 9 seconds to compensate for reddit's delay before
+  // Date is offset by 9 seconds to compensate for reddit's delay before
   // a submitted comment becomes public
   const dateObj = new Date(date * 1000 + 9000);
   const now = options?.now || Date.now();
