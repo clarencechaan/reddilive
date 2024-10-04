@@ -11,7 +11,7 @@ import UserContext from "./context/UserContext";
 /**
  * The root component of the React application.
  */
-function App() {
+const App = () => {
   const [darkMode, setDarkMode] = useState(localStorage.getItem("dark_mode"));
   const [user, setUser] = useState(localStorage.getItem("username"));
 
@@ -45,6 +45,6 @@ function App() {
       </div>
     </BrowserRouter>
   );
-}
+};
 
 export default App;
