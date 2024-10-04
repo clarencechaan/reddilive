@@ -1,5 +1,13 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
-const UserContext = createContext();
+interface UserContextType {
+  user: string | null;
+  setUser: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+const UserContext = createContext<UserContextType>({
+  user: null,
+  setUser: () => {},
+});
 
 export default UserContext;
