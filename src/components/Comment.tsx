@@ -7,17 +7,20 @@ import { formatBody, formatFlair } from "../utils/markdown";
 import { upvoteComment } from "../utils/redditAPI";
 import { getTimeAgo, getSecondsAgo } from "../utils/timeConversion";
 import CommentForm from "./CommentForm";
+import type { RedditComment } from "../global/types";
+
+interface CommentProps {
+  comment: RedditComment;
+  delay: number;
+  now: number;
+  setComment: (cb: (prev: RedditComment) => RedditComment) => void;
+}
 
 /**
  * Component that displays a Reddit comment with associated controls.
- *
- * @param {object} comment - The comment object.
- * @param {number} delay - The delay before comments are visible, in seconds.
- * @param {number} now - The current time, in seconds since the Unix epoch.
- * @param {function} setComment - A function to update the comment state.
  */
-function Comment({ comment, delay, now, setComment }) {
-  const repliesRef = useRef(null);
+const Comment = ({ comment, delay, now, setComment }: CommentProps) => {
+  const repliesRef = useRef<HTMLElement>(null);
   const { user } = useContext(UserContext);
   const [likes, setLikes] = useState({ val: comment.data.likes, offset: 0 });
   const [showCommentForm, setShowCommentForm] = useState(false);
@@ -48,16 +51,16 @@ function Comment({ comment, delay, now, setComment }) {
   /**
    * Shows/hides (expand/collapse) comment replies
    */
-  function toggleRepliesCollapse() {
-    repliesRef.current.classList.toggle("collapsed");
-  }
+  const toggleRepliesCollapse = () => {
+    repliesRef.current?.classList.toggle("collapsed");
+  };
 
   /**
    * Updates comment state to reflect upvote then submit upvote to reddit
    */
-  function handleUpvoteClick() {
+  const handleUpvoteClick = () => {
     setLikes((prev) => {
-      let result = cloneDeep(prev);
+      const result = cloneDeep(prev);
       if (prev.val === true) {
         result.offset = result.offset - 1;
         result.val = null;
@@ -72,14 +75,14 @@ function Comment({ comment, delay, now, setComment }) {
       upvoteComment(`t1_${comment.data.id}`, dir);
       return result;
     });
-  }
+  };
 
   /**
    * Updates comment state to reflect downvote then submit upvote to reddit
    */
-  function handleDownvoteClick() {
+  const handleDownvoteClick = () => {
     setLikes((prev) => {
-      let result = cloneDeep(prev);
+      const result = cloneDeep(prev);
       if (prev.val === false) {
         result.offset = result.offset + 1;
         result.val = null;
@@ -94,18 +97,18 @@ function Comment({ comment, delay, now, setComment }) {
       upvoteComment(`t1_${comment.data.id}`, dir);
       return result;
     });
-  }
+  };
 
   /**
    * Shows/hides reply input when reply button is clicked
    */
-  function handleReplyBtnClick() {
+  const handleReplyBtnClick = () => {
     setShowCommentForm((prev) => !prev);
-  }
+  };
 
   // Display score only if comment has not been deleted
   // Upvote/downvote buttons are disabled if user is not logged in
-  let score =
+  const score =
     comment.data.author === "[deleted]" ? null : (
       <label
         className={
@@ -134,16 +137,15 @@ function Comment({ comment, delay, now, setComment }) {
 
   /**
    * Updates a child comment with a new value using a callback function or value.
-   *
-   * @param {string} id - The ID of the child comment to update.
-   * @param {function|object} cb - A callback function or object to set as the
-   *                               new value of the child comment.
    */
-  function setChildComment(id, cb) {
+  const setChildComment = (
+    id: string,
+    cb: ((comment: RedditComment) => RedditComment) | RedditComment
+  ) => {
     setComment((prevComment) => {
-      let resultComment = cloneDeep(prevComment);
+      const resultComment = cloneDeep(prevComment);
       const idx = resultComment.data.replies.data.children.findIndex(
-        (reply) => reply.data.id === id
+        (reply: RedditComment) => reply.data.id === id
       );
       resultComment.data.replies.data.children[idx] =
         typeof cb === "function"
@@ -151,17 +153,14 @@ function Comment({ comment, delay, now, setComment }) {
           : cb;
       return resultComment;
     });
-  }
+  };
 
   /**
    * Recursively counts the number of child comments.
-   *
-   * @param {object[]} replies - An array of child comments to count. Defaults to an empty array.
-   * @returns {number} - The total number of matching child comments.
    */
-  function getChildrenCount(
+  const getChildrenCount = (
     replies = comment.data.replies?.data?.children || []
-  ) {
+  ): number => {
     const count = replies.filter(
       (reply) =>
         getSecondsAgo(reply.data.created, { now }) >= delay ||
@@ -171,12 +170,12 @@ function Comment({ comment, delay, now, setComment }) {
     return (
       count +
       replies.reduce(
-        (sum, reply) =>
+        (sum, reply: RedditComment) =>
           getChildrenCount(reply.data.replies?.data?.children || []) + sum,
         0
       )
     );
-  }
+  };
 
   // Show comment only when it is old enough (i.e., reached the delay
   // threshold), or when the comment author is the user
@@ -230,11 +229,15 @@ function Comment({ comment, delay, now, setComment }) {
         </div>
         {body}
       </div>
-      <div className="replies-container" ref={repliesRef}>
+      <div
+        className="replies-container"
+        ref={repliesRef as React.RefObject<HTMLDivElement>}
+      >
         <div className="replies">
           {showCommentForm ? (
             <CommentForm
               parentFullname={`t1_${comment.data.id}`}
+              setThread={null}
               setComment={setComment}
               parentAuthor={comment.data.author}
               delay={delay}
@@ -257,6 +260,6 @@ function Comment({ comment, delay, now, setComment }) {
       </div>
     </div>
   ) : null;
-}
+};
 
 export default Comment;
