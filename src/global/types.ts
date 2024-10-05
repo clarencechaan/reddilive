@@ -19,6 +19,8 @@ export type RedditComment = {
 
 export type SetStateFunction = () => void;
 
-export type Thread = {
+export type RedditThread = {
+  info: object | null;
+  stickied: RedditComment | null | undefined;
   comments: RedditComment[];
 };
