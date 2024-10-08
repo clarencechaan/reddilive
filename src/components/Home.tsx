@@ -10,22 +10,23 @@ import Throbber from "./Throbber";
 import { deentitize } from "../utils/markdown";
 import { fetchActiveThreads } from "../utils/redditAPI";
 import { getTimeAgo } from "../utils/timeConversion";
+import { RedditThread } from "../global/types";
 
 /**
  * Component for the homepage, which displays a list of active threads from Reddit.
  */
-function Home() {
-  const [activeThreads, setActiveThreads] = useState([]);
+const Home = () => {
+  const [activeThreads, setActiveThreads] = useState<RedditThread[]>([]);
   const [loading, setLoading] = useState(false);
 
   // Fetch the active threads from the Reddit API and update the state with the results.
   useEffect(() => {
-    async function getActiveThreads() {
+    const getActiveThreads = async () => {
       setLoading(true);
       const threads = await fetchActiveThreads();
       setLoading(false);
-      if (threads) setActiveThreads(threads);
-    }
+      setActiveThreads(threads);
+    };
 
     document.title = "reddiLive: live threads for reddit";
 
@@ -64,6 +65,6 @@ function Home() {
       {loading ? <Throbber /> : null}
     </div>
   );
-}
+};
 
 export default Home;
