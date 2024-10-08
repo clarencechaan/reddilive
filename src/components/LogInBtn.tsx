@@ -24,7 +24,7 @@ const LogInBtn = ({ threadId }: LogInBtnProps) => {
   function handleLogOutBtnClick() {
     localStorage.setItem("username", "");
     localStorage.setItem("refresh_token", "");
-    setUser("");
+    if (setUser) setUser("");
   }
 
   return user ? (
