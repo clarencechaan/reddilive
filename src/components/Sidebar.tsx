@@ -16,7 +16,7 @@ import Navigator from "./Navigator";
 import { RedditThread } from "../global/types";
 
 interface SidebarProps {
-  thread: RedditThread;
+  thread?: RedditThread;
 }
 
 /**
