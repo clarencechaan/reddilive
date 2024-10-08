@@ -20,7 +20,22 @@ export type RedditComment = {
 export type SetStateFunction = () => void;
 
 export type RedditThread = {
-  info: object | null;
-  stickied: RedditComment | null | undefined;
+  error?: boolean;
+  info: {
+    author: string;
+    author_flair_richtext: object[];
+    author_flair_text: string | null;
+    created: number;
+    link_flair_richtext: object[];
+    link_flair_text: string;
+    media_metadata: object;
+    num_comments: number;
+    permalink: string;
+    score: number;
+    selftext: string;
+    subreddit: string;
+    title: string;
+  } | null;
+  stickied: RedditComment["data"] | null | undefined;
   comments: RedditComment[];
 };
