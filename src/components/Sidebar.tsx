@@ -13,30 +13,38 @@ import "../styles/Sidebar.css";
 import { formatBody, formatFlair, deentitize } from "../utils/markdown";
 import { getTimeAgo } from "../utils/timeConversion";
 import Navigator from "./Navigator";
+import { RedditThread } from "../global/types";
+
+interface SidebarProps {
+  thread: RedditThread;
+}
 
 /**
  * Component for the sidebar, which displays the thread information and a
  * stickied comment if provided, otherwise displays a diagram showing how to use
  * the app. Uses various utility functions to format the thread's body, flair,
  * and time ago.
- *
- * @param {object} thread - An object containing the thread information and
- *                          comments. If null or undefined, the "how to" diagram
- *                          will be displayed instead.
  */
-function Sidebar({ thread }) {
+const Sidebar = ({ thread }: SidebarProps) => {
   // The useRef and useContext hooks are used to access the ThemeContext and sidebarRef.
-  const sidebarRef = useRef(null);
+  const sidebarRef = useRef<HTMLElement>(null);
   const { darkMode } = useContext(ThemeContext);
 
-  // This function formats the thread selftext from markdown to JSX with emotes and gifs
+  /**
+   * Shows/hides (expands/collapses) sidebar
+   */
+  const toggleCollapse = () => {
+    sidebarRef.current?.classList.toggle("collapsed");
+  };
+
+  // Format the thread selftext from markdown to JSX with emotes and gifs
   const selftext = formatBody(
     thread?.info?.selftext,
     thread?.info?.media_metadata
   );
 
   // Get the author flair, formatted from markdown to JSX with emojis
-  let flair = thread?.info?.author_flair_text ? (
+  const flair = thread?.info?.author_flair_text ? (
     <label className="flair">
       {formatFlair(
         thread.info.author_flair_text,
@@ -172,15 +180,11 @@ function Sidebar({ thread }) {
     </div>
   );
 
-  /**
-   * Shows/hides (expands/collapses) sidebar
-   */
-  function toggleCollapse() {
-    sidebarRef.current.classList.toggle("collapsed");
-  }
-
   return (
-    <div className={"SidebarContainer collapsed"} ref={sidebarRef}>
+    <div
+      className={"SidebarContainer collapsed"}
+      ref={sidebarRef as React.RefObject<HTMLDivElement>}
+    >
       <div className="Sidebar">
         <div className="drawer">
           <div className="top-bar">
@@ -201,6 +205,6 @@ function Sidebar({ thread }) {
       <div className="overlay" onClick={toggleCollapse}></div>
     </div>
   );
-}
+};
 
 export default Sidebar;
