@@ -5,14 +5,12 @@ import "../styles/LogInBtn.css";
 const { REACT_APP_CLIENT_ID: CLIENT_ID } = process.env;
 
 interface LogInBtnProps {
-  threadId: string;
+  threadId?: string;
 }
 
 /**
  * Component for a log in button if user is not logged in, or a username and log
  * out button if user is logged in.
- *
- * @param {string} threadId - ID of the thread to redirect to after successful authentication.
  */
 const LogInBtn = ({ threadId }: LogInBtnProps) => {
   const { user, setUser } = useContext(UserContext);
