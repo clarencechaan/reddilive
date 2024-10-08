@@ -5,37 +5,47 @@ import "../styles/Navigator.css";
 /**
  * Component for a form with a text input and a button for navigating to a Reddit thread.
  */
-function Navigator() {
+const Navigator = () => {
   const navigate = useNavigate();
-  const errorMsgRef = useRef(null);
+  const errorMsgRef = useRef<HTMLElement>(null);
 
   /**
    * Parses the user input and navigates to the corresponding thread if it exists.
-   *
-   * @param {object} e - The form submit event object
    */
-  function handleNavigatorSubmit(e) {
+  const handleNavigatorSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const text = e.target.children[0].value;
+    const form = e.target as HTMLFormElement;
+    const input = form[0] as HTMLInputElement;
+    const str = input.value;
     let threadId = "";
 
+    /**
+     * Displays the error message on screen by adding a CSS class to the corresponding element.
+     */
+    const flashErrorMsg = () => {
+      errorMsgRef.current?.classList.remove("flash-in");
+      setTimeout(() => {
+        errorMsgRef.current?.classList.add("flash-in");
+      }, 1);
+    };
+
     // Parse input for thread ID
-    if (text.includes("/comments/")) {
-      const idx = text.indexOf("/comments/");
-      threadId = text.substring(idx + 10);
+    if (str.includes("/comments/")) {
+      const idx = str.indexOf("/comments/");
+      threadId = str.substring(idx + 10);
       threadId = threadId.substring(
         0,
         threadId.indexOf("/") !== -1 ? threadId.indexOf("/") : threadId.length
       );
-    } else if (text.includes("redd.it/")) {
-      const idx = text.indexOf("redd.it/");
-      threadId = text.substring(idx + 8);
+    } else if (str.includes("redd.it/")) {
+      const idx = str.indexOf("redd.it/");
+      threadId = str.substring(idx + 8);
       threadId = threadId.substring(
         0,
         threadId.indexOf("/") !== -1 ? threadId.indexOf("/") : threadId.length
       );
     } else {
-      threadId = text;
+      threadId = str;
     }
 
     // Flash error message and return if ID is invalid
@@ -53,31 +63,25 @@ function Navigator() {
       return;
     }
 
-    // Navigate to thread of parsed ID
-    e.target.reset();
-    e.target.children[0].blur();
-    navigate(`/comments/${threadId}`);
-  }
+    form.reset();
+    input.blur();
 
-  /**
-   * Displays the error message on screen by adding a CSS class to the corresponding element.
-   */
-  function flashErrorMsg() {
-    errorMsgRef.current.classList.remove("flash-in");
-    setTimeout(() => {
-      errorMsgRef.current.classList.add("flash-in");
-    }, 1);
-  }
+    // Navigate to thread of parsed ID
+    navigate(`/comments/${threadId}`);
+  };
 
   return (
     <form className="Navigator" onSubmit={handleNavigatorSubmit}>
       <input type="text" placeholder="thread URL or ID" enterKeyHint="go" />
       <button className="go-btn">GO</button>
-      <label className="error-msg" ref={errorMsgRef}>
+      <label
+        className="error-msg"
+        ref={errorMsgRef as React.RefObject<HTMLLabelElement>}
+      >
         That URL or ID is invalid!
       </label>
     </form>
   );
-}
+};
 
 export default Navigator;
