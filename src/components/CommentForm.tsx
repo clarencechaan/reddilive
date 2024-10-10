@@ -9,8 +9,8 @@ import { RedditComment, RedditThread } from "../global/types";
 interface CommentFormProps {
   parentFullname: string;
   setThread: ((cb: (prev: RedditThread) => RedditThread) => void) | null;
-  setComment: (cb: (prev: RedditComment) => RedditComment) => void;
-  parentAuthor: string;
+  setComment?: (cb: (prev: RedditComment) => RedditComment) => void;
+  parentAuthor?: string;
   delay: number;
   now: number;
 }
