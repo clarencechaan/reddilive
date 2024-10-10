@@ -42,18 +42,20 @@ const Home = () => {
         {activeThreads.length ? (
           <div className="active-threads">
             <h1>Active Threads</h1>
-            {activeThreads.map((thread) => (
-              <div key={thread.data.id} className="thread">
-                <Link to={`/comments/${thread.data.id}`} className="title">
-                  {deentitize(thread.data.title)}
-                </Link>
-                <p className="subtext">{`(r/${
-                  thread.data.subreddit
-                }, ${getTimeAgo(thread.data.created, {
-                  long: true,
-                })}, ${thread.data.num_comments} comments)`}</p>
-              </div>
-            ))}
+            {activeThreads.map((thread) =>
+              thread.data ? (
+                <div key={thread.data.id} className="thread">
+                  <Link to={`/comments/${thread.data.id}`} className="title">
+                    {deentitize(thread.data.title)}
+                  </Link>
+                  <p className="subtext">{`(r/${
+                    thread.data.subreddit
+                  }, ${getTimeAgo(thread.data.created, {
+                    long: true,
+                  })}, ${thread.data.num_comments} comments)`}</p>
+                </div>
+              ) : null
+            )}
           </div>
         ) : null}
         <a href="https://github.com/clarencechaan" className="me">

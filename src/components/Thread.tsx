@@ -12,16 +12,19 @@ import ThemeSwitch from "./ThemeSwitch";
 import Throbber from "./Throbber";
 import { RedditComment, RedditThread } from "../global/types";
 
+const EMPTY_THREAD = {
+  info: null,
+  data: null,
+  stickied: null,
+  comments: [],
+};
+
 /**
  * Component for displaying a Reddit thread with live updating comments.
  */
 const Thread = () => {
   // Initialize the thread state with an empty thread
-  const [thread, setThread] = useState<RedditThread>({
-    info: null,
-    stickied: null,
-    comments: [],
-  });
+  const [thread, setThread] = useState<RedditThread>(cloneDeep(EMPTY_THREAD));
 
   // Get the thread ID from the URL parameter
   const { threadId } = useParams();
@@ -40,11 +43,7 @@ const Thread = () => {
   // the given ID if it exists, then set the thread state.
   useEffect(() => {
     const initiateThread = async () => {
-      setThread({
-        info: null,
-        stickied: null,
-        comments: [],
-      });
+      setThread(cloneDeep(EMPTY_THREAD));
 
       setLoading(true);
       // Refresh the thread with the given ID.
@@ -170,12 +169,7 @@ const Thread = () => {
         deentitize(fetchedThread[0].data.children[0].data.title) +
         " - reddiLive";
     } catch (error) {
-      setThread({
-        info: null,
-        stickied: null,
-        comments: [],
-        error: true,
-      });
+      setThread({ ...cloneDeep(EMPTY_THREAD), error: true });
       console.log(error);
     }
   };

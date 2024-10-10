@@ -22,13 +22,13 @@ export type SetStateFunction = () => void;
 
 export type RedditThread = {
   error?: boolean;
-  data?: {
+  data: {
     created: number;
     id: string;
     num_comments: number;
     subreddit: string;
     title: string;
-  };
+  } | null;
   info: {
     author: string;
     author_flair_richtext: object[];
