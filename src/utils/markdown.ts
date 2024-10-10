@@ -1,14 +1,6 @@
 import { markdown } from "snudown-js";
 import parse from "html-react-parser";
-
-interface MediaDict {
-  [key: string]: { s: { gif: string; mp4: string; u: string } };
-}
-
-interface Emoji {
-  a: string;
-  u: string;
-}
+import { Emoji, MediaDict } from "../global/types";
 
 /**
  * Converts reddit selftext/thread markdown to JSX, with optional media.
