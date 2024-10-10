@@ -14,6 +14,7 @@ export type RedditComment = {
     replies: { data: { children: RedditComment[] } };
     score: number;
     score_hidden: boolean;
+    stickied: boolean;
   };
 };
 
@@ -21,7 +22,7 @@ export type SetStateFunction = () => void;
 
 export type RedditThread = {
   error?: boolean;
-  data: {
+  data?: {
     created: number;
     id: string;
     num_comments: number;
