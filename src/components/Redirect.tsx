@@ -6,7 +6,7 @@ import Home from "./Home";
  * Component for redirecting the user to the thread they were previously viewing
  * or to the home page if the referrer is not valid.
  */
-function Redirect() {
+const Redirect = () => {
   const navigate = useNavigate();
 
   /**
@@ -33,6 +33,6 @@ function Redirect() {
   }, []);
 
   return <Home />;
-}
+};
 
 export default Redirect;
