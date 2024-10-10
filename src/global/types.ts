@@ -1,15 +1,24 @@
+export type MediaDict = {
+  [key: string]: { s: { gif: string; mp4: string; u: string } };
+};
+
+export type Emoji = {
+  a: string;
+  u: string;
+};
+
 export type RedditComment = {
   kind: "t1" | "more";
   data: {
     author: string;
-    author_flair_richtext: object[];
+    author_flair_richtext: Emoji[];
     author_flair_text: string | null;
     body: string;
     created: number;
     depth: number;
     id: string;
     likes: boolean | null;
-    media_metadata: object;
+    media_metadata: MediaDict;
     permalink: string;
     replies: { data: { children: RedditComment[] } };
     score: number;
@@ -31,13 +40,13 @@ export type RedditThread = {
   } | null;
   info: {
     author: string;
-    author_flair_richtext: object[];
+    author_flair_richtext: Emoji[];
     author_flair_text: string | null;
     created: number;
     id: string;
     link_flair_richtext: object[];
     link_flair_text: string;
-    media_metadata: object;
+    media_metadata: MediaDict;
     num_comments: number;
     permalink: string;
     score: number;
