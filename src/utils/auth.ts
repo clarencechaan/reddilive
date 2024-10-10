@@ -7,8 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 const { REACT_APP_CLIENT_ID: CLIENT_ID } = process.env;
 const url = "https://www.reddit.com/api/v1/access_token";
 
-let token;
-let userToken;
+let token: string;
+let userToken: string;
 
 /**
  * Returns the user access token if the user is logged in, or the general access
@@ -16,14 +16,14 @@ let userToken;
  *
  * @returns {Promise<string>} - The access token.
  */
-async function getToken() {
+const getToken = async () => {
   try {
     if (localStorage.getItem("refresh_token")) return getUserToken();
     else return token || (await fetchToken());
   } catch (error) {
     console.log("error", error);
   }
-}
+};
 
 /**
  * Fetches a new general access token.
@@ -32,7 +32,7 @@ async function getToken() {
  */
 async function fetchToken() {
   const grantType = "https://oauth.reddit.com/grants/installed_client";
-  let deviceId = localStorage.getItem("device_id");
+  let deviceId = localStorage.getItem("device_id") ?? "";
 
   if (!deviceId) {
     deviceId = uuidv4();
@@ -83,7 +83,7 @@ async function getUserToken() {
  * @returns {Promise<object>} - An object containing the user access token and
  *                              refresh token.
  */
-async function fetchUserTokens(code, redirect_uri) {
+const fetchUserTokens = async (code: string, redirect_uri: string) => {
   const grantType = "authorization_code";
 
   const form = new URLSearchParams({
@@ -109,16 +109,16 @@ async function fetchUserTokens(code, redirect_uri) {
   } catch (error) {
     console.log("error", error);
   }
-}
+};
 
 /**
  * Refreshes the user access token using the refresh token saved in local storage.
  *
  * @returns {Promise<string>} - The refreshed user access token.
  */
-async function refreshUserToken() {
+const refreshUserToken = async () => {
   const grantType = "refresh_token";
-  const refreshToken = localStorage.getItem("refresh_token");
+  const refreshToken = localStorage.getItem("refresh_token") ?? "";
 
   const form = new URLSearchParams({
     grant_type: grantType,
@@ -141,6 +141,6 @@ async function refreshUserToken() {
   } catch (error) {
     console.log("error", error);
   }
-}
+};
 
 export { getToken, getUserToken, fetchUserTokens };
