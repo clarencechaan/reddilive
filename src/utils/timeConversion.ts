@@ -1,22 +1,17 @@
 /**
  * Returns a string representing the length of time since a given date (Unix time).
- *
- * @param {number} date - The Unix time to calculate time since.
- * @param {object} [options] - Optional options object.
- * @param {number} [options.now] - A number representing the current Unix time
- *                                 (default is Date.now()).
- * @param {boolean} [options.long] - A boolean indicating whether to return a
- *                                   longer string representation.
- * @returns {string} - A string representing the length of time since the given date.
  */
-function getTimeAgo(date, options) {
+const getTimeAgo = (
+  date: number,
+  options?: { now?: number; long?: boolean }
+) => {
   if (!date) return "";
 
   // Date is offset by 9 seconds to compensate for reddit's delay before
   // a submitted comment or post becomes public
   const dateObj = new Date(date * 1000 + 9000);
   const now = options?.now || Date.now();
-  const seconds = Math.floor(now / 1000 - dateObj / 1000);
+  const seconds = Math.floor(now / 1000 - dateObj.getTime() / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
   const days = Math.floor(hours / 24);
@@ -64,26 +59,23 @@ function getTimeAgo(date, options) {
   }
 
   return resultStr;
-}
+};
 
 /**
  * Returns the number of seconds since a given date (Unix time).
- *
- * @param {number} date - The Unix time to calculate seconds since.
- * @param {object} [options] - Optional options object.
- * @param {number} [options.now] - A number representing the current Unix time
- *                                 (default is Date.now()).
- * @returns {number} - The number of seconds since the given date.
  */
-function getSecondsAgo(date, options) {
+const getSecondsAgo = (
+  date: number,
+  options?: { now?: number; long?: boolean }
+) => {
   if (!date) return 0;
 
   // Date is offset by 9 seconds to compensate for reddit's delay before
   // a submitted comment becomes public
   const dateObj = new Date(date * 1000 + 9000);
   const now = options?.now || Date.now();
-  const seconds = Math.floor(now / 1000 - dateObj / 1000);
+  const seconds = Math.floor(now / 1000 - dateObj.getTime() / 1000);
   return seconds;
-}
+};
 
 export { getTimeAgo, getSecondsAgo };
