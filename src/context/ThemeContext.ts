@@ -1,8 +1,8 @@
 import { createContext } from "react";
 
 interface ThemeContextType {
-  darkMode: string | null;
-  setDarkMode: React.Dispatch<React.SetStateAction<string | null>> | null;
+  darkMode: boolean | null;
+  setDarkMode: React.Dispatch<React.SetStateAction<boolean | null>> | null;
 }
 
 const ThemeContext = createContext<ThemeContextType>({
