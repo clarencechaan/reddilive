@@ -1,18 +1,22 @@
-const Snudown = require("snudown-js");
-const parse = require("html-react-parser");
+import { markdown } from "snudown-js";
+import parse from "html-react-parser";
+
+interface MediaDict {
+  [key: string]: { s: { gif: string; mp4: string; u: string } };
+}
+
+interface Emoji {
+  a: string;
+  u: string;
+}
 
 /**
  * Converts reddit selftext/thread markdown to JSX, with optional media.
- *
- * @param {string} text - The markdown text to be converted.
- * @param {object} mediaDict - The dictionary containing media information
- *                             (emotes/gifs).
- * @returns {object} - The JSX formatted body.
  */
-function formatBody(text, mediaDict) {
+const formatBody = (text: string, mediaDict: MediaDict) => {
   let body = text || "";
   body = deentitize(body);
-  body = Snudown.markdown(body);
+  body = markdown(body);
 
   // Emotes and gifs
   if (mediaDict)
@@ -35,19 +39,14 @@ function formatBody(text, mediaDict) {
     return isUrlRelative(url) ? `href="https://www.reddit.com${url}"` : match;
   });
 
-  body = parse(body);
-  return body;
-}
+  const jsx = parse(body);
+  return jsx;
+};
 
 /**
  * Converts flair text to JSX, with optional emojis.
- *
- * @param {string} text - The flair text to be converted.
- * @param {object[]} emojiDict - The array of objects containing emoji
- *                               information.
- * @returns {object} - The JSX formatted flair.
  */
-function formatFlair(text, emojiDict) {
+const formatFlair = (text: string, emojiDict: Emoji[]) => {
   if (!text) return null;
 
   let flair = text;
@@ -58,33 +57,27 @@ function formatFlair(text, emojiDict) {
     );
   }
 
-  flair = parse(flair);
-  return flair;
-}
+  const jsx = parse(flair);
+  return jsx;
+};
 
 /**
  * Replaces HTML entities with characters.
- *
- * @param {string} str - The string containing HTML entities to be replaced.
- * @returns {string} - The string with replaced HTML entities.
  */
-function deentitize(str) {
+const deentitize = (str: string) => {
   let ret = str.replace(/&gt;/g, ">");
   ret = ret.replace(/&lt;/g, "<");
   ret = ret.replace(/&quot;/g, '"');
   ret = ret.replace(/&apos;/g, "'");
   ret = ret.replace(/&amp;/g, "&");
   return ret;
-}
+};
 
 /**
  * Checks if URL is a relative URL.
- *
- * @param {string} url - The URL to be checked.
- * @returns {boolean} - Whether or not the URL is a relative URL.
  */
-function isUrlRelative(url) {
+const isUrlRelative = (url: string) => {
   return !(url.indexOf("://") > 0 || url.indexOf("//") === 0);
-}
+};
 
 export { formatBody, formatFlair, deentitize };
