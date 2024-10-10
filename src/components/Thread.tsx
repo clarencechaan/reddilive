@@ -10,13 +10,14 @@ import LogInBtn from "./LogInBtn";
 import Sidebar from "./Sidebar";
 import ThemeSwitch from "./ThemeSwitch";
 import Throbber from "./Throbber";
+import { RedditComment, RedditThread } from "../global/types";
 
 /**
  * Component for displaying a Reddit thread with live updating comments.
  */
-function Thread() {
+const Thread = () => {
   // Initialize the thread state with an empty thread
-  const [thread, setThread] = useState({
+  const [thread, setThread] = useState<RedditThread>({
     info: null,
     stickied: null,
     comments: [],
@@ -29,7 +30,7 @@ function Thread() {
   // stored in localStorage or 5 seconds if no value is stored
   const [loading, setLoading] = useState(false);
   const [delay, setDelay] = useState(
-    parseInt(localStorage.getItem("delay")) || 5
+    parseInt(localStorage.getItem("delay") ?? "5") || 5
   );
 
   // Initialize the error500Count variable to track the number of 500 errors
@@ -38,7 +39,7 @@ function Thread() {
   // Initialize a thread object with an empty state, and fetch the thread with
   // the given ID if it exists, then set the thread state.
   useEffect(() => {
-    async function initiateThread() {
+    const initiateThread = async () => {
       setThread({
         info: null,
         stickied: null,
@@ -49,7 +50,7 @@ function Thread() {
       // Refresh the thread with the given ID.
       await refreshThread({ initiate: true });
       setLoading(false);
-    }
+    };
 
     initiateThread();
   }, [threadId]);
@@ -57,16 +58,16 @@ function Thread() {
   // Set up an interval to refresh a thread based on the specified delay.
   // The interval is cleared and created whenever the thread ID or delay changes.
   useEffect(() => {
-    let refreshInterval;
+    let refreshInterval: number;
 
-    function startRefreshInterval(delay) {
+    const startRefreshInterval = (delay: number) => {
       clearInterval(refreshInterval);
       refreshInterval = setInterval(refreshThread, delay * 1000);
 
       return () => {
         clearInterval(refreshInterval);
       };
-    }
+    };
 
     const clearRefreshInterval = startRefreshInterval(delay);
     return clearRefreshInterval;
@@ -74,14 +75,8 @@ function Thread() {
 
   /**
    * Refreshes the thread by fetching the latest thread comments from Reddit's API.
-   *
-   * @param {object} [options] - Optional configuration options.
-   * @param {boolean} [options.initiate] - If true, the thread state will be
-   *                                       updated regardless of whether the
-   *                                       state thread ID and fetched thread
-   *                                       ID match.
    */
-  async function refreshThread(options) {
+  const refreshThread = async (options: { initiate?: boolean }) => {
     try {
       let fetchedThread = await fetchThread(threadId, error500Count);
       if (!fetchedThread) return;
@@ -92,7 +87,10 @@ function Thread() {
 
       // Get array of the thread's comments, discarding MoreChildren objects and stickied comment
       const fetchedComments = fetchedThread[1].data.children
-        .filter((comment) => comment.kind !== "more" && !comment.data.stickied)
+        .filter(
+          (comment: RedditComment) =>
+            comment.kind !== "more" && !comment.data.stickied
+        )
         .reverse()
         .slice(-100);
 
@@ -105,23 +103,21 @@ function Thread() {
         )
           return prev;
 
-        let result = cloneDeep(prev);
+        const result = cloneDeep(prev);
         result.info = fetchedThread[0].data.children[0].data;
         result.stickied = fetchedThread[1].data.children.find(
-          (comment) => comment.data.stickied
+          (comment: RedditComment) => comment.data.stickied
         )?.data;
 
         /**
          * Replaces the score and replies of a comment with the corresponding
          * values from a fetched comment object.
-         *
-         * @param {object} comment - The original comment object.
-         * @param {object} fetchedComment - The fetched comment object containing
-         *                                  the new score and replies.
-         * @returns {object} - A new comment object with the updated score and replies.
          */
-        function replaceComment(comment, fetchedComment) {
-          let resultComment = cloneDeep(comment);
+        const replaceComment = (
+          comment: RedditComment,
+          fetchedComment: RedditComment
+        ): RedditComment => {
+          const resultComment = cloneDeep(comment);
           resultComment.data.score = fetchedComment.data.score;
           if (fetchedComment.data.replies) {
             let resultChildren =
@@ -140,12 +136,12 @@ function Thread() {
               }
             );
             if (!resultComment.data.replies)
-              resultComment.data.replies = { data: {} };
+              resultComment.data.replies = { data: { children: [] } };
             resultComment.data.replies.data.children = resultChildren;
           }
 
           return resultComment;
-        }
+        };
 
         let insertCount = 0;
         // Update old comments and add newly fetched comments
@@ -182,24 +178,22 @@ function Thread() {
       });
       console.log(error);
     }
-  }
+  };
 
   /**
    * Adds a delay to the current delay value.
-   *
-   * @param {number} val - The value to add to the current delay.
    */
-  function addDelay(val) {
+  const addDelay = (val: number) => {
     setDelay((prev) => {
       let newDelay;
       if (prev + val > 90) newDelay = 90;
       else if (prev + val < 5) newDelay = 5;
       else newDelay = prev + val;
 
-      localStorage.setItem("delay", newDelay);
+      localStorage.setItem("delay", newDelay.toString());
       return newDelay;
     });
-  }
+  };
 
   return (
     <div className="Thread">
@@ -241,6 +235,6 @@ function Thread() {
       {loading ? <Throbber /> : null}
     </div>
   );
-}
+};
 
 export default Thread;
