@@ -4,18 +4,20 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import "../styles/Chat.css";
 import Comment from "./Comment";
 import CommentForm from "./CommentForm";
+import { RedditComment, RedditThread } from "../global/types";
+
+interface ChatProps {
+  thread: RedditThread;
+  setThread: ((cb: (prev: RedditThread) => RedditThread) => void) | null;
+  delay: number;
+}
 
 /**
  * Component that displays a chat box containing comments of a Reddit thread and
  * a form to submit new comments. Uses React-Scroll-To-Bottom to automatically
  * scroll to the latest comment when new comments are added.
- *
- * @param {object} thread - The Reddit thread object containing thread
- *                          information and an array of comment objects.
- * @param {function} setThread - A function to update the thread state.
- * @param {number} delay - The delay in seconds between refreshing the comments of the thread.
  */
-function Chat({ thread, setThread, delay }) {
+const Chat = ({ thread, setThread, delay }: ChatProps) => {
   // Extract comments from thread object
   const comments = thread.comments;
 
@@ -37,20 +39,22 @@ function Chat({ thread, setThread, delay }) {
   /**
    * Updates the state of a comment in the thread object by comment ID.
    *
-   * @param {string} id - The ID of the comment to update.
-   * @param {function|object} cb - A callback function or an object to update the comment.
    */
-  function setComment(id, cb) {
-    setThread((prevThread) => {
-      let resultThread = cloneDeep(prevThread);
-      const idx = resultThread.comments.findIndex(
-        (comment) => comment.data.id === id
-      );
-      resultThread.comments[idx] =
-        typeof cb === "function" ? cb(resultThread.comments[idx]) : cb;
-      return resultThread;
-    });
-  }
+  const setComment = (
+    id: string,
+    cb: ((prev: RedditComment) => RedditComment) | RedditComment
+  ) => {
+    if (setThread)
+      setThread((prevThread) => {
+        const resultThread = cloneDeep(prevThread);
+        const idx = resultThread.comments.findIndex(
+          (comment) => comment.data.id === id
+        );
+        resultThread.comments[idx] =
+          typeof cb === "function" ? cb(resultThread.comments[idx]) : cb;
+        return resultThread;
+      });
+  };
 
   return (
     <div className="Chat">
@@ -82,6 +86,6 @@ function Chat({ thread, setThread, delay }) {
       />
     </div>
   );
-}
+};
 
 export default Chat;

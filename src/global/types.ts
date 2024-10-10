@@ -33,6 +33,7 @@ export type RedditThread = {
     author_flair_richtext: object[];
     author_flair_text: string | null;
     created: number;
+    id: string;
     link_flair_richtext: object[];
     link_flair_text: string;
     media_metadata: object;
