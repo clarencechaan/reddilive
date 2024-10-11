@@ -13,8 +13,6 @@ let userToken: string;
 /**
  * Returns the user access token if the user is logged in, or the general access
  * token otherwise.
- *
- * @returns {Promise<string>} - The access token.
  */
 const getToken = async () => {
   try {
@@ -27,10 +25,8 @@ const getToken = async () => {
 
 /**
  * Fetches a new general access token.
- *
- * @returns {Promise<string>} - The access token.
  */
-async function fetchToken() {
+const fetchToken = async () => {
   const grantType = "https://oauth.reddit.com/grants/installed_client";
   let deviceId = localStorage.getItem("device_id") ?? "";
 
@@ -59,29 +55,23 @@ async function fetchToken() {
   } catch (error) {
     console.log("error", error);
   }
-}
+};
 
 /**
  * Returns the user access token if it has been previously fetched, or fetches a
  * new one.
- *
- * @returns {Promise<string>} - The user access token.
  */
-async function getUserToken() {
+const getUserToken = async () => {
   try {
     return userToken || (await refreshUserToken());
   } catch (error) {
     console.log("error", error);
   }
-}
+};
 
 /**
  * Fetches the user access and refresh tokens using an authorization code.
  *
- * @param {string} code - The authorization code.
- * @param {string} redirect_uri - The redirect URI.
- * @returns {Promise<object>} - An object containing the user access token and
- *                              refresh token.
  */
 const fetchUserTokens = async (code: string, redirect_uri: string) => {
   const grantType = "authorization_code";
@@ -113,8 +103,6 @@ const fetchUserTokens = async (code: string, redirect_uri: string) => {
 
 /**
  * Refreshes the user access token using the refresh token saved in local storage.
- *
- * @returns {Promise<string>} - The refreshed user access token.
  */
 const refreshUserToken = async () => {
   const grantType = "refresh_token";
