@@ -39,7 +39,7 @@ const Sidebar = ({ thread }: SidebarProps) => {
 
   // Format the thread selftext from markdown to JSX with emotes and gifs
   const selftext = formatBody(
-    thread?.info?.selftext,
+    thread?.info?.selftext ?? "",
     thread?.info?.media_metadata
   );
 

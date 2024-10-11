@@ -5,7 +5,7 @@ import { Emoji, MediaDict } from "../global/types";
 /**
  * Converts reddit selftext/thread markdown to JSX, with optional media.
  */
-const formatBody = (text: string, mediaDict: MediaDict) => {
+const formatBody = (text: string, mediaDict?: MediaDict) => {
   let body = text || "";
   body = deentitize(body);
   body = markdown(body);

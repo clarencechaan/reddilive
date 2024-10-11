@@ -44,7 +44,7 @@ export type RedditThread = {
     author_flair_text: string | null;
     created: number;
     id: string;
-    link_flair_richtext: object[];
+    link_flair_richtext: Emoji[];
     link_flair_text: string;
     media_metadata: MediaDict;
     num_comments: number;
