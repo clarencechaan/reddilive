@@ -3,11 +3,6 @@ import { getToken, getUserToken } from "./auth";
 
 /**
  * Fetches a reddit thread given the thread ID.
- *
- * @param {string} threadId - the ID of the thread to fetch
- * @param {number} error500Count - the number of times to bypass internal server error 500
- * @returns {Promise<object>} - a Promise that resolves with the thread object
- *                              or rejects with an error
  */
 const fetchThread = async (threadId: string, error500Count = 0) => {
   const url =
@@ -31,9 +26,6 @@ const fetchThread = async (threadId: string, error500Count = 0) => {
 
 /**
  * Fetches the logged-in user.
- *
- * @returns {Promise<string>} - a Promise that resolves with the username or
- *                              rejects with an error
  */
 const fetchMe = async () => {
   const url = `https://oauth.reddit.com/api/v1/me`;
@@ -54,12 +46,6 @@ const fetchMe = async () => {
 
 /**
  * Upvotes a reddit comment given the comment ID and upvote direction.
- *
- * @param {string} id - the ID of the comment to upvote
- * @param {number} dir - the direction of the upvote (-1 for downvote, 0 for no
- *                       vote, 1 for upvote)
- * @returns {Promise<object>} - a Promise that resolves with the result of the
- *                              upvote or rejects with an error
  */
 const upvoteComment = async (id: string, dir: -1 | 0 | 1) => {
   const url = `https://oauth.reddit.com/api/vote`;
@@ -89,11 +75,6 @@ const upvoteComment = async (id: string, dir: -1 | 0 | 1) => {
 
 /**
  * Submits a new reddit comment given the parent fullname and markdown text.
- *
- * @param {string} parent - the fullname of the parent comment or thread to reply to
- * @param {string} text - the markdown text of the comment to submit
- * @returns {Promise<object>} - a Promise that resolves with the submitted
- *                              comment object or rejects with an error
  */
 const submitComment = async (parent: string, text: string) => {
   const url = `https://oauth.reddit.com/api/comment`;
