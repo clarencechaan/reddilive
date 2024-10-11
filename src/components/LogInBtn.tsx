@@ -19,11 +19,11 @@ const LogInBtn = ({ threadId }: LogInBtnProps) => {
    * Handles the click event for the logout button. Remove the user's login info
    * from local storage and remove the account from the UserContext state.
    */
-  function handleLogOutBtnClick() {
+  const handleLogOutBtnClick = () => {
     localStorage.setItem("username", "");
     localStorage.setItem("refresh_token", "");
     if (setUser) setUser("");
-  }
+  };
 
   return user ? (
     <div className="LogInBtn">
