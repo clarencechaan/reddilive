@@ -36,6 +36,7 @@ export type RedditThread = {
     id: string;
     num_comments: number;
     subreddit: string;
+    subreddit_subscribers: number;
     title: string;
   } | null;
   info: {
