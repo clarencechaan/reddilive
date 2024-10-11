@@ -76,6 +76,7 @@ const Thread = () => {
    * Refreshes the thread by fetching the latest thread comments from Reddit's API.
    */
   const refreshThread = async (options: { initiate?: boolean }) => {
+    if (!threadId) return;
     try {
       let fetchedThread = await fetchThread(threadId, error500Count);
       if (!fetchedThread) return;
