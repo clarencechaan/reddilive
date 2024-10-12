@@ -11,6 +11,7 @@ import { deentitize } from "../utils/markdown";
 import { fetchActiveThreads } from "../utils/redditAPI";
 import { getTimeAgo } from "../utils/timeConversion";
 import { RedditThread } from "../global/types";
+import activeThreadsFile from "../active_threads.json";
 
 /**
  * Component for the homepage, which displays a list of active threads from Reddit.
@@ -23,7 +24,9 @@ const Home = () => {
   useEffect(() => {
     const getActiveThreads = async () => {
       setLoading(true);
-      const threads = await fetchActiveThreads();
+      const threads = activeThreadsFile.length
+        ? activeThreadsFile
+        : await fetchActiveThreads();
       setLoading(false);
       setActiveThreads(threads);
     };
