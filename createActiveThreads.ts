@@ -4,7 +4,7 @@ import { writeFileSync } from "fs";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+const CLIENT_ID = "2U-i0PX91TLFyc58_Jddbw";
 
 const URL = "https://www.reddit.com/api/v1/access_token";
 
@@ -41,8 +41,11 @@ const fetchActiveThreads = async (): Promise<RedditThread[]> => {
   const url1 = `https://oauth.reddit.com/search?q=nsfw%3Ano&sort=comments&t=day&limit=100`;
   const url2 = `https://oauth.reddit.com/search?q=nsfw%3Ano&sort=comments&t=hour`;
 
+  console.log("CLIENT_ID", CLIENT_ID);
+
   try {
     const token = await getToken();
+    console.log("token", token);
     const res1 = await fetch(url1, {
       headers: {
         Authorization: `Bearer ${token}`,
