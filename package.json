@@ -28,7 +28,7 @@
   },
   "scripts": {
     "predeploy": "npm run build && cd ./build && cp index.html 404.html && echo 'reddilive.com' > CNAME",
-    "deploy": "gh-pages -d build",
+    "deploy": "npm run predeploy && gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!ui-core)/\" --env=jsdom --silent",
@@ -54,6 +54,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.17.10",
+    "dotenv": "^16.4.5",
     "eslint": "^8.27.0",
     "eslint-plugin-react": "^7.31.10",
     "gh-pages": "^6.2.0",
