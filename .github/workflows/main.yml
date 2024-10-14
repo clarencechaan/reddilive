@@ -14,8 +14,6 @@ jobs:
       - name: Check out repository code
         # https://github.com/actions/checkout/tree/v3.0.2
         uses: actions/checkout@v4
-        with:
-          ref: fetch-active
       - name: Install dependencies
         run: |
           npm install
