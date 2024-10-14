@@ -1,4 +1,7 @@
 name: Create active_threads.json and Auto Deploy
+env:
+  REACT_APP_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}
+  REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
 
 on:
   push:
