@@ -4,9 +4,8 @@ env:
   REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
 
 on:
-  push:
-  # schedule:
-  #   - cron: "*/5 * * * *"
+  schedule:
+    - cron: "*/5 * * * *"
 
 jobs:
   report:
