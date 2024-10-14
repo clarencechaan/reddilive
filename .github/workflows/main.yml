@@ -2,8 +2,8 @@ name: Create active_threads.json and Auto Deploy
 
 on:
   push:
-  schedule:
-    - cron: "*/5 * * * *"
+  # schedule:
+  #   - cron: "*/5 * * * *"
 
 jobs:
   report:

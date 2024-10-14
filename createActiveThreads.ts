@@ -1,20 +1,18 @@
-import { v4 as uuidv4 } from "uuid";
 import { RedditThread } from "./src/global/types";
 import { writeFileSync } from "fs";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const CLIENT_ID = "2U-i0PX91TLFyc58_Jddbw";
-
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN ?? "";
 const URL = "https://www.reddit.com/api/v1/access_token";
 
-const fetchToken = async () => {
-  const grantType = "https://oauth.reddit.com/grants/installed_client";
-  const deviceId = uuidv4();
+const refreshUserToken = async () => {
+  const grantType = "refresh_token";
 
   const form = new URLSearchParams({
     grant_type: grantType,
-    device_id: deviceId,
+    refresh_token: REFRESH_TOKEN,
   }).toString();
 
   try {
@@ -27,25 +25,24 @@ const fetchToken = async () => {
       body: form,
     });
 
-    return (await res.json()).access_token;
+    const userToken = (await res.json()).access_token;
+    return userToken;
   } catch (error) {
     console.log("error", error);
   }
 };
 
 const getToken = async () => {
-  return await fetchToken();
+  return await refreshUserToken();
 };
 
 const fetchActiveThreads = async (): Promise<RedditThread[]> => {
   const url1 = `https://oauth.reddit.com/search?q=nsfw%3Ano&sort=comments&t=day&limit=100`;
   const url2 = `https://oauth.reddit.com/search?q=nsfw%3Ano&sort=comments&t=hour`;
 
-  console.log("CLIENT_ID", CLIENT_ID);
-
   try {
     const token = await getToken();
-    console.log("token", token);
+
     const res1 = await fetch(url1, {
       headers: {
         Authorization: `Bearer ${token}`,
