@@ -19,7 +19,7 @@ jobs:
           npm install
       - name: Create active_threads.json
         run: |
-          npx tsx createActiveThreads.ts
+          npx tsx src/createActiveThreads.ts
       - name: Deploy
         run: |
           git config --global user.name "Clarence Chan"
