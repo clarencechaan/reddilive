@@ -7,9 +7,6 @@ const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const REFRESH_TOKEN = process.env.REFRESH_TOKEN ?? "";
 const URL = "https://www.reddit.com/api/v1/access_token";
 
-console.log("CLIENT_ID", CLIENT_ID);
-console.log("REFRESH_TOKEN", REFRESH_TOKEN);
-
 const refreshUserToken = async () => {
   const grantType = "refresh_token";
 
