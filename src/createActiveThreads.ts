@@ -1,4 +1,4 @@
-import { RedditThread } from "./src/global/types";
+import { RedditThread } from "./global/types";
 import { writeFileSync } from "fs";
 import * as dotenv from "dotenv";
 dotenv.config();
