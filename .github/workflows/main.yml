@@ -14,15 +14,14 @@ jobs:
       - name: Check out repository code
         # https://github.com/actions/checkout/tree/v3.0.2
         uses: actions/checkout@v4
-      - name: Install dependencies
+      - name: Install and Build
         run: |
           npm install
+          npm run build
       - name: Create active_threads.json
         run: |
           npx tsx src/createActiveThreads.ts
       - name: Deploy
-        run: |
-          git config --global user.name "Clarence Chan"
-          git config --global user.email "clarencechaan@icloud.com"
-          git remote set-url origin https://${{ secrets.REDDILIVE_GH_TOKEN }}@github.com/clarencechaan/reddilive.git
-          npm run deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build
