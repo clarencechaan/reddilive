@@ -28,7 +28,7 @@
   },
   "scripts": {
     "predeploy": "npm run build && cd ./build && cp index.html 404.html && echo 'reddilive.com' > CNAME",
-    "deploy": "npm run predeploy && gh-pages -d build",
+    "deploy": "npm run predeploy && gh-pages -f -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!ui-core)/\" --env=jsdom --silent",
