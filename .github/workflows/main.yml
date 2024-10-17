@@ -14,13 +14,15 @@ jobs:
       - name: Check out repository code
         # https://github.com/actions/checkout/tree/v3.0.2
         uses: actions/checkout@v4
-      - name: Install and Build
+      - name: Install
         run: |
           npm install
-          npm run build
       - name: Create active_threads.json
         run: |
           npx tsx src/createActiveThreads.ts
+      - name: Build
+        run: |
+          npm run build
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
