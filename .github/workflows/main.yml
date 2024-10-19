@@ -4,6 +4,7 @@ env:
   REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
 
 on:
+  push:
   schedule:
     - cron: "*/5 * * * *"
 
@@ -28,3 +29,5 @@ jobs:
         with:
           folder: build
           single-commit: true
+          git-config-name: reddilive
+          git-config-email: <>
