@@ -9,7 +9,7 @@ on:
     - cron: "*/5 * * * *"
 
 jobs:
-  report:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -21,9 +21,9 @@ jobs:
       - name: Create active_threads.json
         run: |
           npx tsx src/createActiveThreads.ts
-      - name: Build
+      - name: Predeploy
         run: |
-          npm run build
+          npm run predeploy
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
