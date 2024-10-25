@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.cac08957.css",
+    "main.js": "/static/js/main.039703ad.js",
+    "static/media/SFUIText-Medium.otf": "/static/media/SFUIText-Medium.991d8a04af41230b1281.otf",
+    "static/media/SFUIText-Light.otf": "/static/media/SFUIText-Light.f147e8e52dab4a416362.otf",
+    "static/media/SFUIText-Regular.otf": "/static/media/SFUIText-Regular.3891cf449d0d4808a8b5.otf",
+    "static/media/IndieFlower-Regular.ttf": "/static/media/IndieFlower-Regular.599d26584b9afc1d20b1.ttf",
+    "static/media/logo.png": "/static/media/logo.c5e843fc2bd2bbeb1840.png",
+    "static/media/full_url_dark.png": "/static/media/full_url_dark.de000fa7dd9906bb69c7.png",
+    "static/media/replaced_url.png": "/static/media/replaced_url.90b6480aad0bf322df74.png",
+    "static/media/full_url.png": "/static/media/full_url.12087dfa852427b9f976.png",
+    "static/media/replaced_url_dark.png": "/static/media/replaced_url_dark.05a1182cb691a9281a2c.png",
+    "static/media/logo_small.png": "/static/media/logo_small.48495147967071c92619.png",
+    "index.html": "/index.html",
+    "static/media/arrow-circle-down-fill.svg": "/static/media/arrow-circle-down-fill.4371729b4af3080b6df1.svg",
+    "main.cac08957.css.map": "/static/css/main.cac08957.css.map",
+    "main.039703ad.js.map": "/static/js/main.039703ad.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cac08957.css",
+    "static/js/main.039703ad.js"
+  ]
+}
